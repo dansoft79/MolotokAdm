@@ -159,7 +159,21 @@ uses
   USelectDistrict in 'Select\USelectDistrict.pas' {SelectDistrictForm},
   EhlibZeos in 'Thirparty\EhlibZeos.pas',
   dxTabbedMDI in 'Thirparty\dxTabbedMDI.pas',
-  cxSchedulerEventEditor in 'Thirparty\cxSchedulerEventEditor.pas' {cxSchedulerEventEditorForm};
+  cxSchedulerEventEditor in 'Thirparty\cxSchedulerEventEditor.pas' {cxSchedulerEventEditorForm},
+  SevenZipVCL in 'Thirparty\SevenZipVCL.pas',
+  DelphiTwain_VCL in 'Thirparty\DelphiTwain\DelphiTwain_VCL.pas',
+  uFormSelectSource_VCL in 'Thirparty\DelphiTwain\uFormSelectSource_VCL.pas',
+  DelphiTwain in 'Thirparty\DelphiTwain\DelphiTwain.pas',
+  GR32 in 'Thirparty\Graphics32\GR32.pas',
+  Twain in 'Thirparty\DelphiTwain\Twain.pas',
+  DelphiTwainUtils in 'Thirparty\DelphiTwain\DelphiTwainUtils.pas',
+  DelphiTwainLang in 'Thirparty\DelphiTwain\DelphiTwainLang.pas',
+  GR32_System in 'Thirparty\Graphics32\GR32_System.pas',
+  uHYAutoUpdateClient in 'AutoUpdate\uHYAutoUpdateClient.pas',
+  uHYConsts in 'AutoUpdate\uHYConsts.pas',
+  uHYFileUtils in 'AutoUpdate\uHYFileUtils.pas',
+  uHYLocalService in 'AutoUpdate\uHYLocalService.pas',
+  HydraAutoUpdate_Intf in 'AutoUpdate\HydraAutoUpdate_Intf.pas';
 
 {$R *.RES}
 
