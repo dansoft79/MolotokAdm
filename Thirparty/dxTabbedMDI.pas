@@ -1,12 +1,37 @@
-//------------------------------------------------------------------------------
-//
-// Молоток Администратор
-//
-// (c) 2021-2023, ООО ПОРТАЛПРО
-//
-// Модуль для DevExpress
-//
-//------------------------------------------------------------------------------
+{ ******************************************************************** }
+{ }
+{ Developer Express Visual Component Library }
+{ ExpressBars components }
+{ }
+{ Copyright (c) 1998-2021 Developer Express Inc. }
+{ ALL RIGHTS RESERVED }
+{ }
+{ The entire contents of this file is protected by U.S. and }
+{ International Copyright Laws. Unauthorized reproduction, }
+{ reverse-engineering, and distribution of all or any portion of }
+{ the code contained in this file is strictly prohibited and may }
+{ result in severe civil and criminal penalties and will be }
+{ prosecuted to the maximum extent possible under the law. }
+{ }
+{ RESTRICTIONS }
+{ }
+{ THIS SOURCE CODE AND ALL RESULTING INTERMEDIATE FILES }
+{ (DCU, OBJ, DLL, ETC.) ARE CONFIDENTIAL AND PROPRIETARY TRADE }
+{ SECRETS OF DEVELOPER EXPRESS INC. THE REGISTERED DEVELOPER IS }
+{ LICENSED TO DISTRIBUTE THE EXPRESSBARS AND ALL ACCOMPANYING VCL }
+{ CONTROLS AS PART OF AN EXECUTABLE PROGRAM ONLY. }
+{ }
+{ THE SOURCE CODE CONTAINED WITHIN THIS FILE AND ALL RELATED }
+{ FILES OR ANY PORTION OF ITS CONTENTS SHALL AT NO TIME BE }
+{ COPIED, TRANSFERRED, SOLD, DISTRIBUTED, OR OTHERWISE MADE }
+{ AVAILABLE TO OTHER INDIVIDUALS WITHOUT EXPRESS WRITTEN CONSENT }
+{ AND PERMISSION FROM DEVELOPER EXPRESS INC. }
+{ }
+{ CONSULT THE END USER LICENSE AGREEMENT FOR INFORMATION ON }
+{ ADDITIONAL RESTRICTIONS. }
+{ }
+{ ******************************************************************** }
+
 unit dxTabbedMDI;
 
 {$I cxVer.inc}
@@ -15,8 +40,12 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StrUtils, Contnrs, dxCore, cxClasses, cxGeometry, cxGraphics, cxControls,
-  cxContainer, cxLookAndFeels, cxPC, dxHooks;
+  Dialogs, StrUtils, Contnrs, dxCore, cxClasses, cxGeometry, cxGraphics,
+  cxControls,
+  cxContainer, cxLookAndFeels, cxPC, dxHooks, dxCoreClasses;
+
+const
+  dxTabbedMDISuppressApplicationTitleChanges: Boolean = False;
 
 type
   EdxTabbedMDIManagerException = class(EdxException);
@@ -30,6 +59,7 @@ type
   end;
 
   TdxTabbedMDITabControllerClass = class of TdxTabbedMDITabController;
+
   TdxTabbedMDITabController = class(TcxCustomTabControlController)
   private
     FMDITabControl: TcxControl;
@@ -43,6 +73,7 @@ type
   end;
 
   TdxTabbedMDITabControlViewInfoClass = class of TdxTabbedMDITabControlViewInfo;
+
   TdxTabbedMDITabControlViewInfo = class(TcxCustomTabControlViewInfo)
   protected
     function HasBorders: Boolean; override;
@@ -90,12 +121,15 @@ type
 
   { TdxTabbedMDITabProperties }
 
-  TdxTabbedMDITabPropertiesClass = class of TdxTabbedMDITabProperties;
+  TdxTabbedMDIPageChangingEvent = procedure(Sender: TObject;
+    ANewPage: TdxTabbedMDIPage; var AAllowChange: Boolean) of object;
+
   TdxTabbedMDITabProperties = class(TcxCustomTabControlProperties)
   strict private
     FFocusable: Boolean;
     FInternalImages: TcxImageList;
     FOldMDIChildCloseEvent: TCloseEvent;
+    FOnPageChanging: TdxTabbedMDIPageChangingEvent;
     FPages: TObjectList;
     FTabbedMDIManager: TdxTabbedMDIManager;
 
@@ -106,17 +140,23 @@ type
     procedure MDIChildClose(Sender: TObject; var Action: TCloseAction);
     procedure SetPageIndex(AIndex: Integer);
   protected
-    function AddPage(AMdiChild: THandle): Integer;
+    function AddPage(AMDIChild: THandle): Integer;
+    function CanChangeActivePage(ANewPage: TdxTabbedMDIPage): Boolean; virtual;
     procedure ClearPages;
     procedure CloseTab(AIndex: Integer); override;
     procedure DeletePage(AIndex: Integer);
+    procedure DoChanging(ANewTabIndex: Integer;
+      var AAllowChange: Boolean); override;
     function GetPageIndexByHandle(AHandle: THandle): Integer;
     function GetTabControl: IcxTabControl; override;
-    function InternalGetTabHint(ATab: TcxTab; var ACanShow: Boolean): string; override;
+    function InternalGetTabHint(ATab: TcxTab; var ACanShow: Boolean)
+      : string; override;
     procedure MDIChildDestroying(AHandle: THandle);
     procedure MoveTab(ACurrentIndex, ANewIndex: Integer); override;
     procedure SetActivePageByHandle(AHandle: THandle);
     procedure UpdateImages;
+    property OnPageChanging: TdxTabbedMDIPageChangingEvent read FOnPageChanging
+      write FOnPageChanging;
   public
     constructor Create(AOwner: TPersistent); override;
     destructor Destroy; override;
@@ -154,14 +194,16 @@ type
     property TabWidth;
   end;
 
-  TdxTabbedMDIPageAddedEvent = procedure(Sender: TdxTabbedMDIManager; APage: TdxTabbedMDIPage) of object;
-  TdxTabbedMDIGetTabHintEvent = procedure(Sender: TdxTabbedMDIManager;
-    APage: TdxTabbedMDIPage; var AHint: string; var ACanShow: Boolean) of object;
+  TdxTabbedMDITabPropertiesClass = class of TdxTabbedMDITabProperties;
 
-  TdxTabbedMDIManager = class(TcxScalableComponent,
-    IcxControlComponentState,
-    IcxLookAndFeelContainer,
-    IdxSkinSupport)
+  TdxTabbedMDIPageAddedEvent = procedure(Sender: TdxTabbedMDIManager;
+    APage: TdxTabbedMDIPage) of object;
+  TdxTabbedMDIGetTabHintEvent = procedure(Sender: TdxTabbedMDIManager;
+    APage: TdxTabbedMDIPage; var AHint: string; var ACanShow: Boolean)
+    of object;
+
+  TdxTabbedMDIManager = class(TcxScalableComponent, IcxControlComponentState,
+    IcxLookAndFeelContainer, IdxSkinSupport)
   private
     FActive: Boolean;
     FCaption: TCaption;
@@ -181,6 +223,8 @@ type
     FWindowProcObject: TcxWindowProcLinkedObject;
     FOnGetTabHint: TdxTabbedMDIGetTabHintEvent;
     FOnPageAdded: TdxTabbedMDIPageAddedEvent;
+    FOnPageChanged: TNotifyEvent;
+    FOnPageChanging: TdxTabbedMDIPageChangingEvent;
 
     procedure BuildFormatString;
     procedure CheckUnique(AOwner: TForm);
@@ -206,12 +250,16 @@ type
 
     procedure ClientWndDestroyingNotify;
     procedure DoPageAdded(APage: TdxTabbedMDIPage);
-    procedure LookAndFeelChangeHandler(Sender: TcxLookAndFeel; AChangedValues: TcxLookAndFeelValues);
-    procedure TabPropertiesChangedHandler(Sender: TObject; AType: TcxCustomTabControlPropertiesChangedType);
-    procedure TabPropertiesGetTabHintHandler(Sender: TObject; ATabIndex: Integer; var AHint: string; var ACanShow: Boolean);
+    procedure LookAndFeelChangeHandler(Sender: TcxLookAndFeel;
+      AChangedValues: TcxLookAndFeelValues);
+    procedure TabPropertiesChangedHandler(Sender: TObject;
+      AType: TcxCustomTabControlPropertiesChangedType);
+    procedure TabPropertiesGetTabHintHandler(Sender: TObject;
+      ATabIndex: Integer; var AHint: string; var ACanShow: Boolean);
     procedure TabPropertiesStyleChangedHandler(Sender: TObject);
+    procedure TabPropertiesPageChangingHandler(Sender: TObject;
+      ANewPage: TdxTabbedMDIPage; var AAllowChange: Boolean);
     procedure TabPropertiesTabIndexChangedHandler(Sender: TObject);
-
     function GetControllerClass: TdxTabbedMDITabControllerClass; virtual;
     function GetPropertiesClass: TdxTabbedMDITabPropertiesClass; virtual;
     function GetViewInfoClass: TdxTabbedMDITabControlViewInfoClass; virtual;
@@ -235,7 +283,6 @@ type
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
 
-
     procedure BeginUpdate;
     procedure EndUpdate(AForceUpdate: Boolean);
 
@@ -243,11 +290,20 @@ type
     property ViewInfo: TdxTabbedMDITabControlViewInfo read GetViewInfo;
   published
     property Active: Boolean read FActive write SetActive;
-    property LookAndFeel: TcxLookAndFeel read GetLookAndFeel write SetLookAndFeel;
-    property FormCaptionMask: string read FFormCaptionMask write SetFormCaptionMask stored IsFormCaptionMaskStored;
-    property TabProperties: TdxTabbedMDITabProperties read FTabProperties write SetTabProperties;
-    property OnGetTabHint: TdxTabbedMDIGetTabHintEvent read FOnGetTabHint write FOnGetTabHint;
-    property OnPageAdded: TdxTabbedMDIPageAddedEvent read FOnPageAdded write FOnPageAdded;
+    property LookAndFeel: TcxLookAndFeel read GetLookAndFeel
+      write SetLookAndFeel;
+    property FormCaptionMask: string read FFormCaptionMask
+      write SetFormCaptionMask stored IsFormCaptionMaskStored;
+    property TabProperties: TdxTabbedMDITabProperties read FTabProperties
+      write SetTabProperties;
+    property OnGetTabHint: TdxTabbedMDIGetTabHintEvent read FOnGetTabHint
+      write FOnGetTabHint;
+    property OnPageAdded: TdxTabbedMDIPageAddedEvent read FOnPageAdded
+      write FOnPageAdded;
+    property OnPageChanged: TNotifyEvent read FOnPageChanged
+      write FOnPageChanged;
+    property OnPageChanging: TdxTabbedMDIPageChangingEvent read FOnPageChanging
+      write FOnPageChanging;
   end;
 
 implementation
@@ -282,13 +338,14 @@ end;
 
 procedure RecalculateNCPart(AWnd: THandle);
 begin
-  SetWindowPos(AWnd, 0, 0, 0, 0, 0, SWP_FRAMECHANGED or SWP_NOMOVE or SWP_SHOWWINDOW or
-    SWP_NOZORDER or SWP_NOACTIVATE or SWP_NOSIZE);
+  SetWindowPos(AWnd, 0, 0, 0, 0, 0, SWP_FRAMECHANGED or SWP_NOMOVE or
+    SWP_SHOWWINDOW or SWP_NOZORDER or SWP_NOACTIVATE or SWP_NOSIZE);
 end;
 
 procedure InvalidateAllWnd(AWnd: THandle);
 begin
-  cxRedrawWindow(AWnd, RDW_INVALIDATE or RDW_ERASE or RDW_ALLCHILDREN or RDW_FRAME or RDW_INTERNALPAINT);
+  cxRedrawWindow(AWnd, RDW_INVALIDATE or RDW_ERASE or RDW_ALLCHILDREN or
+    RDW_FRAME or RDW_INTERNALPAINT);
 end;
 
 procedure RefreshWindow(AWnd: THandle);
@@ -338,9 +395,11 @@ type
     property Form: TForm read GetForm;
     property Handle: THandle read FHandle write SetHandle;
     property IsCreating: Boolean read FIsCreating write SetIsCreating;
-    property IsWndDestroying: Boolean read FIsWndDestroying write FIsWndDestroying;
+    property IsWndDestroying: Boolean read FIsWndDestroying
+      write FIsWndDestroying;
   public
-    constructor Create(AOwner: TdxTabbedMDIPage; AParent: TdxTabbedMDIClientControl); virtual;
+    constructor Create(AOwner: TdxTabbedMDIPage;
+      AParent: TdxTabbedMDIClientControl); virtual;
     destructor Destroy; override;
   end;
 
@@ -349,11 +408,8 @@ type
   TdxTabbedMDIChange = (tmcFocus, tmcLayout, tmcSize);
   TdxTabbedMDIChanges = set of TdxTabbedMDIChange;
 
-  TdxTabbedMDIClientControl = class(TcxControl,
-    IcxControlComponentState,
-    IcxMouseTrackingCaller,
-    IcxMouseTrackingCaller2,
-    IcxTabControl)
+  TdxTabbedMDIClientControl = class(TcxControl, IcxControlComponentState,
+    IcxMouseTrackingCaller, IcxMouseTrackingCaller2, IcxTabControl)
   private
     FDragAndDropPrevCursor: TCursor;
     FRefreshedChildren: TList;
@@ -367,7 +423,7 @@ type
     FIsUpdating: Boolean;
     FLockCount: Integer;
 
-      // Helpers
+    // Helpers
     FController: TdxTabbedMDITabController;
     FPainter: TcxPCCustomPainter;
     FViewInfo: TdxTabbedMDITabControlViewInfo;
@@ -404,15 +460,20 @@ type
     function NeedsScrollBars: Boolean; override;
     procedure WndProc(var Message: TMessage); override;
 
-    procedure ActiveChildChanged(APreviousActiveChild, ANewActiveChild: THandle);
-    procedure TabPropertiesChangedHandler(Sender: TObject; AType: TcxCustomTabControlPropertiesChangedType);
+    procedure ActiveChildChanged(APreviousActiveChild, ANewActiveChild
+      : THandle);
+    procedure TabPropertiesChangedHandler(Sender: TObject;
+      AType: TcxCustomTabControlPropertiesChangedType);
     procedure TabPropertiesStyleChangedHandler(Sender: TObject);
     procedure TabPropertiesTabIndexChangedHandler(Sender: TObject);
-    procedure LookAndFeelChangeHandler(Sender: TcxLookAndFeel; AChangedValues: TcxLookAndFeelValues);
+    procedure LookAndFeelChangeHandler(Sender: TcxLookAndFeel;
+      AChangedValues: TcxLookAndFeelValues);
 
-    procedure MouseDown(AButton: TMouseButton; AShift: TShiftState; X, Y: Integer); override;
+    procedure MouseDown(AButton: TMouseButton; AShift: TShiftState;
+      X, Y: Integer); override;
     procedure MouseMove(AShift: TShiftState; X, Y: Integer); override;
-    procedure MouseUp(AButton: TMouseButton; AShift: TShiftState; X, Y: Integer); override;
+    procedure MouseUp(AButton: TMouseButton; AShift: TShiftState;
+      X, Y: Integer); override;
     procedure Paint; override;
 
     // IcxTabControl
@@ -456,9 +517,11 @@ type
     procedure RecreatePainter;
 
     property BoundsRect: TRect read FBoundsRect;
-    property ClientBoundsRect: TRect read FClientBoundsRect write SetClientBoundsRect;
+    property ClientBoundsRect: TRect read FClientBoundsRect
+      write SetClientBoundsRect;
     property ParentForm: TForm read GetParentForm;
-    property TabbedMDIProperties: TdxTabbedMDITabProperties read GetTabbedMDIProperties;
+    property TabbedMDIProperties: TdxTabbedMDITabProperties
+      read GetTabbedMDIProperties;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -475,7 +538,8 @@ type
     property ViewInfo: TcxCustomTabControlViewInfo read GetViewInfo;
   end;
 
-procedure dxTabbedMDICBTHook(ACode: Integer; wParam: WPARAM; lParam: LPARAM; var AHookResult: LRESULT);
+procedure dxTabbedMDICBTHook(ACode: Integer; wParam: wParam; lParam: lParam;
+  var AHookResult: LRESULT);
 var
   AActiveMDIManager: TdxTabbedMDIManager;
   APageIndex: Integer;
@@ -485,8 +549,9 @@ begin
   begin
     AActiveMDIManager := GetActiveMDIManager;
     APageIndex := AActiveMDIManager.TabProperties.GetPageIndexByHandle(wParam);
-    if (APageIndex <> -1) and
-       not TdxTabbedMDIChild(AActiveMDIManager.TabProperties.Pages[APageIndex].FPage).FIsChangeStateAllowed then
+    if (APageIndex <> -1) and not TdxTabbedMDIChild
+      (AActiveMDIManager.TabProperties.Pages[APageIndex].FPage).FIsChangeStateAllowed
+    then
       AHookResult := 1;
   end;
 end;
@@ -515,7 +580,8 @@ end;
 
 procedure TdxTabbedMDIChild.SetSubclassedWindowProperties;
 begin
-  SetWindowLong(FHandle, GWL_STYLE, FStoredStyle and not (WS_BORDER or WS_DLGFRAME or WS_THICKFRAME));
+  SetWindowLong(FHandle, GWL_STYLE, FStoredStyle and
+    not(WS_BORDER or WS_DLGFRAME or WS_THICKFRAME));
   CheckNormalState;
   FStoredStyle := FStoredStyle and not WS_MAXIMIZE and not WS_MINIMIZE;
 end;
@@ -590,7 +656,8 @@ end;
 
 procedure TdxTabbedMDIChild.SetIsCreating(AValue: Boolean);
 begin
-  if FIsPropertiesStoring then Exit;
+  if FIsPropertiesStoring then
+    Exit;
   if FIsCreating <> AValue then
   begin
     if not AValue then
@@ -627,11 +694,10 @@ begin
     AForm := Form;
     if AForm.WindowState = wsNormal then
       StoreOriginalBounds
-    else
-      if AForm.WindowState = wsMaximized then
-        FParent.FTabbedMDIManager.FMDIChildrenMaximized := True
-      else  //wsMinimized
-        FParent.FTabbedMDIManager.FMinimizedMDIChildren.Add(AForm);
+    else if AForm.WindowState = wsMaximized then
+      FParent.FTabbedMDIManager.FMDIChildrenMaximized := True
+    else // wsMinimized
+      FParent.FTabbedMDIManager.FMinimizedMDIChildren.Add(AForm);
   finally
     FIsPropertiesStoring := False;
   end;
@@ -657,20 +723,20 @@ procedure TdxTabbedMDIChild.WndProc(var Message: TMessage);
     if FIsCreating then
     begin
       if AMessage.WindowPos^.flags and SWP_SHOWWINDOW <> 0 then
-        AMessage.WindowPos^.flags := AMessage.WindowPos^.flags and not SWP_SHOWWINDOW;
+        AMessage.WindowPos^.flags := AMessage.WindowPos^.flags and
+          not SWP_SHOWWINDOW;
     end
-    else
-      if AMessage.WindowPos^.flags and SWP_NOSIZE = 0 then
+    else if AMessage.WindowPos^.flags and SWP_NOSIZE = 0 then
+    begin
+      R := FParent.ClientBoundsRect;
+      with AMessage.WindowPos^ do
       begin
-        R := FParent.ClientBoundsRect;
-        with AMessage.WindowPos^ do
-        begin
-          x := 0;
-          y := 0;
-          cx := cxRectWidth(R);
-          cy := cxRectHeight(R);
-        end;
+        X := 0;
+        Y := 0;
+        cx := cxRectWidth(R);
+        cy := cxRectHeight(R);
       end;
+    end;
     Default;
   end;
 
@@ -681,11 +747,13 @@ procedure TdxTabbedMDIChild.WndProc(var Message: TMessage);
   begin
     AOffset := AMessage.CalcSize_Params^.rgrc[0].TopLeft;
     Default;
-    if FIsCreating then Exit;
+    if FIsCreating then
+      Exit;
     if AMessage.CalcValidRects then
     begin
       R := FParent.ClientBoundsRect;
-      AMessage.CalcSize_Params^.rgrc[0] := cxRectOffset(R, [cxPointInvert(R.TopLeft), AOffset]);
+      AMessage.CalcSize_Params^.rgrc[0] :=
+        cxRectOffset(R, [cxPointInvert(R.TopLeft), AOffset]);
     end;
     AMessage.Result := 0;
   end;
@@ -770,14 +838,14 @@ begin
         DoSetIcon(TWMSetIcon(Message));
       WM_SIZE:
         begin
-         // if TWMSize(Message).SizeType = SIZE_MINIMIZED then
-         //   ShowWindow(FHandle, SW_SHOWNORMAL);
+          // if TWMSize(Message).SizeType = SIZE_MINIMIZED then
+          // ShowWindow(FHandle, SW_SHOWNORMAL);
           Default;
         end;
       WM_SHOWWINDOW:
         DoShowWindow(TWMShowWindow(Message));
-      else
-        Default;
+    else
+      Default;
     end;
 end;
 
@@ -839,15 +907,18 @@ begin
   end;
 end;
 
-function TdxTabbedMDIClientControl.ApplicationWndHook(var Message: TMessage): Boolean;
+function TdxTabbedMDIClientControl.ApplicationWndHook
+  (var Message: TMessage): Boolean;
 begin
   Result := False;
   case Message.Msg of
     CM_APPKEYDOWN:
       begin
-        if not IsFocused or FIsApplicationHookProcessing then Exit;
+        if not IsFocused or FIsApplicationHookProcessing then
+          Exit;
         FIsApplicationHookProcessing := True;
-        Message.Result := SendAppMessage(CM_APPKEYDOWN, Message.WParam, Message.LParam);
+        Message.Result := SendAppMessage(CM_APPKEYDOWN, Message.wParam,
+          Message.lParam);
         if (Message.Result = 0) and DoHandleKey(TWMKey(Message)) then
           Message.Result := 1;
         Result := True;
@@ -862,7 +933,8 @@ begin
   CheckChanges;
 end;
 
-function TdxTabbedMDIClientControl.CreateDragAndDropObject: TcxDragAndDropObject;
+function TdxTabbedMDIClientControl.CreateDragAndDropObject
+  : TcxDragAndDropObject;
 begin
   Result := FController.GetDragAndDropObjectClass.Create(Self);
 end;
@@ -876,12 +948,14 @@ procedure TdxTabbedMDIClientControl.CreateHandle;
 
   procedure SetSubclassedWindowProperties;
   begin
-    SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) and not WS_EX_CLIENTEDGE and not WS_EX_LAYOUTRTL or WS_TABSTOP);
+    SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) and
+      not WS_EX_CLIENTEDGE and not WS_EX_LAYOUTRTL or WS_TABSTOP);
   end;
 
   procedure InitializeBoundsRect;
   begin
-    FBoundsRect := cxRectOffset(cxGetWindowRect(Handle), cxGetWindowRect(ParentForm).TopLeft, False);
+    FBoundsRect := cxRectOffset(cxGetWindowRect(Handle),
+      cxGetWindowRect(ParentForm).TopLeft, False);
   end;
 
 var
@@ -904,18 +978,19 @@ end;
 
 procedure TdxTabbedMDIClientControl.DestroyWindowHandle;
 
-  procedure DoUnsubclass;
+  procedure DoUnSubclass;
   begin
     cxWindowProcController.Remove(FWindowProcObject);
   end;
 
 begin
   Application.UnhookMainWindow(ApplicationWndHook);
-  DoUnsubclass;
+  DoUnSubclass;
   WindowHandle := 0;
 end;
 
-function TdxTabbedMDIClientControl.GetDeviceContext(var WindowHandle: HWnd): HDC;
+function TdxTabbedMDIClientControl.GetDeviceContext(var WindowHandle
+  : HWnd): HDC;
 begin
   Result := GetWindowDC(WindowHandle);
 end;
@@ -950,7 +1025,8 @@ procedure TdxTabbedMDIClientControl.WndProc(var Message: TMessage);
     if AMessage.CalcValidRects then
     begin
       SetBoundsRect(ABoundsRect);
-      AMessage.CalcSize_Params^.rgrc[0] := cxRectOffset(FClientBoundsRect, FBoundsRect.TopLeft);
+      AMessage.CalcSize_Params^.rgrc[0] := cxRectOffset(FClientBoundsRect,
+        FBoundsRect.TopLeft);
     end;
     AMessage.Result := 0;
   end;
@@ -999,7 +1075,8 @@ procedure TdxTabbedMDIClientControl.WndProc(var Message: TMessage);
   procedure DoKeyDown(var AMessage: TWMKeyDown);
   begin
     DoHandleKey(AMessage);
-    if AMessage.CharCode = 0 then Exit;
+    if AMessage.CharCode = 0 then
+      Exit;
     Default;
   end;
 
@@ -1036,16 +1113,16 @@ begin
     case Msg of
       WM_DESTROY:
         DoDestroyWnd;
-      WM_MDIRESTORE, WM_MDIMAXIMIZE, WM_MDITILE,
-      WM_MDICASCADE, WM_MDIICONARRANGE:
+      WM_MDIRESTORE, WM_MDIMAXIMIZE, WM_MDITILE, WM_MDICASCADE,
+        WM_MDIICONARRANGE:
         Result := 0;
       WM_MDICREATE:
         DoMDIChildCreate(TWMMDICreate(Message));
       WM_NCACTIVATE:
-        Result := 0;//do nothing (remove drawing inactive frame)
+        Result := 0; // do nothing (remove drawing inactive frame)
       WM_MDIDESTROY:
         begin
-          UnSubscribeChild(WParam);
+          UnSubscribeChild(wParam);
           Default;
           FTabbedMDIManager.UpdateCaption;
         end;
@@ -1058,8 +1135,8 @@ begin
           if DragAndDropState <> ddsNone then
             FinishDragAndDrop(False);
         end;
-      WM_LBUTTONDOWN, WM_LBUTTONDBLCLK, WM_RBUTTONDOWN,
-      WM_RBUTTONDBLCLK, WM_MBUTTONDOWN, WM_MBUTTONDBLCLK:
+      WM_LBUTTONDOWN, WM_LBUTTONDBLCLK, WM_RBUTTONDOWN, WM_RBUTTONDBLCLK,
+        WM_MBUTTONDOWN, WM_MBUTTONDBLCLK:
         begin
           Default;
           DoMouseDown(TWMMouse(Message));
@@ -1079,7 +1156,8 @@ begin
           Result := HTCLIENT
         else
           Default;
-      $3F:;
+      $3F:
+        ;
       WM_NCPAINT:
         DoNCPaint(TWMNCPaint(Message));
       WM_PAINT:
@@ -1094,12 +1172,20 @@ begin
           Default;
           FinishDragAndDrop(False);
         end;
+      WM_MDINEXT:
+        begin
+          if TabbedMDIProperties.CanChangeActivePage(nil) then
+            Default
+          else
+            Result := 0;
+        end;
     else
       Default;
     end;
 end;
 
-procedure TdxTabbedMDIClientControl.ActiveChildChanged(APreviousActiveChild, ANewActiveChild: THandle);
+procedure TdxTabbedMDIClientControl.ActiveChildChanged(APreviousActiveChild,
+  ANewActiveChild: THandle);
 begin
   if ANewActiveChild <> 0 then
     TabbedMDIProperties.SetActivePageByHandle(ANewActiveChild);
@@ -1116,12 +1202,14 @@ begin
   end;
 end;
 
-procedure TdxTabbedMDIClientControl.TabPropertiesStyleChangedHandler(Sender: TObject);
+procedure TdxTabbedMDIClientControl.TabPropertiesStyleChangedHandler
+  (Sender: TObject);
 begin
   RecreatePainter;
 end;
 
-procedure TdxTabbedMDIClientControl.TabPropertiesTabIndexChangedHandler(Sender: TObject);
+procedure TdxTabbedMDIClientControl.TabPropertiesTabIndexChangedHandler
+  (Sender: TObject);
 begin
   if TabbedMDIProperties.PageIndex <> -1 then
   begin
@@ -1130,19 +1218,19 @@ begin
   end;
 end;
 
-procedure TdxTabbedMDIClientControl.LookAndFeelChangeHandler(
-  Sender: TcxLookAndFeel; AChangedValues: TcxLookAndFeelValues);
+procedure TdxTabbedMDIClientControl.LookAndFeelChangeHandler
+  (Sender: TcxLookAndFeel; AChangedValues: TcxLookAndFeelValues);
 begin
   RecreatePainter;
   LayoutChanged;
 end;
 
-procedure TdxTabbedMDIClientControl.MouseDown(AButton: TMouseButton; AShift: TShiftState;
-  X, Y: Integer);
+procedure TdxTabbedMDIClientControl.MouseDown(AButton: TMouseButton;
+  AShift: TShiftState; X, Y: Integer);
 
   procedure ProcessDragAndDrop;
   begin
-    if (AButton = mbLeft) and not (ssDouble in AShift) and
+    if (AButton = mbLeft) and not(ssDouble in AShift) and
       FController.StartDragAndDrop(Point(X, Y)) then
       DragAndDropState := ddsStarting
     else
@@ -1159,7 +1247,8 @@ begin
   FController.MouseDown(AButton, AShift, X, Y);
 end;
 
-procedure TdxTabbedMDIClientControl.MouseMove(AShift: TShiftState; X, Y: Integer);
+procedure TdxTabbedMDIClientControl.MouseMove(AShift: TShiftState;
+  X, Y: Integer);
 var
   AAccepted: Boolean;
 begin
@@ -1171,11 +1260,12 @@ begin
     DragAndDrop(Point(X, Y), AAccepted);
   end;
   FController.MouseMove(AShift, X, Y);
-  cxControls.BeginMouseTracking(Self, cxEmptyRect, Self as IcxMouseTrackingCaller2);
+  cxControls.BeginMouseTracking(Self, cxEmptyRect,
+    Self as IcxMouseTrackingCaller2);
 end;
 
-procedure TdxTabbedMDIClientControl.MouseUp(AButton: TMouseButton; AShift: TShiftState;
-  X, Y: Integer);
+procedure TdxTabbedMDIClientControl.MouseUp(AButton: TMouseButton;
+  AShift: TShiftState; X, Y: Integer);
 begin
   if AButton = mbLeft then
     ReleaseCapture;
@@ -1185,7 +1275,8 @@ end;
 
 procedure TdxTabbedMDIClientControl.Paint;
 begin
-  if IsLocked then Exit;
+  if IsLocked then
+    Exit;
   Canvas.ExcludeClipRect(FClientBoundsRect);
   FPainter.Paint(Canvas);
 end;
@@ -1268,7 +1359,7 @@ end;
 
 procedure TdxTabbedMDIClientControl.SetModified;
 begin
-// TODO
+  // TODO
 end;
 
 function TdxTabbedMDIClientControl.IsEnabled: Boolean;
@@ -1339,7 +1430,8 @@ procedure TdxTabbedMDIClientControl.CheckChanges;
 var
   AOldClientBoundsRect: TRect;
 begin
-  if IsLocked or FIsUpdating or (FChanges = []) then Exit;
+  if IsLocked or FIsUpdating or (FChanges = []) then
+    Exit;
   FIsUpdating := True;
   AOldClientBoundsRect := ClientBoundsRect;
   if [tmcLayout, tmcSize] * FChanges <> [] then
@@ -1350,9 +1442,8 @@ begin
       RecalculateNCPart(Handle);
     InvalidateAllWnd(Handle);
   end
-  else
-    if tmcFocus in FChanges then
-      FController.FocusChanged;
+  else if tmcFocus in FChanges then
+    FController.FocusChanged;
   FChanges := [];
   FIsUpdating := False;
 end;
@@ -1413,7 +1504,8 @@ begin
     TdxTabbedMDIChild(FRefreshedChildren[I]).IsCreating := False;
 end;
 
-function TdxTabbedMDIClientControl.DoHandleKey(var AMessage: TWMKeyDown): Boolean;
+function TdxTabbedMDIClientControl.DoHandleKey(var AMessage
+  : TWMKeyDown): Boolean;
 var
   AShiftState: TShiftState;
 begin
@@ -1437,7 +1529,8 @@ var
   P: TPoint;
 begin
   P := GetMappedTabsMousePosition(Message.Pos);
-  MouseDown(GetMouseButton(Message), KeysToShiftState(Message.Keys) + GetDblClickShiftState, P.X, P.Y);
+  MouseDown(GetMouseButton(Message), KeysToShiftState(Message.Keys) +
+    GetDblClickShiftState, P.X, P.Y);
 end;
 
 procedure TdxTabbedMDIClientControl.DoMouseMove(var Message: TWMMouse);
@@ -1458,12 +1551,14 @@ end;
 
 procedure TdxTabbedMDIClientControl.DoNonClientAreaPaint(DC: THandle);
 begin
-  PaintWindow(DC);
+  if not IsLocked and not TabbedMDIProperties.IsUpdateLocked then
+    PaintWindow(DC);
 end;
 
 procedure TdxTabbedMDIClientControl.DoClientAreaPaint(DC: THandle);
 begin
-  if IsLocked then Exit;
+  if IsLocked then
+    Exit;
   MoveWindowOrg(DC, -FClientBoundsRect.Left, -FClientBoundsRect.Top);
   cxPaintCanvas.BeginPaint(DC);
   try
@@ -1478,7 +1573,8 @@ begin
   Result := SendMessage(Handle, WM_MDIGETACTIVE, 0, 0);
 end;
 
-function TdxTabbedMDIClientControl.GetMouseButton(const Message: TWMMouse): TMouseButton;
+function TdxTabbedMDIClientControl.GetMouseButton(const Message: TWMMouse)
+  : TMouseButton;
 begin
   case Message.Msg of
     WM_LBUTTONDOWN, WM_LBUTTONDBLCLK, WM_LBUTTONUP:
@@ -1490,7 +1586,8 @@ begin
   end;
 end;
 
-function TdxTabbedMDIClientControl.GetMappedTabsMousePosition(const P: TSmallPoint): TPoint;
+function TdxTabbedMDIClientControl.GetMappedTabsMousePosition
+  (const P: TSmallPoint): TPoint;
 begin
   Result := cxPointOffset(SmallPointToPoint(P), FClientBoundsRect.TopLeft);
 end;
@@ -1500,7 +1597,8 @@ begin
   Result := FTabbedMDIManager.Form;
 end;
 
-function TdxTabbedMDIClientControl.GetTabbedMDIProperties: TdxTabbedMDITabProperties;
+function TdxTabbedMDIClientControl.GetTabbedMDIProperties
+  : TdxTabbedMDITabProperties;
 begin
   Result := FTabbedMDIManager.TabProperties;
 end;
@@ -1573,7 +1671,8 @@ begin
   if Result then
   begin
     AHintControl := GetHintWinControl;
-    Result := AHintControl.HandleAllocated and IsWindowVisible(AHintControl.Handle) and
+    Result := AHintControl.HandleAllocated and
+      IsWindowVisible(AHintControl.Handle) and
       (cxWindowFromPoint(GetMouseCursorPos) = AHintControl.Handle);
   end;
 end;
@@ -1585,9 +1684,9 @@ end;
 
 function TdxTabbedMDITabControlHintHelper.PtInCaller(const P: TPoint): Boolean;
 begin
-  Result := inherited PtInCaller(
-    cxPointOffset(P,
-      TdxTabbedMDIClientControl((Controller as TdxTabbedMDITabController).FMDITabControl).ClientBoundsRect.TopLeft));
+  Result := inherited PtInCaller(cxPointOffset(P,
+    TdxTabbedMDIClientControl((Controller as TdxTabbedMDITabController)
+    .FMDITabControl).ClientBoundsRect.TopLeft));
 end;
 
 { TdxTabbedMDITabController }
@@ -1603,7 +1702,8 @@ begin
   Result := FMDITabControl.Handle;
 end;
 
-function TdxTabbedMDITabController.GetClientToScreen(const APoint: TPoint): TPoint;
+function TdxTabbedMDITabController.GetClientToScreen(const APoint
+  : TPoint): TPoint;
 var
   AClientBounds: TRect;
 begin
@@ -1613,12 +1713,14 @@ begin
   Result := inherited GetClientToScreen(Result);
 end;
 
-function TdxTabbedMDITabController.GetHintHelperClass: TcxCustomTabControlHintHelperClass;
+function TdxTabbedMDITabController.GetHintHelperClass
+  : TcxCustomTabControlHintHelperClass;
 begin
   Result := TdxTabbedMDITabControlHintHelper;
 end;
 
-function TdxTabbedMDITabController.GetScreenToClient(const APoint: TPoint): TPoint;
+function TdxTabbedMDITabController.GetScreenToClient(const APoint
+  : TPoint): TPoint;
 var
   AControl: TdxTabbedMDIClientControl;
 begin
@@ -1629,12 +1731,14 @@ end;
 
 function TdxTabbedMDITabControlViewInfo.UseRightToLeftAlignment: Boolean;
 begin
-  Result := (Owner as TdxTabbedMDIClientControl).FTabbedMDIManager.Form.UseRightToLeftAlignment;
+  Result := (Owner as TdxTabbedMDIClientControl)
+    .FTabbedMDIManager.Form.UseRightToLeftAlignment;
 end;
 
 function TdxTabbedMDITabControlViewInfo.UseRightToLeftReading: Boolean;
 begin
-  Result := (Owner as TdxTabbedMDIClientControl).FTabbedMDIManager.Form.UseRightToLeftReading;
+  Result := (Owner as TdxTabbedMDIClientControl)
+    .FTabbedMDIManager.Form.UseRightToLeftReading;
 end;
 
 function TdxTabbedMDITabControlViewInfo.HasBorders: Boolean;
@@ -1644,7 +1748,8 @@ end;
 
 { TdxTabbedMDIPage }
 
-constructor TdxTabbedMDIPage.Create(AMDIManager: TdxTabbedMDIManager; AMDIChild: THandle);
+constructor TdxTabbedMDIPage.Create(AMDIManager: TdxTabbedMDIManager;
+  AMDIChild: THandle);
 var
   ATabs: TcxTabs;
   AClient: TdxTabbedMDIClientControl;
@@ -1744,7 +1849,8 @@ end;
 
 function TdxTabbedMDIPage.GetTabCaptionFromForm: string;
 begin
-  Result := StringReplace(FForm.Caption, '&', '&&', [rfReplaceAll, rfIgnoreCase]);
+  Result := StringReplace(FForm.Caption, '&', '&&',
+    [rfReplaceAll, rfIgnoreCase]);
 end;
 
 procedure TdxTabbedMDIPage.SetCaption(const Value: string);
@@ -1775,9 +1881,17 @@ begin
   inherited Destroy;
 end;
 
-function TdxTabbedMDITabProperties.AddPage(AMdiChild: THandle): Integer;
+function TdxTabbedMDITabProperties.AddPage(AMDIChild: THandle): Integer;
 begin
-  Result := FPages.Add(TdxTabbedMDIPage.Create(FTabbedMDIManager, AMdiChild));
+  Result := FPages.Add(TdxTabbedMDIPage.Create(FTabbedMDIManager, AMDIChild));
+end;
+
+function TdxTabbedMDITabProperties.CanChangeActivePage
+  (ANewPage: TdxTabbedMDIPage): Boolean;
+begin
+  Result := True;
+  if not IsChangingEventLocked and Assigned(FOnPageChanging) then
+    FOnPageChanging(Self, ANewPage, Result);
 end;
 
 procedure TdxTabbedMDITabProperties.ClearPages;
@@ -1804,13 +1918,23 @@ begin
   BeginUpdate;
   try
     FPages.Delete(AIndex);
-    SetActivePageByHandle(TdxTabbedMDIClientControl(FTabbedMDIManager.FClientFakeControl).GetActiveChild);
+    SetActivePageByHandle(TdxTabbedMDIClientControl
+      (FTabbedMDIManager.FClientFakeControl).GetActiveChild);
   finally
     EndUpdate;
   end;
 end;
 
-function TdxTabbedMDITabProperties.GetPageIndexByHandle(AHandle: THandle): Integer;
+procedure TdxTabbedMDITabProperties.DoChanging(ANewTabIndex: Integer;
+  var AAllowChange: Boolean);
+begin
+  inherited;
+  if AAllowChange and (ANewTabIndex <> -1) then
+    AAllowChange := CanChangeActivePage(Pages[ANewTabIndex]);
+end;
+
+function TdxTabbedMDITabProperties.GetPageIndexByHandle
+  (AHandle: THandle): Integer;
 var
   I: Integer;
 begin
@@ -1825,7 +1949,8 @@ begin
   Result := FTabbedMDIManager.TabbedControl;
 end;
 
-function TdxTabbedMDITabProperties.InternalGetTabHint(ATab: TcxTab; var ACanShow: Boolean): string;
+function TdxTabbedMDITabProperties.InternalGetTabHint(ATab: TcxTab;
+  var ACanShow: Boolean): string;
 begin
   inherited InternalGetTabHint(ATab, ACanShow);
   Result := Pages[ATab.Index].MDIChild.Caption;
@@ -1851,10 +1976,45 @@ end;
 
 procedure TdxTabbedMDITabProperties.SetActivePageByHandle(AHandle: THandle);
 begin
-  TabIndex := GetPageIndexByHandle(AHandle);
+  LockChangingEvent;
+  try
+    TabIndex := GetPageIndexByHandle(AHandle);
+  finally
+    UnlockChangingEvent;
+  end;
 end;
 
 procedure TdxTabbedMDITabProperties.UpdateImages;
+{var
+  AIcon: TIcon;
+  APage: TdxTabbedMDIPage;
+  I: Integer;
+begin
+  BeginUpdate;
+  try
+    FInternalImages.Clear;
+    FInternalImages.SourceDPI := FTabbedMDIManager.ScaleFactor.Apply(dxDefaultDPI);
+    FInternalImages.Height := dxGetSystemMetrics(SM_CYSMICON, FTabbedMDIManager.ScaleFactor);
+    FInternalImages.Width := dxGetSystemMetrics(SM_CXSMICON, FTabbedMDIManager.ScaleFactor);
+
+    AIcon := TIcon.Create;
+    try
+      for I := 0 to FPages.Count - 1 do
+      begin
+        APage := Pages[I];
+        AIcon.Handle := dxGetFormIcon(APage.Handle, FInternalImages.Width,
+          FInternalImages.Height);
+        APage.ImageIndex := FInternalImages.AddIcon(AIcon);
+      end;
+    finally
+      AIcon.Free;
+    end;
+  finally
+    EndUpdate;
+  end;
+end;}
+
+
 var
   AIcon: TIcon;
   ABitmap : TBitmap;
@@ -1869,14 +2029,12 @@ begin
     FInternalImages.SourceDPI := FTabbedMDIManager.ScaleFactor.Apply(dxDefaultDPI);
     FInternalImages.Height := dxGetSystemMetrics(SM_CYSMICON, FTabbedMDIManager.ScaleFactor);
     FInternalImages.Width := dxGetSystemMetrics(SM_CXSMICON, FTabbedMDIManager.ScaleFactor);
-
     ABitmap := TBitmap.Create;
     AIcon := TIcon.Create;
     try
       for I := 0 to FPages.Count - 1 do
       begin
         APage := Pages[I];
-
         AAction := TAction(APage.MDIChild.Action);
         if Assigned(AAction) then
         begin
@@ -1922,7 +2080,8 @@ begin
   Result := TabIndex;
 end;
 
-procedure TdxTabbedMDITabProperties.MDIChildClose(Sender: TObject; var Action: TCloseAction);
+procedure TdxTabbedMDITabProperties.MDIChildClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
   if Assigned(FOldMDIChildCloseEvent) then
     FOldMDIChildCloseEvent(Sender, Action);
@@ -1941,13 +2100,15 @@ end;
 constructor TdxTabbedMDIManager.Create(Owner: TComponent);
 begin
   if not(Owner is TForm) then
-    raise EdxTabbedMDIManagerException.Create(cxGetResourceString(@sdxTabbedMDIOwnerIsNotForm));
+    raise EdxTabbedMDIManagerException.Create
+      (cxGetResourceString(@sdxTabbedMDIOwnerIsNotForm));
   CheckUnique(TForm(Owner));
   inherited Create(Owner);
   dxTabbedMDIManagers.Add(Self);
   FTabProperties := GetPropertiesClass.Create(Self);
   FTabProperties.OnChanged := TabPropertiesChangedHandler;
   FTabProperties.OnChange := TabPropertiesTabIndexChangedHandler;
+  FTabProperties.OnPageChanging := TabPropertiesPageChangingHandler;
   FTabProperties.OnGetTabHint := TabPropertiesGetTabHintHandler;
   FTabProperties.OnStyleChanged := TabPropertiesStyleChangedHandler;
   FLookAndFeel := TcxLookAndFeel.Create(Self);
@@ -2025,8 +2186,10 @@ end;
 procedure TdxTabbedMDIManager.BuildFormatString;
 begin
   FCaptionFormat := StringReplace(FFormCaptionMask, '%', '%%', [rfReplaceAll]);
-  FCaptionFormat := StringReplace(FCaptionFormat, SMainFormCaptionMask, '%0:s', [rfReplaceAll, rfIgnoreCase]);
-  FCaptionFormat := StringReplace(FCaptionFormat, SChildFormCaptionMask, '%1:s', [rfReplaceAll, rfIgnoreCase]);
+  FCaptionFormat := StringReplace(FCaptionFormat, SMainFormCaptionMask, '%0:s',
+    [rfReplaceAll, rfIgnoreCase]);
+  FCaptionFormat := StringReplace(FCaptionFormat, SChildFormCaptionMask, '%1:s',
+    [rfReplaceAll, rfIgnoreCase]);
 end;
 
 procedure TdxTabbedMDIManager.CheckUnique(AOwner: TForm);
@@ -2035,7 +2198,8 @@ var
 begin
   for I := 0 to dxTabbedMDIManagers.Count - 1 do
     if TComponent(dxTabbedMDIManagers[I]).Owner = AOwner then
-      raise EdxTabbedMDIManagerException.Create(cxGetResourceString(@sdxTabbedMDIManagerAlreadyExists));
+      raise EdxTabbedMDIManagerException.Create
+        (cxGetResourceString(@sdxTabbedMDIManagerAlreadyExists));
 end;
 
 function TdxTabbedMDIManager.GetController: TdxTabbedMDITabController;
@@ -2053,7 +2217,8 @@ begin
     if not IsFormCaptionMaskStored and FForm.UseRightToLeftAlignment then
       Result := Format(FCaptionFormat, [FForm.ActiveMDIChild.Caption, FCaption])
     else
-      Result := Format(FCaptionFormat, [FCaption, FForm.ActiveMDIChild.Caption]);
+      Result := Format(FCaptionFormat,
+        [FCaption, FForm.ActiveMDIChild.Caption]);
   end
   else
     Result := FCaption;
@@ -2097,7 +2262,8 @@ procedure TdxTabbedMDIManager.MainFormWndProc(var Message: TMessage);
   begin
     FCaption := Message.Text;
     Message.Text := PChar(GetFormattedCaption);
-    Application.Title := Message.Text;
+    if not dxTabbedMDISuppressApplicationTitleChanges then
+      Application.Title := Message.Text;
     Default;
   end;
 
@@ -2111,7 +2277,7 @@ begin
       DoFontChanged;
     CM_BIDIMODECHANGED:
       begin
-        if Active and not (Form is TdxForm) then
+        if Active and not(Form is TdxForm) then
           TFormAccess(Form).RecreateWnd;
         Default;
       end;
@@ -2172,10 +2338,14 @@ end;
 procedure TdxTabbedMDIManager.SetForm(Value: TForm);
 begin
   if (Value <> nil) and (Value.FormStyle <> fsMDIForm) then
-    raise EdxTabbedMDIManagerException.Create(cxGetResourceString(@sdxTabbedMDIManagerFormIsNotMDIForm));
-  if IsDesigning then Exit;
-  if (Value <> nil) and (Application.MainForm <> nil) and (Value <> Application.MainForm) then
-    raise EdxTabbedMDIManagerException.Create(cxGetResourceString(@sdxTabbedMDIManagerFormIsNotMainForm));
+    raise EdxTabbedMDIManagerException.Create
+      (cxGetResourceString(@sdxTabbedMDIManagerFormIsNotMDIForm));
+  if IsDesigning then
+    Exit;
+  if (Value <> nil) and (Application.MainForm <> nil) and
+    (Value <> Application.MainForm) then
+    raise EdxTabbedMDIManagerException.Create
+      (cxGetResourceString(@sdxTabbedMDIManagerFormIsNotMainForm));
   if Value <> FForm then
   begin
     if FForm <> nil then
@@ -2191,8 +2361,8 @@ begin
   FLookAndFeel.Assign(Value);
 end;
 
-procedure TdxTabbedMDIManager.SetTabProperties(
-  const Value: TdxTabbedMDITabProperties);
+procedure TdxTabbedMDIManager.SetTabProperties(const Value
+  : TdxTabbedMDITabProperties);
 begin
   FTabProperties.Assign(Value);
 end;
@@ -2285,7 +2455,8 @@ var
 begin
   if (FClientHandle <> 0) then
   begin
-    AActiveChild := TdxTabbedMDIClientControl(FClientFakeControl).GetActiveChild;
+    AActiveChild := TdxTabbedMDIClientControl(FClientFakeControl)
+      .GetActiveChild;
     DoUnSubclass;
     if not FIsClientWndDestroying then
     begin
@@ -2313,7 +2484,7 @@ procedure TdxTabbedMDIManager.UpdateCaption;
 begin
   if FForm <> nil then
   begin
-    FForm.Perform(WM_SETTEXT, 0, LPARAM(FCaption));
+    FForm.Perform(WM_SETTEXT, 0, lParam(FCaption));
     FForm.Perform(CM_TEXTCHANGED, 0, 0);
   end;
 end;
@@ -2345,18 +2516,20 @@ procedure TdxTabbedMDIManager.LookAndFeelChangeHandler(Sender: TcxLookAndFeel;
   AChangedValues: TcxLookAndFeelValues);
 begin
   if FClientFakeControl <> nil then
-    TdxTabbedMDIClientControl(FClientFakeControl).LookAndFeelChangeHandler(Sender, AChangedValues);
+    TdxTabbedMDIClientControl(FClientFakeControl).LookAndFeelChangeHandler
+      (Sender, AChangedValues);
 end;
 
 procedure TdxTabbedMDIManager.TabPropertiesChangedHandler(Sender: TObject;
   AType: TcxCustomTabControlPropertiesChangedType);
 begin
   if FClientFakeControl <> nil then
-    TdxTabbedMDIClientControl(FClientFakeControl).TabPropertiesChangedHandler(Sender, AType);
+    TdxTabbedMDIClientControl(FClientFakeControl).TabPropertiesChangedHandler
+      (Sender, AType);
 end;
 
-procedure TdxTabbedMDIManager.TabPropertiesGetTabHintHandler(
-  Sender: TObject; ATabIndex: Integer; var AHint: string; var ACanShow: Boolean);
+procedure TdxTabbedMDIManager.TabPropertiesGetTabHintHandler(Sender: TObject;
+  ATabIndex: Integer; var AHint: string; var ACanShow: Boolean);
 begin
   if Assigned(FOnGetTabHint) then
     FOnGetTabHint(Self, TabProperties.Pages[ATabIndex], AHint, ACanShow);
@@ -2365,13 +2538,27 @@ end;
 procedure TdxTabbedMDIManager.TabPropertiesStyleChangedHandler(Sender: TObject);
 begin
   if FClientFakeControl <> nil then
-    TdxTabbedMDIClientControl(FClientFakeControl).TabPropertiesStyleChangedHandler(Sender);
+    TdxTabbedMDIClientControl(FClientFakeControl)
+      .TabPropertiesStyleChangedHandler(Sender);
 end;
 
-procedure TdxTabbedMDIManager.TabPropertiesTabIndexChangedHandler(Sender: TObject);
+procedure TdxTabbedMDIManager.TabPropertiesPageChangingHandler(Sender: TObject;
+  ANewPage: TdxTabbedMDIPage; var AAllowChange: Boolean);
 begin
+  if Assigned(FOnPageChanging) then
+    FOnPageChanging(Self, ANewPage, AAllowChange);
+end;
+
+procedure TdxTabbedMDIManager.TabPropertiesTabIndexChangedHandler
+  (Sender: TObject);
+begin
+  if IsDestroying then
+    Exit;
   if FClientFakeControl <> nil then
-    TdxTabbedMDIClientControl(FClientFakeControl).TabPropertiesTabIndexChangedHandler(Sender);
+    TdxTabbedMDIClientControl(FClientFakeControl)
+      .TabPropertiesTabIndexChangedHandler(Sender);
+  if Assigned(FOnPageChanged) then
+    FOnPageChanged(Self);
 end;
 
 function TdxTabbedMDIManager.GetControllerClass: TdxTabbedMDITabControllerClass;
@@ -2384,15 +2571,18 @@ begin
   Result := TdxTabbedMDITabProperties;
 end;
 
-function TdxTabbedMDIManager.GetViewInfoClass: TdxTabbedMDITabControlViewInfoClass;
+function TdxTabbedMDIManager.GetViewInfoClass
+  : TdxTabbedMDITabControlViewInfoClass;
 begin
   Result := TdxTabbedMDITabControlViewInfo;
 end;
 
-
 initialization
-  dxTabbedMDIManagers := TList.Create;
+
+dxTabbedMDIManagers := TList.Create;
 
 finalization
-  FreeAndNil(dxTabbedMDIManagers);
+
+FreeAndNil(dxTabbedMDIManagers);
+
 end.
