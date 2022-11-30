@@ -1,48 +1,38 @@
-//------------------------------------------------------------------------------
+Ôªø//------------------------------------------------------------------------------
 //
-// ÃÓÎÓÚÓÍ ¿‰ÏËÌËÒÚ‡ÚÓ
+// –ú–æ–ª–æ—Ç–æ–∫ –ê–¥–º–∏–Ω–∏—Å—Ç—Ä–∞—Ç–æ—Ä
 //
-// (c) 2021-2023, ŒŒŒ œŒ–“¿Àœ–Œ
+// (c) 2021-2023, –û–û–û –ü–û–†–¢–ê–õ–ü–†–û
 //
-// Õ‡‰ÒÚÓÈÍ‡ ZEOS DBO ‰Îˇ MySQL
+// –ù–∞–¥—Å—Ç—Ä–æ–π–∫–∞ ZEOS DBO –¥–ª—è –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏—è EhLib –∏ MySQL
 //
 //------------------------------------------------------------------------------
 unit EhLibZeos;
-
 {$I EhLib.Inc}
-
 interface
-
 uses
   ToolCtrlsEh, DbUtilsEh, DBGridEh, Db, ZAbstractDataset,
   System.SysUtils;
-
 type
-
   TZeosDatasetFeaturesEh = class(TSQLDatasetFeaturesEh)
   public
     constructor Create; override;
     procedure ApplySorting(Sender: TObject; DataSet: TDataSet; IsReopen: Boolean); override;
     procedure ApplyFilter(Sender: TObject; DataSet: TDataSet; IsReopen: Boolean); override;
   end;
-
 implementation
-
 uses
   ZDataset;
-
 function DateValueToMySQLStringProc(DataSet: TDataSet; Value: Variant): String;
 begin
   Result := '"' + FormatDateTime('yyyy-mm-dd', Value) + '"';
 end;
 
 { TZeosDatasetFeaturesEh }
-
 function DateValueToSQLStringProc(DataSet: TDataSet; Value: Variant): String;
 begin
   Result := DateValueToDataBaseSQLString('STANDARD', Value)
 end;
-
 procedure TZeosDatasetFeaturesEh.ApplyFilter(Sender: TObject; DataSet: TDataSet; IsReopen: Boolean);
   var
     s : string;
@@ -62,7 +52,6 @@ begin
     else
       ApplyFilterSQLBasedDataSet(TDBGridEh(Sender), DataSet, DateValueToSQLStringProc, IsReopen, 'SQL');
 end;
-
 procedure TZeosDatasetFeaturesEh.ApplySorting(Sender: TObject; DataSet: TDataSet; IsReopen: Boolean);
 var
   s: String;
@@ -84,13 +73,11 @@ begin
     else
       inherited ApplySorting(Sender, DataSet, IsReopen);
 end;
-
 constructor TZeosDatasetFeaturesEh.Create;
 begin
   inherited;
   SupportsLocalLike := True;
 end;
-
 initialization
   RegisterDatasetFeaturesEh(TZeosDatasetFeaturesEh, TZAbstractDataset);
   DBUtilsEh.LFBr := '"';
