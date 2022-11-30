@@ -53,9 +53,9 @@
         <Manifest_File>None</Manifest_File>
         <Icon_MainIcon>Icon4.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1555</VerInfo_Build>
+        <VerInfo_Build>1700</VerInfo_Build>
         <VerInfo_Locale>1049</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Portal pro;FileDescription=Portal pro;FileVersion=1.0.0.1555;InternalName=;LegalCopyright=(c) 2021-2023, Portal pro;LegalTrademarks=;OriginalFilename=;ProductName=Portal pro;ProductVersion=0.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Portal pro;FileDescription=Portal pro;FileVersion=1.0.0.1700;InternalName=;LegalCopyright=(c) 2021-2023, Portal pro;LegalTrademarks=;OriginalFilename=;ProductName=Portal pro;ProductVersion=0.0.0.0;Comments=</VerInfo_Keys>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;VCLTee;System.Win;Data.Win;$(DCC_Namespace)</DCC_Namespace>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -1345,10 +1345,6 @@
             <Form>SelectDiscountForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="cxSchedulerEventEditor.pas">
-            <Form>cxSchedulerEventEditorForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="Select\USelectStatusType.pas">
             <Form>SelectStatusTypeForm</Form>
             <FormType>dfm</FormType>
@@ -1472,6 +1468,12 @@
         </DCCReference>
         <DCCReference Include="Select\USelectDistrict.pas">
             <Form>SelectDistrictForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Thirparty\EhlibZeos.pas"/>
+        <DCCReference Include="Thirparty\dxTabbedMDI.pas"/>
+        <DCCReference Include="Thirparty\cxSchedulerEventEditor.pas">
+            <Form>cxSchedulerEventEditorForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">

@@ -125,7 +125,6 @@ uses
   UGDiscountTypeParams in 'Guide\UGDiscountTypeParams.pas' {GDiscountTypeParamForm},
   UClientRequest in 'UClientRequest.pas' {ClientRequestForm},
   USelectDiscount in 'Select\USelectDiscount.pas' {SelectDiscountForm},
-  cxSchedulerEventEditor in 'cxSchedulerEventEditor.pas' {cxSchedulerEventEditorForm},
   USelectStatusType in 'Select\USelectStatusType.pas' {SelectStatusTypeForm},
   UGDistrict in 'Guide\UGDistrict.pas' {GDistrictForm},
   UGDistrictParams in 'Guide\UGDistrictParams.pas' {GDistrictParamForm},
@@ -157,7 +156,10 @@ uses
   UNoticeTemplateConditionParams in 'UNoticeTemplateConditionParams.pas' {NoticeTEmplateConditionParamForm},
   UGFAQ in 'Guide\UGFAQ.pas' {GFAQForm},
   UGFAQParams in 'Guide\UGFAQParams.pas' {GFAQParamForm},
-  USelectDistrict in 'Select\USelectDistrict.pas' {SelectDistrictForm};
+  USelectDistrict in 'Select\USelectDistrict.pas' {SelectDistrictForm},
+  EhlibZeos in 'Thirparty\EhlibZeos.pas',
+  dxTabbedMDI in 'Thirparty\dxTabbedMDI.pas',
+  cxSchedulerEventEditor in 'Thirparty\cxSchedulerEventEditor.pas' {cxSchedulerEventEditorForm};
 
 {$R *.RES}
 
