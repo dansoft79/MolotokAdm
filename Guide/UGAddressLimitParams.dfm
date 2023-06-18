@@ -24,7 +24,6 @@ object RecordParamsForm: TRecordParamsForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 4
-    ExplicitTop = 97
     DesignSize = (
       425
       36)
@@ -92,7 +91,7 @@ object RecordParamsForm: TRecordParamsForm
       #1056#1077#1075#1080#1086#1085
       #1053#1072#1089#1077#1083#1077#1085#1085#1099#1081' '#1087#1091#1085#1082#1090)
     Properties.OnChange = eChange
-    TabOrder = 1
+    TabOrder = 0
     Text = #1056#1077#1075#1080#1086#1085
     OnKeyDown = eKeyDown
     Width = 409
@@ -118,7 +117,7 @@ object RecordParamsForm: TRecordParamsForm
     Style.Font.Name = 'Tahoma'
     Style.Font.Style = []
     Style.IsFontAssigned = True
-    TabOrder = 3
+    TabOrder = 1
     OnExit = eAddressExit
     OnKeyDown = eKeyDown
     Height = 24

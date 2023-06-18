@@ -63,6 +63,7 @@ object GWorkTypeForm: TGWorkTypeForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -230,6 +231,7 @@ object GWorkTypeForm: TGWorkTypeForm
           Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
           Navigator.InfoPanel.Visible = True
           Navigator.Visible = True
+          ScrollbarAnnotations.CustomAnnotations = <>
           OnFocusedRecordChanged = ViewAddFocusedRecordChanged
           DataController.DataSource = dsWorkAdd
           DataController.Filter.Options = [fcoCaseInsensitive]
@@ -331,7 +333,6 @@ object GWorkTypeForm: TGWorkTypeForm
     HotZoneClassName = 'TcxSimpleStyle'
     AlignSplitter = salBottom
     Control = pRight
-    ExplicitHeight = 8
   end
   object DataSource: TDataSource
     DataSet = Query

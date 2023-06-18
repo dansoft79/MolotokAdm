@@ -40,7 +40,7 @@ uses
   dxNavBarOfficeNavigationBar
 
   {$Region '—кины'}
-  ,dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinOffice2007Green
+  ,dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinOffice2007Green, dxCore
   {$ENDRegion}
   ;
 
@@ -249,6 +249,12 @@ type
     qNoticeTemplate: TZQuery;
     agDiscountType: TAction;
     dxBarButton41: TdxBarButton;
+    aaBrowseOrderHist: TAction;
+    dxBarButton42: TdxBarButton;
+    agMaterialType: TAction;
+    dxBarButton43: TdxBarButton;
+    agWorkRestDay: TAction;
+    dxBarButton44: TdxBarButton;
     procedure FormCreate(Sender: TObject);
     procedure afExitExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -330,6 +336,9 @@ type
     procedure NotificationTimerTimer(Sender: TObject);
     procedure aaBrowseNotificetionExecute(Sender: TObject);
     procedure agDiscountTypeExecute(Sender: TObject);
+    procedure aaBrowseOrderHistExecute(Sender: TObject);
+    procedure agMaterialTypeExecute(Sender: TObject);
+    procedure agWorkRestDayExecute(Sender: TObject);
   private
     FActiveActions : integer; //дл€ работы команд из тре€
     FMinimized : boolean;
@@ -521,17 +530,18 @@ uses
   UProgress, UWaiting, UOptions, UQuery,
   USupport, UEditString, UEditInteger,
   UNoticeOptionsTime, UNoticeOptionsAction, UBrowseNotification,
+  USelectWorker,
 
   //справочники
   UGUserRole, UGUser, UGReportForm,
   UGDistrict, UGMetro, UGSourceType, UGSignalType, UGWorkClass, UGWorkType,
   UGOrderTag, UGWorkerClass, UGPaymentForm, UGStatusType,
   UGWorkerCompany, UGWorker, UGClient, UGReason, UGFaq, UGSearchHint,
-  UGAddressLimit, UGDiscountType,
+  UGAddressLimit, UGDiscountType, UGMaterialType, UGWorkRestDay,
 
   //рабочие инструменты
   UOrderList, UClientRequest, UWorkTypeSynonym, UWorkerLead, UBrowseOrderArch,
-  UNoticeTemplate, UNoticeTemplateSnap;
+  UNoticeTemplate, UNoticeTemplateSnap, UBrowseOrderHistory;
 
 const
   NavBarStyleNames : array [TcxLookAndFeelKind] of string = ('BaseView', 'FlatView', 'UltraFlatExplorerBarView', 'Office11TaskPaneView');
@@ -1361,6 +1371,7 @@ begin
     aaWorkTypeSynonym.Enabled := vOpen;
     aaWorkerLead.Enabled := vOpen;
     aaBrowseOrderArch.Enabled := vOpen;
+    aaBrowseOrderHist.Enabled := vOpen;
 
     //администрирование
     aaSQLQuery.Enabled := vOpen and GetUserAdmin;
@@ -1390,6 +1401,7 @@ begin
     agSignalType.Enabled := vOpen;
     agWorkClass.Enabled := vOpen;
     agWorkType.Enabled := vOpen;
+    agMaterialType.Enabled := vOpen;
     agOrderTag.Enabled := vOpen;
     agWorkerClass.Enabled := vOpen;
     agPaymentForm.Enabled := vOpen;
@@ -1401,6 +1413,7 @@ begin
     agFaq.Enabled := vOpen;
     agSearchHint.Enabled := vOpen;
     agAddressLimit.Enabled := vOpen;
+    agWorkRestDay.Enabled := vOpen;
 
     //расширени€
     UpdatePluginState;
@@ -1738,6 +1751,7 @@ begin
   aaWorkTypeSynonym.Visible := vIsExpert;
   aaWorkerLead.Visible := vIsExpert;
   aaBrowseOrderArch.Visible := vIsExpert;
+  aaBrowseOrderHist.Visible := vIsExpert;
 
   //администрирование
   aaSQLQuery.Visible := vIsExpert;
@@ -1777,6 +1791,8 @@ begin
   agFaq.Visible := vIsExpert;
   agSearchHint.Visible := vIsExpert;
   agAddressLimit.Visible := vIsExpert;
+  agMaterialType.Visible := vIsExpert;
+  agWorkRestDay.Visible := vIsExpert;
 
   //окна
   awHor.Visible := not OneWindow;
@@ -1803,7 +1819,8 @@ begin
   else dxHelp.Visible := ivNever;}
 
   //пр€чем
-  TabbedMDIManager.Active := OneWindow;
+//  TabbedMDIManager.Active := OneWindow;
+  TabbedMDIManager.Active := true;
 
   if OneWindow then
   begin
@@ -2056,6 +2073,11 @@ begin
   ShowFaq(agFaq);
 end;
 
+procedure TMainForm.agMaterialTypeExecute(Sender: TObject);
+begin
+  ShowMaterialType(agMaterialType);
+end;
+
 procedure TMainForm.agMetroExecute(Sender: TObject);
 begin
   ShowMetro(agMetro);
@@ -2109,6 +2131,14 @@ end;
 procedure TMainForm.agWorkerExecute(Sender: TObject);
 begin
   ShowWorker(agWorker);
+end;
+
+procedure TMainForm.agWorkRestDayExecute(Sender: TObject);
+  var
+    vID : integer;
+begin
+  if SelectWorker(vID) then
+    ShowWorkRestDay(vID, agWorkRestDay);
 end;
 
 procedure TMainForm.aaWorkerLeadExecute(Sender: TObject);
@@ -2173,6 +2203,17 @@ begin
   FD := DateToStr(IncMonth(Date, -1));
 
   BrowseOrderArch(aaBrowseOrderArch, FD, TD);
+end;
+
+procedure TMainForm.aaBrowseOrderHistExecute(Sender: TObject);
+  var
+    FD, TD : string;
+begin
+  TD := DateToStr(Date);
+//  FD := DateToStr(IncMonth(Date, -1));
+  FD := DateToStr(Date);
+
+  BrowseOrderHist(aaBrowseOrderHist, FD, TD);
 end;
 
 procedure TMainForm.aaChangePasswordExecute(Sender: TObject);
@@ -2270,7 +2311,7 @@ end;
 
 procedure TMainForm.ReadNotification;
   var
-    vImageIndex, vColor, vShowTime, vIDN, vIDOL, vIDNT : integer;
+    vType, vImageIndex, vColor, vShowTime, vIDN, vIDOL, vIDNT : integer;
     vHeader, vText : string;
 begin
   FNewReadNotification := ServerTime;
@@ -2285,20 +2326,29 @@ begin
   begin
     vIDN := qNotification.FieldByName('ID').AsInteger;
     vIDNT := qNotification.FieldByName('ID_NoticeTemplate').AsInteger;
+    vType := qNotification.FieldByName('Type').AsInteger;
 
-    if Datas.AlertImageID.Strings.IndexOfName(IntToStr(vIDNT)) = -1 then
-      UpdateNotificationImages;
+    if vType = 0 then
+    begin
+      if Datas.AlertImageID.Strings.IndexOfName(IntToStr(vIDNT)) = -1 then
+        UpdateNotificationImages;
 
-    vImageIndex := StrToInt(Datas.AlertImageID.Strings.Values[IntToStr(vIDNT)]);
+      vImageIndex := StrToInt(Datas.AlertImageID.Strings.Values[IntToStr(vIDNT)]);
 
-    vIDOL := qNotification.FieldByName('ID_OrderList').AsInteger;
+      vIDOL := qNotification.FieldByName('ID_OrderList').AsInteger;
+    end
+    else
+    begin
+      vImageIndex := -1;
+      vIDOL := 0;
+    end;
 
     vHeader := '(' + qNotification.FieldBYName('ID').AsString + ') ' + qNotification.FieldByName('Header').AsString;
     vText := qNotification.FieldByName('Text').AsString;
     vColor := qNotification.FieldByName('Color').AsInteger;
     vShowTime := qNotification.FieldByName('ShowTime').AsInteger;
 
-    ShowNotification(vIDN, vIDOL, vHeader, vText, vColor, vShowTime, vImageIndex, 'fixed');
+    ShowNotification(vType, vIDN, vIDOL, vHeader, vText, vColor, vShowTime, vImageIndex, 'fixed');
 
     qNotification.Next;
   end;

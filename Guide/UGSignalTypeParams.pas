@@ -32,6 +32,7 @@ type
     eCode: TcxTextEdit;
     cxLabel2: TcxLabel;
     eColor: TdxColorEdit;
+    cbShowWorker: TcxCheckBox;
     procedure eChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure eKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -45,7 +46,7 @@ type
 function GetSignalTypeParams(
   var AActive : integer;
   var AName, ACode : string;
-  var AColor, ADef : integer;
+  var AColor, ADef, AShowWorker : integer;
   var AComment : string) : boolean;
 
 implementation
@@ -58,13 +59,14 @@ uses
 function GetSignalTypeParams(
   var AActive : integer;
   var AName, ACode : string;
-  var AColor, ADef : integer;
+  var AColor, ADef, AShowWorker : integer;
   var AComment : string) : boolean;
 begin
   with TGSignalTypeParamForm.Create(nil) do
     try
 //      cbActive.Checked := AActive = 1;
       cbDef.Checked := ADef = 1;
+      cbShowWorker.Checked := AShowWorker = 1;
       eName.Text := AName;
       eCode.Text := ACode;
       eColor.EditValue := AColor;
@@ -78,6 +80,7 @@ begin
       begin
 //        AActive := BooleanToInt(cbActive.Checked);
         ADef := BooleanToInt(cbDef.Checked);
+        AShowWorker := BooleanToInt(cbShowWorker.Checked);
         AName := eName.Text;
         ACode := eCode.Text;
         AColor := eColor.EditValue;

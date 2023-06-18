@@ -290,6 +290,7 @@ object NoticeTemplateParamForm: TNoticeTemplateParamForm
         Navigator.Buttons.GotoBookmark.Visible = False
         Navigator.Buttons.Filter.Visible = False
         Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsCond
         DataController.Filter.Options = [fcoCaseInsensitive]
         DataController.Summary.DefaultGroupSummaryItems = <>
@@ -353,6 +354,7 @@ object NoticeTemplateParamForm: TNoticeTemplateParamForm
         Navigator.Buttons.GotoBookmark.Visible = False
         Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
         Navigator.InfoPanel.Visible = True
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsCond
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <
@@ -537,6 +539,7 @@ object NoticeTemplateParamForm: TNoticeTemplateParamForm
         Navigator.Buttons.GotoBookmark.Visible = False
         Navigator.Buttons.Filter.Visible = False
         Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsAction
         DataController.Filter.Options = [fcoCaseInsensitive]
         DataController.Summary.DefaultGroupSummaryItems = <>
@@ -600,6 +603,7 @@ object NoticeTemplateParamForm: TNoticeTemplateParamForm
         Navigator.Buttons.GotoBookmark.Visible = False
         Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
         Navigator.InfoPanel.Visible = True
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsCond
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <

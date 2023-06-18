@@ -230,8 +230,8 @@ end;
 procedure TGWorkerCompanyParamForm.SetOKEnabled;
 begin
   bOK.Enabled :=
-    (Trim(eName.Text) <> '') and (Trim(eOrgType.Text) <> '') and
-    IsDate(eComissionDate.Text);
+    (Trim(eName.Text) <> '') and (Trim(eOrgType.Text) <> '')
+//    and IsDate(eComissionDate.Text);
 end;
 
 procedure TGWorkerCompanyParamForm.eKeyDown(Sender: TObject; var Key: Word;

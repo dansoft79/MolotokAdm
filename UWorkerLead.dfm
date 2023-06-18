@@ -3,8 +3,8 @@ object WorkerLeadForm: TWorkerLeadForm
   Top = 196
   Action = MainForm.aaWorkerLead
   Caption = #1051#1080#1076#1099' '#1080#1089#1087#1086#1083#1085#1080#1090#1077#1083#1077#1081
-  ClientHeight = 391
-  ClientWidth = 805
+  ClientHeight = 497
+  ClientWidth = 1601
   Color = clBtnFace
   Constraints.MinHeight = 200
   Constraints.MinWidth = 350
@@ -23,8 +23,8 @@ object WorkerLeadForm: TWorkerLeadForm
   TextHeight = 13
   object StatusBar: TdxStatusBar
     Left = 0
-    Top = 370
-    Width = 805
+    Top = 476
+    Width = 1601
     Height = 21
     Panels = <
       item
@@ -33,12 +33,14 @@ object WorkerLeadForm: TWorkerLeadForm
       end>
     PaintStyle = stpsUseLookAndFeel
     ParentFont = True
+    ExplicitTop = 370
+    ExplicitWidth = 805
   end
   object Grid: TcxGrid
     Left = 0
     Top = 50
-    Width = 805
-    Height = 320
+    Width = 1601
+    Height = 426
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -47,6 +49,8 @@ object WorkerLeadForm: TWorkerLeadForm
     Font.Style = []
     ParentFont = False
     TabOrder = 5
+    ExplicitWidth = 805
+    ExplicitHeight = 320
     object TableView: TcxGridDBTableView
       OnDblClick = DBGridDblClick
       OnKeyDown = TableViewKeyDown
@@ -63,6 +67,7 @@ object WorkerLeadForm: TWorkerLeadForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -94,45 +99,47 @@ object WorkerLeadForm: TWorkerLeadForm
         DataBinding.FieldName = 'AssertUser'
         Visible = False
       end
-      object TableViewDeleted: TcxGridDBColumn
-        DataBinding.FieldName = 'Deleted'
-        Visible = False
-      end
-      object TableViewState: TcxGridDBColumn
-        DataBinding.FieldName = 'Processed'
-        RepositoryItem = Datas.EditRepositoryIntCheckBox
-        Width = 87
-      end
-      object TableViewSurname: TcxGridDBColumn
-        DataBinding.FieldName = 'Surname'
+      object TableViewStatusTypeInfo: TcxGridDBColumn
+        DataBinding.FieldName = 'StatusTypeInfo'
         Width = 150
-      end
-      object TableViewName: TcxGridDBColumn
-        DataBinding.FieldName = 'Name'
-        Width = 100
-      end
-      object TableViewPatro: TcxGridDBColumn
-        DataBinding.FieldName = 'Patro'
-        Width = 100
-      end
-      object TableViewCity: TcxGridDBColumn
-        DataBinding.FieldName = 'City'
-        Width = 100
-      end
-      object TableViewPhone: TcxGridDBColumn
-        DataBinding.FieldName = 'Phone'
-      end
-      object TableViewInfo: TcxGridDBColumn
-        DataBinding.FieldName = 'Info'
-        Width = 200
       end
       object TableViewWCInfo: TcxGridDBColumn
         DataBinding.FieldName = 'WCInfo'
         Width = 150
       end
+      object TableViewFIO: TcxGridDBColumn
+        DataBinding.FieldName = 'FIO'
+        Width = 150
+      end
+      object TableViewPhone: TcxGridDBColumn
+        DataBinding.FieldName = 'Phone'
+      end
+      object TableViewDistrInfo: TcxGridDBColumn
+        DataBinding.FieldName = 'DistrInfo'
+        Width = 150
+      end
+      object TableViewLeadDateTime: TcxGridDBColumn
+        DataBinding.FieldName = 'LeadDateTime'
+      end
+      object TableViewLeadDateTimeComment: TcxGridDBColumn
+        DataBinding.FieldName = 'LeadDateTimeComment'
+        Width = 150
+      end
       object TableViewComment: TcxGridDBColumn
         DataBinding.FieldName = 'Comment'
-        Width = 300
+        Width = 200
+      end
+      object TableViewInfo: TcxGridDBColumn
+        DataBinding.FieldName = 'Info'
+        Width = 200
+      end
+      object TableViewDeleted: TcxGridDBColumn
+        DataBinding.FieldName = 'Deleted'
+        RepositoryItem = Datas.EditRepositoryIntCheckBox
+      end
+      object TableViewActive: TcxGridDBColumn
+        DataBinding.FieldName = 'Active'
+        RepositoryItem = Datas.EditRepositoryIntCheckBox
       end
     end
     object Level: TcxGridLevel
@@ -207,6 +214,15 @@ object WorkerLeadForm: TWorkerLeadForm
         item
           BeginGroup = True
           Visible = True
+          ItemName = 'dxBarButton6'
+        end
+        item
+          BeginGroup = True
+          Visible = True
+          ItemName = 'cbActive'
+        end
+        item
+          Visible = True
           ItemName = 'cbDel'
         end
         item
@@ -244,6 +260,10 @@ object WorkerLeadForm: TWorkerLeadForm
     end
     object dxBarButton8: TdxBarButton
       Action = aPrint
+      Category = 0
+    end
+    object dxBarButton6: TdxBarButton
+      Action = aStatusTypeLead
       Category = 0
     end
     object cbDel: TdxBarCombo
@@ -322,19 +342,28 @@ object WorkerLeadForm: TWorkerLeadForm
       ShortCut = 16464
       OnExecute = aPrintExecute
     end
+    object aStatusTypeLead: TAction
+      Caption = 'aStatusTypeLead'
+      ImageIndex = 273
+      OnExecute = aStatusTypeLeadExecute
+    end
   end
   object Query: TZQuery
     Connection = Datas.ZConnection
     AfterOpen = QueryAfterOpen
     AfterScroll = QueryAfterScroll
     SQL.Strings = (
+      'select *,'
       
-        'select *, UserInfo(ID_AssertUser) as AssertUser, WorkClassInfo(I' +
-        'D_WorkClass) as WCInfo'
+        '  UserInfo(ID_AssertUser) as AssertUser, WorkClassInfo(ID_WorkCl' +
+        'ass) as WCInfo,'
+      
+        '  DistrictInfo(ID_DistrictLive) as DistrInfo, StatusTypeLeadInfo' +
+        '(ID_StatusTypeLead) as StatusTypeInfo'
       'from WorkerLead'
       'where (Deleted = :D or :D = 2) and (Active = :A or :A = 2)'
       'order by '
-      '  Surname, Name, Patro')
+      '  WCInfo, FIO')
     Params = <
       item
         DataType = ftWideString
@@ -388,30 +417,10 @@ object WorkerLeadForm: TWorkerLeadForm
       DisplayLabel = #1042#1088#1077#1084#1103' '#1087#1088#1080#1084#1077#1085#1077#1085#1080#1103
       FieldName = 'AssertTime'
     end
-    object QuerySurname: TWideStringField
-      DisplayLabel = #1060#1072#1084#1080#1083#1080#1103
-      FieldName = 'Surname'
-      Size = 50
-    end
-    object QueryName: TWideStringField
-      DisplayLabel = #1048#1084#1103
-      FieldName = 'Name'
-      Size = 50
-    end
-    object QueryPatro: TWideStringField
-      DisplayLabel = #1054#1090#1095#1077#1089#1090#1074#1086
-      FieldName = 'Patro'
-      Size = 50
-    end
     object QueryComment: TWideStringField
       DisplayLabel = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081
       FieldName = 'Comment'
       Size = 200
-    end
-    object QueryCity: TWideStringField
-      DisplayLabel = #1043#1086#1088#1086#1076
-      FieldName = 'City'
-      Size = 50
     end
     object QueryID_WorkClass: TSmallintField
       FieldName = 'ID_WorkClass'
@@ -426,15 +435,47 @@ object WorkerLeadForm: TWorkerLeadForm
       Size = 200
     end
     object QueryWCInfo: TWideStringField
-      DisplayLabel = #1058#1080#1087' '#1088#1072#1073#1086#1090#1099
+      DisplayLabel = #1055#1088#1086#1092#1077#1089#1089#1080#1103
       FieldName = 'WCInfo'
       ReadOnly = True
       Size = 50
     end
-    object QueryProcessed: TSmallintField
-      DisplayLabel = #1054#1073#1088#1072#1073#1086#1090#1072#1085#1072
-      FieldName = 'Processed'
+    object QueryID_StatusTypeLead: TSmallintField
+      FieldName = 'ID_StatusTypeLead'
       ReadOnly = True
+    end
+    object QueryFIO: TWideStringField
+      DisplayLabel = #1060#1048#1054
+      FieldName = 'FIO'
+      ReadOnly = True
+      Size = 800
+    end
+    object QueryID_DistrictLive: TSmallintField
+      FieldName = 'ID_DistrictLive'
+      ReadOnly = True
+    end
+    object QueryLeadDateTime: TDateTimeField
+      DisplayLabel = #1044#1072#1090#1072' '#1080' '#1074#1088#1077#1084#1103
+      FieldName = 'LeadDateTime'
+      ReadOnly = True
+    end
+    object QueryLeadDateTimeComment: TWideStringField
+      DisplayLabel = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081' '#1082' '#1076#1072#1090#1077
+      FieldName = 'LeadDateTimeComment'
+      ReadOnly = True
+      Size = 800
+    end
+    object QueryDistrInfo: TWideStringField
+      DisplayLabel = #1056#1072#1081#1086#1085
+      FieldName = 'DistrInfo'
+      ReadOnly = True
+      Size = 200
+    end
+    object QueryStatusTypeInfo: TWideStringField
+      DisplayLabel = #1057#1090#1072#1090#1091#1089
+      FieldName = 'StatusTypeInfo'
+      ReadOnly = True
+      Size = 200
     end
   end
   object Table: TZQuery

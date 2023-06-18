@@ -26,7 +26,7 @@ uses
   DBGridEhToolCtrls, DynVarsEh, cxContainer, cxTextEdit, cxRichEdit,
   cxDBRichEdit, cxImage, cxDBEdit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
   PropFilerEh, PropStorageEh, dxColorEdit, cxSplitter, cxGroupBox, cxPC,
-  dxDockControl, dxDockPanel, cxCustomListBox, cxListBox;
+  dxDockControl, dxDockPanel, cxCustomListBox, cxListBox, dxScrollbarAnnotations;
 
 type
   TGStatusTypeForm = class(TForm)
@@ -141,6 +141,14 @@ type
     TableViewShowWarrantyButton: TcxGridDBColumn;
     QueryNeedCall: TSmallintField;
     TableViewNeedCall: TcxGridDBColumn;
+    QueryCode: TWideStringField;
+    QueryMasterNotify: TSmallintField;
+    QueryMasterNotifyText: TWideStringField;
+    TableViewCode: TcxGridDBColumn;
+    TableViewMasterNotify: TcxGridDBColumn;
+    TableViewMasterNotifyText: TcxGridDBColumn;
+    QueryFinStatusCancel: TSmallintField;
+    TableViewFinStatusCancel: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -655,10 +663,11 @@ end;
 
 function TGStatusTypeForm.AddStatusTypeDialog(var IDStatusType: integer): boolean;
   var
-    vName, vNamePublic, vComment : string;
-    vColor, vStatusOrder, vDefStatus, vFinStatus, vWorkerVisible, vWorkerSetup, vActive : integer;
+    vName, vNamePublic, vMasterNotifyText, vComment : string;
+    vColor, vStatusOrder, vDefStatus, vFinStatus, vFinStatusCancel, vWorkerVisible, vWorkerSetup, vActive : integer;
     vTrimTime, vShowCancelButton, vShowPayButton, vShowWarrantyButton : integer;
-    vNeedCall : integer;
+    vNeedCall, vMasterNotify : integer;
+    vCode : string;
 begin
   vActive := 1;
   vName := '';
@@ -667,6 +676,7 @@ begin
   vColor := clNone;
   vDefStatus := 0;
   vFinStatus := 0;
+  vFinStatusCancel := 0;
   vWorkerVisible := 0;
   vWorkerSetup := 0;
   vTrimTime := 0;
@@ -674,7 +684,10 @@ begin
   vShowPayButton := 0;
   vShowWarrantyButton := 0;
   vNeedCall := 0;
+  vMasterNotify := 0;
+  vMasterNotifyText := '';
   vComment := '';
+  vCode := '';
 
   Result :=
     GetStatusTypeParams(
@@ -685,6 +698,7 @@ begin
       vStatusOrder,
       vDefStatus,
       vFinStatus,
+      vFinStatusCancel,
       vWorkerVisible,
       vWorkerSetup,
       vTrimTime,
@@ -692,7 +706,10 @@ begin
       vShowPayButton,
       vShowWarrantyButton,
       vNeedCall,
-      vComment
+      vMasterNotify,
+      vMasterNotifyText,
+      vComment,
+      vCode
       );
 
   if Result then
@@ -715,6 +732,7 @@ begin
       FieldByName('Color').AsInteger := vColor;
       FieldByName('DefStatus').AsInteger := vDefStatus;
       FieldByName('FinStatus').AsInteger := vFinStatus;
+      FieldByName('FinStatusCancel').AsInteger := vFinStatusCancel;
 
       FieldByName('WorkerVisible').AsInteger := vWorkerVisible;
       FieldByName('WorkerSetup').AsInteger := vWorkerSetup;
@@ -725,10 +743,16 @@ begin
       FieldByName('ShowWarrantyButton').AsInteger := vShowWarrantyButton;
       FieldByName('NeedCall').AsInteger := vNeedCall;
 
+      FieldByName('MasterNotify').Asinteger := vMasterNotify;
+      FieldByName('MasterNotifyText').AsString := vMasterNotifyText;
+
       vShowPayButton := 0;
       vShowWarrantyButton := 0;
 
       FieldByName('Comment').AsString := vComment;
+
+      FieldByname('Code').AsString := vCode;
+
       Post;
       IDStatusType := FieldByName('ID').AsInteger;
       Close;
@@ -736,8 +760,8 @@ begin
       if vDefStatus = 1 then
         UDatas.ExecSQL('update StatusType set defStatus = 0 where ID <> ' + IntToStr(IDStatusType));
 
-      if vFinStatus = 1 then
-        UDatas.ExecSQL('update StatusType set finStatus = 0 where ID <> ' + IntToStr(IDStatusType));
+{      if vFinStatus = 1 then
+        UDatas.ExecSQL('update StatusType set finStatus = 0 where ID <> ' + IntToStr(IDStatusType));}
 
       Query.Refresh;
 
@@ -783,10 +807,11 @@ end;
 
 function TGStatusTypeForm.EditStatusTypeDialog: boolean;
   var
-    vName, vNamePublic, vComment : string;
-    vColor, vStatusOrder, vDefStatus, vFinStatus, vWorkerVisible, vWorkerSetup, vActive, vID : integer;
+    vName, vNamePublic, vMasterNotifyText, vComment : string;
+    vColor, vStatusOrder, vDefStatus, vFinStatus, vFinStatusCancel, vWorkerVisible, vWorkerSetup, vActive, vID : integer;
     vTrimTime, vShowCancelButton, vShowPayButton, vShowWarrantyButton : integer;
-    vNeedCall : integer;
+    vNeedCall, vMasterNotify : integer;
+    vCode : string;
 begin
   with Query do
   begin
@@ -797,6 +822,7 @@ begin
     vColor := FieldByName('Color').AsInteger;
     vDefStatus := FieldByName('DefStatus').AsInteger;
     vFinStatus := FieldByName('FinStatus').AsInteger;
+    vFinStatusCancel := FieldByName('FinStatusCancel').AsInteger;
     vWorkerVisible := FieldByName('WorkerVisible').AsInteger;
     vWorkerSetup := FieldByName('WorkerSetup').AsInteger;
 
@@ -806,7 +832,13 @@ begin
     vShowWarrantyButton := FieldByName('ShowWarrantyButton').AsInteger;
     vNeedCall := FieldByName('NeedCall').AsInteger;
 
+    vMasterNotify := FieldByName('MasterNotify').Asinteger;
+    vMasterNotifyText := FieldByName('MasterNotifyText').AsString;
+
     vComment := FieldByName('Comment').AsString;
+
+    vCode := FieldByname('Code').AsString;
+
     vID := FieldByName('ID').AsInteger;
   end;
 
@@ -819,6 +851,7 @@ begin
       vStatusOrder,
       vDefStatus,
       vFinStatus,
+      vFinStatusCancel,
       vWorkerVisible,
       vWorkerSetup,
       vTrimTime,
@@ -826,7 +859,11 @@ begin
       vShowPayButton,
       vShowWarrantyButton,
       vNeedCall,
-      vComment);
+      vMasterNotify,
+      vMasterNotifyText,
+      vComment,
+      vCode
+      );
 
   if Result then
   begin
@@ -846,6 +883,7 @@ begin
       FieldByName('Color').AsInteger := vColor;
       FieldByName('DefStatus').AsInteger := vDefStatus;
       FieldByName('FinStatus').AsInteger := vFinStatus;
+      FieldByName('FinStatusCancel').AsInteger := vFinStatusCancel;
       FieldByName('WorkerVisible').AsInteger := vWorkerVisible;
       FieldByName('WorkerSetup').AsInteger := vWorkerSetup;
 
@@ -856,15 +894,21 @@ begin
 
       FieldByName('NeedCall').AsInteger := vNeedCall;
 
+      FieldByName('MasterNotify').Asinteger := vMasterNotify;
+      FieldByName('MasterNotifyText').AsString := vMasterNotifyText;
+
       FieldByName('Comment').AsString := vComment;
+
+      FieldByname('Code').AsString := vCode;
+
       Post;
       Close;
 
       if vDefStatus = 1 then
         UDatas.ExecSQL('update StatusType set defStatus = 0 where ID <> ' + IntToStr(vID));
 
-      if vFinStatus = 1 then
-        UDatas.ExecSQL('update StatusType set finStatus = 0 where ID <> ' + IntToStr(vID));
+{      if vFinStatus = 1 then
+        UDatas.ExecSQL('update StatusType set finStatus = 0 where ID <> ' + IntToStr(vID));}
 
       Query.Refresh;
 

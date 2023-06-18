@@ -25,7 +25,7 @@ uses
   cxNavigator, dxDateRanges, dxBarBuiltInMenu, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, cxContainer, cxTextEdit, cxRichEdit,
   cxDBRichEdit, cxImage, cxDBEdit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
-  PropFilerEh, PropStorageEh;
+  PropFilerEh, PropStorageEh, dxScrollbarAnnotations;
 
 type
   TGWorkerCompanyForm = class(TForm)

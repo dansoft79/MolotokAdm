@@ -19,7 +19,7 @@ uses
   cxTextEdit, cxSpinEdit, cxCheckComboBox, cxCalendar, Menus,
   cxLookAndFeelPainters, cxButtons, cxCalc, cxEditRepositoryItems, 
   cxButtonEdit, dxSkinsCore, dxSkinsDefaultPainters, ActnList, cxLookAndFeels,
-  cxImageComboBox, System.Actions, cxClasses, cxMaskEdit;
+  cxImageComboBox, System.Actions, cxClasses, cxMaskEdit, dxScrollbarAnnotations;
 
 type
   TGEnterpriseForm = class(TForm)
@@ -32,8 +32,8 @@ type
     eAddress: TcxEditorRow;
     eMasterName: TcxEditorRow;
     eName: TcxEditorRow;
-    GridCategoryRow1: TcxCategoryRow;
-    GridCategoryRow2: TcxCategoryRow;
+    gMain: TcxCategoryRow;
+    gOptions: TcxCategoryRow;
     eWorkDay: TcxEditorRow;
     GridCategoryRow3: TcxCategoryRow;
     EditRepository: TcxEditRepository;
@@ -78,7 +78,7 @@ type
     eWorkTime: TcxEditorRow;
     eOldOrderTime: TcxEditorRow;
     eCheckUpdateTime: TcxEditorRow;
-    GridCategoryRow6: TcxCategoryRow;
+    gClientSite: TcxCategoryRow;
     eSignalTypeLead: TcxEditorRow;
     eStatusTypeLead: TcxEditorRow;
     eSourceTypeLead: TcxEditorRow;
@@ -113,6 +113,9 @@ type
     eStatusMasterButtonCameOrder: TcxEditorRow;
     eStatusMasterButtonLateOrder: TcxEditorRow;
     eSignalMasterLaterOrder: TcxEditorRow;
+    eINN: TcxEditorRow;
+    eOGRN: TcxEditorRow;
+    eAddressJur: TcxEditorRow;
     procedure FormShow(Sender: TObject);
     procedure eChange(Sender: TObject);
     procedure GridKeyDown(Sender: TObject; var Key: Word;
@@ -131,14 +134,10 @@ type
   end;
 
 function EditEnterpriseParams(
-  var vName,
-      vShortName,
-      vMasterName,
-      vMasterPost,
-      vAddress,
-      vPhone,
-      vEMail,
-      vWEBSite,
+  var AName, AShortName, AINN, AOGRN,
+      AMasterName, AMasterPost,
+      AAddress, AAddressJur,
+      APhone, AEMail, AWEBSite,
       AAPIKeyDadata, ASecretKeyDadata : string;
   var AWorkDay, AWorkTime : string;
   var AOldOrderTime, ACheckUpdateTime, ANotificationTime : integer;
@@ -184,14 +183,10 @@ uses
   DTKUtils, MainUnit, Dateutils, Variants, USelectTypeDB, UConnectionSMTP;
 
 function EditEnterpriseParams(
-  var vName,
-      vShortName,
-      vMasterName,
-      vMasterPost,
-      vAddress,
-      vPhone,
-      vEMail,
-      vWEBSite,
+  var AName, AShortName, AINN, AOGRN,
+      AMasterName, AMasterPost,
+      AAddress, AAddressJur,
+      APhone, AEMail, AWEBSite,
       AAPIKeyDadata, ASecretKeyDadata : string;
   var AWorkDay, AWorkTime : string;
   var AOldOrderTime, ACheckUpdateTime, ANotificationTime : integer;
@@ -233,14 +228,17 @@ begin
       bOK.Enabled := CanEditInActionByAction(MainForm.agEnterprise);
       Grid.OptionsData.Editing := bOK.Enabled;
 
-      eName.Properties.Value := vName;
-      eShortName.Properties.Value := vShortName;
-      eMasterName.Properties.Value := vMasterName;
-      eMasterPost.Properties.Value := vMasterPost;
-      eAddress.Properties.Value := vAddress;
-      ePhone.Properties.Value := vPhone;
-      eEMail.Properties.Value := vEMail;
-      eWEBSite.Properties.Value := vWEBSite;
+      eName.Properties.Value := AName;
+      eShortName.Properties.Value := AShortName;
+      eINN.Properties.Value := AINN;
+      eOGRN.Properties.Value := AOGRN;
+      eMasterName.Properties.Value := AMasterName;
+      eMasterPost.Properties.Value := AMasterPost;
+      eAddress.Properties.Value := AAddress;
+      eAddressJur.Properties.Value := AAddressJur;
+      ePhone.Properties.Value := APhone;
+      eEMail.Properties.Value := AEMail;
+      eWEBSite.Properties.Value := AWEBSite;
       eAPIKeyDadata.Properties.Value := AAPIKeyDadata;
       eSecretKeyDadata.Properties.Value := ASecretKeyDadata;
 
@@ -355,7 +353,8 @@ begin
       FillPropComboBoxExSQL(eStatusMasterButtonStartWork.Properties, 'select ID, Name from StatusType order by Name', 'Name', 'ID');
       SetPropItemIndexByID(eStatusMasterButtonStartWork.Properties, AIDStatusMasterButtonStartWork);
 
-      FillPropComboBoxExSQL(eStatusMasterButtonSendPay.Properties, 'select ID, Name from StatusType where ShowPayButton = 1 order by Name', 'Name', 'ID');
+//      FillPropComboBoxExSQL(eStatusMasterButtonSendPay.Properties, 'select ID, Name from StatusType where ShowPayButton = 1 order by Name', 'Name', 'ID');
+      FillPropComboBoxExSQL(eStatusMasterButtonSendPay.Properties, 'select ID, Name from StatusType order by Name', 'Name', 'ID');
       SetPropItemIndexByID(eStatusMasterButtonSendPay.Properties, AIDStatusMasterButtonSendPay);
 
       FillPropComboBoxExSQL(eStatusMasterButtonClientPaid.Properties, 'select ID, Name from StatusType order by Name', 'Name', 'ID');
@@ -368,14 +367,17 @@ begin
 
       if Result then
       begin
-        vName := IsNull(eName.Properties.Value, '');
-        vShortName := IsNull(eShortName.Properties.Value, '');
-        vMasterName := IsNull(eMasterName.Properties.Value, '');
-        vMasterPost := IsNull(eMasterPost.Properties.Value, '');
-        vAddress := IsNull(eAddress.Properties.Value, '');
-        vPhone := IsNull(ePhone.Properties.Value, '');
-        vEMail := IsNull(eEMail.Properties.Value, '');
-        vWEBSite := IsNull(eWEBSite.Properties.Value, '');
+        AName := IsNull(eName.Properties.Value, '');
+        AShortName := IsNull(eShortName.Properties.Value, '');
+        AINN := IsNull(eINN.Properties.Value, '');
+        AOGRN := IsNull(eOGRN.Properties.Value, '');
+        AMasterName := IsNull(eMasterName.Properties.Value, '');
+        AMasterPost := IsNull(eMasterPost.Properties.Value, '');
+        AAddress := IsNull(eAddress.Properties.Value, '');
+        AAddressJur := IsNull(eAddressJur.Properties.Value, '');
+        APhone := IsNull(ePhone.Properties.Value, '');
+        AEMail := IsNull(eEMail.Properties.Value, '');
+        AWEBSite := IsNull(eWEBSite.Properties.Value, '');
         AAPIKeyDadata := IsNull(eAPIKeyDadata.Properties.Value, '');
         ASecretKeyDadata := IsNull(eSecretKeyDadata.Properties.Value, '');
 

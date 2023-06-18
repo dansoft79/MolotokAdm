@@ -22,7 +22,8 @@ uses types,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, dxSkinsCore,
   dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinsdxStatusBarPainter,
   dxSkinsdxBarPainter, cxLookAndFeels, System.Actions, cxNavigator, dxDateRanges,
-  dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu, dxColorEdit;
+  dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu, dxColorEdit,
+  dxScrollbarAnnotations;
 
 type
   TSelectWorkerClassMultiForm = class(TForm)

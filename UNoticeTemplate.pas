@@ -25,7 +25,8 @@ uses
   cxNavigator, dxDateRanges, dxBarBuiltInMenu, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, cxContainer, cxTextEdit, cxRichEdit,
   cxDBRichEdit, cxImage, cxDBEdit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
-  PropFilerEh, PropStorageEh, dxColorEdit, dxmdaset, cxGroupBox, cxSplitter;
+  PropFilerEh, PropStorageEh, dxColorEdit, dxmdaset, cxGroupBox, cxSplitter,
+  dxScrollbarAnnotations;
 
 type
   TNoticeTemplateForm = class(TForm)

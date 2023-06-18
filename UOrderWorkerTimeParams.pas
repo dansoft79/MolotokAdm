@@ -24,7 +24,7 @@ uses
   cxGridCardView, cxGridDBCardView, cxGridCustomLayoutView,
   cxGridCustomTableView, cxGridWinExplorerView, cxGridCustomView, cxGrid,
   cxGroupBox, ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.Grids,
-  Vcl.DBGrids;
+  Vcl.DBGrids, dxScrollbarAnnotations;
 
 type
   TOrderWorkerTimeParamsForm = class(TForm)
@@ -102,6 +102,12 @@ type
     qDataOrder: TZQuery;
     mdDataMaxTime: TIntegerField;
     dsData: TDataSource;
+    qWorkRestDay: TZQuery;
+    mdDataDay: TdxMemData;
+    DateTimeField1: TDateTimeField;
+    DateTimeField2: TDateTimeField;
+    IntegerField1: TIntegerField;
+    IntegerField2: TIntegerField;
     procedure FormShow(Sender: TObject);
     procedure eChange(Sender: TObject);
     procedure eKeyDown(Sender: TObject; var Key: Word;
@@ -328,10 +334,67 @@ end;
 
 procedure TOrderWorkerTimeParamsForm.FillData;
   var
-    vID, fh, th, i, j, k, wd : integer;
-    vDate, d, d1 : TDateTime;
+    vID, fh, th, i, j, k, wd, wdc, rdc : integer;
+    vDate, d, d1, fd, td : TDateTime;
     vTime : TTime;
-    t, vIDWorkerList : string;
+    t, vIDWorkerList, s : string;
+    r, re : boolean;
+  //функция для проверки дневного расписания по дате, возвращает true, если рабочий день
+  function IsWorkDay(AFromDate, AToDate, ADate : TDate; AWorkDayCount, ARestDayCount : integer) : boolean;
+    var
+      n, m, y, r : integer;
+      d : TDateTime;
+  begin
+    //проверяем вхождение в период дневного расписания
+    if (DateOf(ADate) >= DateOf(AFromDate)) and (DateOf(ADate) <= DateOf(AToDate)) then
+    begin
+      n := AWorkDayCount + ARestDayCount;
+      m := DaysBetween(DateOf(AFromDate), DateOf(ADate));
+      y := m div n;//получили количество циклов рабочие - выходные, чтоб одним махом добавить весь период до текущей даты
+
+      d := IncDay(DateOf(AFromDate), n * y);
+
+      //если до нужной даты дней не более чем длина рабоччего периода, то это рабочий день, иначе выходной
+      r := DaysBetween(DateOf(d), DateOf(ADate)) + 1;
+      if r <= AWorkDayCount then Result := true
+      else Result := false;
+    end;
+  end;
+
+  function IsWorkDayByPeriod(ADate : TDate; ADefWorkDay : boolean; var AWorkTIme : string) : boolean;
+    var
+      fd, td : TDateTime;
+      t : integer;
+  begin
+    Result := ADefWorkDay;
+    ADate := DateOf(ADate);
+    //получаем расписание на этот день
+    qWorkRestDay.First;
+    while not qWorkRestDay.eof do
+    begin
+      t := qWorkRestDay.FieldByName('DateType').AsInteger;
+      fd := DateOf(qWorkRestDay.FieldByName('FromDate').AsDateTime);
+      td := DateOf(qWorkRestDay.FieldByName('ToDate').AsDateTime);
+
+      //дата попадает в период
+      if (ADate >= fd) and (ADate <= td) then
+      begin
+        if t in [1..2] then
+        begin
+          Result := false;
+          AWorkTime := '';
+        end
+        else
+          if t in [3..3] then
+          begin
+            Result := true;
+            AWorkTime := qWorkRestDay.FieldByName('WorkTime').AsString;
+          end;
+      end;
+
+      qWorkRestDay.Next;
+    end;
+  end;
 begin
   mdData.Close;
   mdData.Open;
@@ -344,41 +407,127 @@ begin
   while not qWorker.eof do
   begin
     vIDWorkerList := vIDWorkerList + qWorker.FieldBYName('ID').AsString + ',';
-    for i := 0 to cMaxDay do
+
+    //смотрим тип расписания
+    if qWorker.FieldByName('TimingType').AsInteger = 1 then
     begin
-      //рассматриваем отдельную дату
-      d := IncDay(Date, i);
-      //берем расписание с этой даты
-      wd := DayOfTheWeek(d);
-      //получаем расписание на этот день
-      t := qWorker.FieldByName('Day' + IntToStr(wd)).AsString;
-      if t <> '' then
+      //старый тип расписания на неделю
+      for i := 0 to cMaxDay do
       begin
-        //первый тайм слот длиной в час
-        fh := StrToInt(Copy(t, 1, 2));
-        //последний тайм слот длиной в час
-        th := StrToInt(Copy(t, 7, 2)) - 1;
-        //добавляем час до работы, чтоб это время тоже можно было задействовать
-
-        //под вопросом - нужно ли время сегодняшнего дня , которое уже прошло
-
-        if (fh > 0) then
+        //рассматриваем отдельную дату
+        d := IncDay(Date, i);
+        //берем расписание с этой даты
+        wd := DayOfTheWeek(d);
+        //получаем расписание на этот день
+        t := qWorker.FieldByName('Day' + IntToStr(wd)).AsString;
+        if t <> '' then
         begin
-          mdData.Append;
-          mdData.FieldByName('ID_Worker').AsInteger := qWorker.FieldByName('ID').AsInteger;
-          mdData.FieldByName('Date').AsDateTime := d;
-          mdData.FieldByName('Time').AsDateTime := StrToTime(IntToStr(fh - 1) + ':00:00');
-          mdData.Post;
+          //первый тайм слот длиной в час
+          fh := StrToInt(Copy(t, 1, 2));
+          //последний тайм слот длиной в час
+          th := StrToInt(Copy(t, 7, 2)) - 1;
+          //добавляем час до работы, чтоб это время тоже можно было задействовать
+
+          //под вопросом - нужно ли время сегодняшнего дня , которое уже прошло
+
+          if (fh > 0) then
+          begin
+            mdData.Append;
+            mdData.FieldByName('ID_Worker').AsInteger := qWorker.FieldByName('ID').AsInteger;
+            mdData.FieldByName('Date').AsDateTime := d;
+            mdData.FieldByName('Time').AsDateTime := StrToTime(IntToStr(fh - 1) + ':00:00');
+            mdData.Post;
+          end;
+          for j := fh to th do
+          begin
+            mdData.Append;
+            mdData.FieldByName('ID_Worker').AsInteger := qWorker.FieldByName('ID').AsInteger;
+            mdData.FieldByName('Date').AsDateTime := d;
+            mdData.FieldByName('Time').AsDateTime := StrToTime(IntToStr(j) + ':00:00');
+            mdData.Post;
+          end;
         end;
-        for j := fh to th do
+
+      end
+    end
+    else
+    begin
+      //новый тип расписания дневной
+      //запрашиваем данные по периодам
+      qWorkRestDay.Close;
+      qWorkRestDay.ParamByName('IDW').AsInteger := qWorker.FieldByName('ID').AsInteger;
+      qWorkRestDay.Open;
+
+      for i := 0 to cMaxDay do
+      begin
+        //рассматриваем отдельную дату
+        d := IncDay(Date, i);
+
+        //берем количество рабочих и выходных дней
+        wdc := qWorker.FieldByName('WorkDayCount').AsInteger;
+        rdc := qWorker.FieldByName('RestDayCount').AsInteger;
+        t := qWorker.FieldByName('WorkTime').AsString;
+
+        s := qWorker.FieldByName('FromDate').AsString;
+        if s = '' then fd := StrToDate('01.01.2000')
+        else fd := StrToDate(s);
+
+        s := qWorker.FieldByName('ToDate').AsString;
+        if s = '' then td := StrToDate('31.12.9999')
+        else td := StrToDate(s);
+
+        r := IsWorkDay(DateOf(fd), DateOf(td), DateOf(d), wdc, rdc);
+
+        re := IsWorkDayByPeriod(d, r, t);
+
+        if not r and re then
         begin
-          mdData.Append;
-          mdData.FieldByName('ID_Worker').AsInteger := qWorker.FieldByName('ID').AsInteger;
-          mdData.FieldByName('Date').AsDateTime := d;
-          mdData.FieldByName('Time').AsDateTime := StrToTime(IntToStr(j) + ':00:00');
-          mdData.Post;
+          r := true;
         end;
+        if r and not re then
+        begin
+          r := false;
+        end;
+
+        if r and (t = '') then
+        begin
+          //время в распиании  периодах не было указано, значит нужно брать время организации
+          //берем расписание с этой даты
+          t := Datas.ReadOptions('WorkTime')[0];
+        end;
+
+        if r and (t <> '') then
+        begin
+          //первый тайм слот длиной в час
+          fh := StrToInt(Copy(t, 1, 2));
+          //последний тайм слот длиной в час
+          th := StrToInt(Copy(t, 7, 2)) - 1;
+          //добавляем час до работы, чтоб это время тоже можно было задействовать
+
+          //под вопросом - нужно ли время сегодняшнего дня , которое уже прошло
+
+          if (fh > 0) then
+          begin
+            mdData.Append;
+            mdData.FieldByName('ID_Worker').AsInteger := qWorker.FieldByName('ID').AsInteger;
+            mdData.FieldByName('Date').AsDateTime := d;
+            mdData.FieldByName('Time').AsDateTime := StrToTime(IntToStr(fh - 1) + ':00:00');
+            mdData.Post;
+          end;
+          for j := fh to th do
+          begin
+            mdData.Append;
+            mdData.FieldByName('ID_Worker').AsInteger := qWorker.FieldByName('ID').AsInteger;
+            mdData.FieldByName('Date').AsDateTime := d;
+            mdData.FieldByName('Time').AsDateTime := StrToTime(IntToStr(j) + ':00:00');
+            mdData.Post;
+          end;
+        end;
+
       end;
+
+      qWorkRestDay.Close;
+
     end;
     qWorker.Next;
   end;

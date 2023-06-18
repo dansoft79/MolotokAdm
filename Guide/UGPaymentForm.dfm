@@ -63,6 +63,7 @@ object GPaymentFormForm: TGPaymentFormForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -125,6 +126,14 @@ object GPaymentFormForm: TGPaymentFormForm
         DataBinding.FieldName = 'ShowClientButton'
         RepositoryItem = Datas.EditRepositoryIntCheckBox
         Width = 120
+      end
+      object TableViewPayStatusInfo: TcxGridDBColumn
+        DataBinding.FieldName = 'PayStatusInfo'
+        Width = 200
+      end
+      object TableViewWorkerButtonInfo: TcxGridDBColumn
+        DataBinding.FieldName = 'WorkerButtonInfo'
+        Width = 200
       end
     end
     object Level: TcxGridLevel
@@ -320,7 +329,10 @@ object GPaymentFormForm: TGPaymentFormForm
     AfterOpen = QueryAfterOpen
     AfterScroll = QueryAfterScroll
     SQL.Strings = (
-      'select  *, UserInfo(ID_AssertUser) as AssertUser'
+      
+        'select  *, UserInfo(ID_AssertUser) as AssertUser, PaymentFormSta' +
+        'teInfo(PayStatus) as PayStatusInfo, PaymentFormButtonInfo(Worker' +
+        'AppPayButton) as WorkerButtonInfo'
       'from  PaymentForm'
       'where (Deleted = :D or :D = 2) and (Active = :A or :A = 2)'
       'order by  Name')
@@ -402,6 +414,24 @@ object GPaymentFormForm: TGPaymentFormForm
     object QueryShowClientButton: TSmallintField
       DisplayLabel = #1050#1085#1086#1087#1082#1072' '#1085#1072' '#1082#1083#1080#1077#1085#1090#1077
       FieldName = 'ShowClientButton'
+    end
+    object QueryWorkerAppPayButton: TSmallintField
+      FieldName = 'WorkerAppPayButton'
+    end
+    object QueryPayStatus: TSmallintField
+      FieldName = 'PayStatus'
+    end
+    object QueryPayStatusInfo: TWideStringField
+      DisplayLabel = #1060#1083#1072#1075' '#1089#1086#1089#1090#1086#1103#1085#1080#1103' '#1086#1087#1083#1072#1090#1099
+      FieldName = 'PayStatusInfo'
+      ReadOnly = True
+      Size = 80
+    end
+    object QueryWorkerButtonInfo: TWideStringField
+      DisplayLabel = #1053#1072#1079#1074#1072#1085#1080#1077' '#1082#1085#1086#1087#1082#1080' '#1086#1087#1083#1072#1090#1099' '#1085#1072' '#1084#1072#1089#1090#1077#1088#1077
+      FieldName = 'WorkerButtonInfo'
+      ReadOnly = True
+      Size = 80
     end
   end
   object Table: TZQuery

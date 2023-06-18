@@ -63,6 +63,7 @@ object GSignalTypeForm: TGSignalTypeForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -114,7 +115,12 @@ object GSignalTypeForm: TGSignalTypeForm
       object TableViewDefSource: TcxGridDBColumn
         DataBinding.FieldName = 'DefSignal'
         RepositoryItem = Datas.EditRepositoryIntCheckBox
-        Width = 93
+        Width = 120
+      end
+      object TableViewShowWorker: TcxGridDBColumn
+        DataBinding.FieldName = 'ShowWorker'
+        RepositoryItem = Datas.EditRepositoryIntCheckBox
+        Width = 120
       end
       object TableViewComment: TcxGridDBColumn
         DataBinding.FieldName = 'Comment'
@@ -386,6 +392,10 @@ object GSignalTypeForm: TGSignalTypeForm
     object QueryDefSource: TSmallintField
       DisplayLabel = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
       FieldName = 'DefSignal'
+    end
+    object QueryShowWorker: TSmallintField
+      DisplayLabel = #1055#1086#1082#1072#1079#1099#1074#1072#1090#1100' '#1084#1072#1089#1090#1077#1088#1091
+      FieldName = 'ShowWorker'
     end
     object QueryAssertUser: TWideStringField
       DisplayLabel = #1055#1088#1080#1084#1077#1085#1080#1083

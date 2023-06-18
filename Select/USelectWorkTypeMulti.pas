@@ -23,7 +23,7 @@ uses
   dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinsdxStatusBarPainter,
   dxSkinsdxBarPainter, cxLookAndFeels, System.Actions, cxNavigator, dxDateRanges,
   dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu, dxmdaset,
-  cxPropertiesStore;
+  cxPropertiesStore, dxScrollbarAnnotations;
 
 type
   TSelectWorkTypeMultiForm = class(TForm)
@@ -174,13 +174,29 @@ begin
 end;
 
 procedure TSelectWorkTypeMultiForm.aSelectAllExecute(Sender: TObject);
+  var
+    i : integer;
 begin
-  TableView.DataController.SelectAll;
+  for i := TableView.ViewData.RowCount - 1 downto 0 do
+  begin
+    TableView.ViewData.Rows[i].Focused := true;
+    MemData.Edit;
+    MemData.FieldByName('Selected').AsString := '1';
+    MemData.Post;
+  end;
 end;
 
 procedure TSelectWorkTypeMultiForm.aUnselectAllExecute(Sender: TObject);
+  var
+    i : integer;
 begin
-  TableView.DataController.ClearSelection;
+    for i := TableView.ViewData.RowCount - 1 downto 0 do
+    begin
+      TableView.ViewData.Rows[i].Focused := true;
+      MemData.Edit;
+      MemData.FieldByName('Selected').AsString := '0';
+      MemData.Post;
+    end;
 end;
 
 procedure TSelectWorkTypeMultiForm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -202,7 +218,7 @@ end;
 
 procedure TSelectWorkTypeMultiForm.SetOKEnabled;
 begin
-  with TableView do aOK.Enabled := Assigned(Controller.FocusedRecord) and Controller.FocusedRecord.IsData;
+  with TableView do aOK.Enabled := true;//Assigned(Controller.FocusedRecord) and Controller.FocusedRecord.IsData;
 end;
 
 procedure TSelectWorkTypeMultiForm.TableViewCellDblClick(Sender: TcxCustomGridTableView;

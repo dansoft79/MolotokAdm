@@ -3,7 +3,7 @@ object GWorkerForm: TGWorkerForm
   Top = 196
   Action = MainForm.agWorker
   Caption = #1052#1072#1089#1090#1077#1088#1072
-  ClientHeight = 482
+  ClientHeight = 658
   ClientWidth = 1133
   Color = clBtnFace
   Constraints.MinHeight = 200
@@ -23,7 +23,7 @@ object GWorkerForm: TGWorkerForm
   TextHeight = 13
   object StatusBar: TdxStatusBar
     Left = 0
-    Top = 461
+    Top = 637
     Width = 1133
     Height = 21
     Panels = <
@@ -33,12 +33,13 @@ object GWorkerForm: TGWorkerForm
       end>
     PaintStyle = stpsUseLookAndFeel
     ParentFont = True
+    ExplicitTop = 461
   end
   object Grid: TcxGrid
     Left = 0
     Top = 50
     Width = 788
-    Height = 411
+    Height = 587
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -47,6 +48,7 @@ object GWorkerForm: TGWorkerForm
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    ExplicitHeight = 411
     object TableView: TcxGridDBTableView
       OnDblClick = DBGridDblClick
       OnKeyDown = TableViewKeyDown
@@ -63,6 +65,7 @@ object GWorkerForm: TGWorkerForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -140,33 +143,36 @@ object GWorkerForm: TGWorkerForm
     Left = 796
     Top = 50
     Width = 337
-    Height = 411
+    Height = 587
     Align = alRight
     BevelOuter = bvNone
     Constraints.MinHeight = 1
     Constraints.MinWidth = 1
     TabOrder = 5
+    ExplicitHeight = 411
     object PageControl: TcxPageControl
       Left = 0
       Top = 0
       Width = 337
-      Height = 411
+      Height = 587
       Align = alClient
       TabOrder = 0
       Properties.ActivePage = tsSchedule
       Properties.CustomButtons.Buttons = <>
-      ClientRectBottom = 411
+      ExplicitHeight = 411
+      ClientRectBottom = 587
       ClientRectRight = 337
       ClientRectTop = 24
       object tsSchedule: TcxTabSheet
         Caption = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
         ImageIndex = 4
+        ExplicitHeight = 387
         object GridTiming: TcxGrid
           Left = 0
           Top = 50
           Width = 337
-          Height = 337
-          Align = alClient
+          Height = 299
+          Align = alTop
           Font.Charset = RUSSIAN_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -187,6 +193,7 @@ object GWorkerForm: TGWorkerForm
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
             Navigator.InfoPanel.Visible = True
             Navigator.Visible = True
+            ScrollbarAnnotations.CustomAnnotations = <>
             OnFocusedRecordChanged = TableViewFocusedRecordChanged
             DataController.DataSource = dsTiming
             DataController.Filter.Options = [fcoCaseInsensitive]
@@ -247,8 +254,9 @@ object GWorkerForm: TGWorkerForm
               Width = 200
             end
           end
-          object ViewTime: TcxGridDBLayoutView
+          object ViewTimeWeek: TcxGridDBLayoutView
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             DataController.DataSource = dsTiming
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
@@ -260,85 +268,86 @@ object GWorkerForm: TGWorkerForm
             OptionsData.DeletingConfirmation = False
             OptionsData.Editing = False
             OptionsData.Inserting = False
+            OptionsSelection.HideFocusRectOnExit = False
             OptionsView.RecordCaption.Visible = False
             OptionsView.SingleRecordStretch = srsClient
             Styles.Item = StyleTiming
             Styles.OnGetItemStyle = ViewTimeStylesGetItemStyle
-            object ViewTimeDay1: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay1: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day1'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem3
+              LayoutItem = ViewTimeWeekLayoutItem3
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeDay2: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay2: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day2'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem4
+              LayoutItem = ViewTimeWeekLayoutItem4
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeDay3: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay3: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day3'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem5
+              LayoutItem = ViewTimeWeekLayoutItem5
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeDay4: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay4: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day4'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem6
+              LayoutItem = ViewTimeWeekLayoutItem6
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeDay5: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay5: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day5'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem7
+              LayoutItem = ViewTimeWeekLayoutItem7
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeDay6: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay6: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day6'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem8
+              LayoutItem = ViewTimeWeekLayoutItem8
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeDay7: TcxGridDBLayoutViewItem
+            object ViewTimeWeekDay7: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Day7'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
-              LayoutItem = ViewTimeLayoutItem9
+              LayoutItem = ViewTimeWeekLayoutItem9
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTimingWork
             end
-            object ViewTimeComment: TcxGridDBLayoutViewItem
+            object ViewTimeWeekComment: TcxGridDBLayoutViewItem
               DataBinding.FieldName = 'Comment'
               PropertiesClassName = 'TcxMemoProperties'
               Properties.ReadOnly = True
               Properties.ScrollBars = ssVertical
-              Properties.VisibleLineCount = 5
-              LayoutItem = ViewTimeLayoutItem10
+              Properties.VisibleLineCount = 3
+              LayoutItem = ViewTimeWeekLayoutItem10
               Options.Editing = False
               Options.Filtering = False
               Styles.Content = StyleTiming
             end
-            object ViewTimeGroup_Root: TdxLayoutGroup
+            object ViewTimeWeekGroup_Root: TdxLayoutGroup
               AlignHorz = ahClient
               AlignVert = avClient
               ButtonOptions.Buttons = <>
@@ -348,42 +357,146 @@ object GWorkerForm: TGWorkerForm
               ShowBorder = False
               Index = -1
             end
-            object ViewTimeLayoutItem3: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem3: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 0
             end
-            object ViewTimeLayoutItem4: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem4: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 1
             end
-            object ViewTimeLayoutItem5: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem5: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 2
             end
-            object ViewTimeLayoutItem6: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem6: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 3
             end
-            object ViewTimeLayoutItem7: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem7: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 4
             end
-            object ViewTimeLayoutItem8: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem8: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 5
             end
-            object ViewTimeLayoutItem9: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem9: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               Index = 6
             end
-            object ViewTimeLayoutItem10: TcxGridLayoutItem
-              Parent = ViewTimeGroup_Root
+            object ViewTimeWeekLayoutItem10: TcxGridLayoutItem
+              Parent = ViewTimeWeekGroup_Root
               CaptionOptions.AlignVert = tavTop
               Index = 7
             end
           end
+          object ViewTimeDay: TcxGridDBLayoutView
+            Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
+            DataController.DataSource = dsTiming
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsBehavior.CellHints = True
+            OptionsCustomize.ItemFiltering = False
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            OptionsSelection.HideFocusRectOnExit = False
+            OptionsView.RecordCaption.Visible = False
+            OptionsView.SingleRecordStretch = srsClient
+            Styles.Item = StyleTiming
+            object ViewTimeDayFromDate: TcxGridDBLayoutViewItem
+              Caption = #1053#1072#1095#1072#1083#1086
+              DataBinding.FieldName = 'FromDate'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              LayoutItem = ViewTimeDayLayoutItem13
+              Styles.Content = StyleTimingWork
+            end
+            object ViewTimeDayToDate: TcxGridDBLayoutViewItem
+              Caption = #1054#1082#1086#1085#1095#1072#1085#1080#1077
+              DataBinding.FieldName = 'ToDate'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              LayoutItem = ViewTimeDayLayoutItem14
+              Styles.Content = StyleTimingWork
+            end
+            object ViewTimeDayWorkdayCount: TcxGridDBLayoutViewItem
+              Caption = #1056#1072#1073#1086#1095#1080#1093' '#1076#1085#1077#1081
+              DataBinding.FieldName = 'WorkdayCount'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              LayoutItem = ViewTimeDayLayoutItem15
+              Styles.Content = StyleTimingWork
+            end
+            object ViewTimeDayRestdayCount: TcxGridDBLayoutViewItem
+              Caption = #1042#1099#1093#1086#1076#1085#1099#1093' '#1076#1085#1077#1081
+              DataBinding.FieldName = 'RestdayCount'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              LayoutItem = ViewTimeDayLayoutItem16
+              Styles.Content = StyleTimingWork
+            end
+            object ViewTimeDayWorkTime: TcxGridDBLayoutViewItem
+              Caption = #1056#1072#1073#1086#1095#1077#1077' '#1074#1088#1077#1084#1103
+              DataBinding.FieldName = 'WorkTime'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              LayoutItem = ViewTimeDayLayoutItem17
+              Styles.Content = StyleTimingWork
+            end
+            object ViewTimeDayCommentDay: TcxGridDBLayoutViewItem
+              Caption = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1080
+              DataBinding.FieldName = 'CommentDay'
+              PropertiesClassName = 'TcxMemoProperties'
+              Properties.ReadOnly = True
+              Properties.ScrollBars = ssVertical
+              Properties.VisibleLineCount = 6
+              LayoutItem = ViewTimeDayLayoutItem18
+              Styles.Content = StyleTiming
+            end
+            object ViewTimeDayGroup_Root: TdxLayoutGroup
+              AlignHorz = ahClient
+              AlignVert = avClient
+              ButtonOptions.Buttons = <>
+              Hidden = True
+              ScrollOptions.Horizontal = smAuto
+              ScrollOptions.Vertical = smAuto
+              ShowBorder = False
+              Index = -1
+            end
+            object ViewTimeDayLayoutItem13: TcxGridLayoutItem
+              Parent = ViewTimeDayGroup_Root
+              Index = 0
+            end
+            object ViewTimeDayLayoutItem14: TcxGridLayoutItem
+              Parent = ViewTimeDayGroup_Root
+              Index = 1
+            end
+            object ViewTimeDayLayoutItem15: TcxGridLayoutItem
+              Parent = ViewTimeDayGroup_Root
+              Index = 2
+            end
+            object ViewTimeDayLayoutItem16: TcxGridLayoutItem
+              Parent = ViewTimeDayGroup_Root
+              Index = 3
+            end
+            object ViewTimeDayLayoutItem17: TcxGridLayoutItem
+              Parent = ViewTimeDayGroup_Root
+              Index = 4
+            end
+            object ViewTimeDayLayoutItem18: TcxGridLayoutItem
+              Parent = ViewTimeDayGroup_Root
+              CaptionOptions.AlignVert = tavTop
+              Index = 5
+            end
+          end
           object LevelTiming: TcxGridLevel
-            GridView = ViewTime
+            GridView = ViewTimeDay
           end
         end
         object DockTiming: TdxBarDockControl
@@ -394,15 +507,90 @@ object GWorkerForm: TGWorkerForm
           Align = dalTop
           BarManager = BarManager
         end
+        object GridWorkRest: TcxGrid
+          Left = 0
+          Top = 349
+          Width = 337
+          Height = 214
+          Align = alClient
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+          ExplicitTop = 305
+          ExplicitWidth = 150
+          ExplicitHeight = 258
+          object ViewWorkRest: TcxGridDBTableView
+            Navigator.Buttons.CustomButtons = <>
+            Navigator.Buttons.Insert.Visible = False
+            Navigator.Buttons.Delete.Visible = False
+            Navigator.Buttons.Edit.Visible = False
+            Navigator.Buttons.Post.Visible = False
+            Navigator.Buttons.Cancel.Visible = False
+            Navigator.Buttons.Refresh.Visible = True
+            Navigator.Buttons.SaveBookmark.Visible = False
+            Navigator.Buttons.GotoBookmark.Visible = False
+            Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+            Navigator.InfoPanel.Visible = True
+            Navigator.Visible = True
+            ScrollbarAnnotations.CustomAnnotations = <>
+            OnFocusedRecordChanged = TableViewFocusedRecordChanged
+            DataController.DataSource = dsWorkRest
+            DataController.Filter.Options = [fcoCaseInsensitive]
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            FilterRow.ApplyChanges = fracImmediately
+            OptionsBehavior.GoToNextCellOnEnter = True
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            OptionsSelection.HideFocusRectOnExit = False
+            OptionsSelection.UnselectFocusedRecordOnExit = False
+            OptionsView.GroupByBox = False
+            OptionsView.Indicator = True
+            object ViewWorkRestDTInfo: TcxGridDBColumn
+              Caption = #1058#1080#1087
+              DataBinding.FieldName = 'DTInfo'
+              Width = 90
+            end
+            object ViewWorkRestFromDate: TcxGridDBColumn
+              DataBinding.FieldName = 'FromDate'
+              Width = 70
+            end
+            object ViewWorkRestToDate: TcxGridDBColumn
+              DataBinding.FieldName = 'ToDate'
+              Width = 70
+            end
+            object ViewWorkRestWorkTime: TcxGridDBColumn
+              DataBinding.FieldName = 'WorkTime'
+              Width = 70
+            end
+            object ViewWorkRestID: TcxGridDBColumn
+              DataBinding.FieldName = 'ID'
+              Visible = False
+              VisibleForCustomization = False
+            end
+          end
+          object LevelWorkRest: TcxGridLevel
+            GridView = ViewWorkRest
+          end
+        end
       end
       object tsCategory: TcxTabSheet
         Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1080
         ImageIndex = 0
+        ExplicitHeight = 387
         object GridCategory: TcxGrid
           Left = 0
           Top = 50
           Width = 337
-          Height = 337
+          Height = 513
           Align = alClient
           Font.Charset = RUSSIAN_CHARSET
           Font.Color = clWindowText
@@ -424,6 +612,7 @@ object GWorkerForm: TGWorkerForm
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
             Navigator.InfoPanel.Visible = True
             Navigator.Visible = True
+            ScrollbarAnnotations.CustomAnnotations = <>
             OnCustomDrawCell = ViewCategoryCustomDrawCell
             OnFocusedRecordChanged = TableViewFocusedRecordChanged
             DataController.DataSource = dsCategory
@@ -490,11 +679,12 @@ object GWorkerForm: TGWorkerForm
       object tsDistict: TcxTabSheet
         Caption = #1056#1072#1081#1086#1085#1099
         ImageIndex = 2
+        ExplicitHeight = 387
         object GridDistrict: TcxGrid
           Left = 0
           Top = 50
           Width = 337
-          Height = 337
+          Height = 513
           Align = alClient
           Font.Charset = RUSSIAN_CHARSET
           Font.Color = clWindowText
@@ -504,7 +694,6 @@ object GWorkerForm: TGWorkerForm
           ParentFont = False
           TabOrder = 0
           object ViewDistrict: TcxGridDBTableView
-            OnDblClick = DBGridDblClick
             Navigator.Buttons.CustomButtons = <>
             Navigator.Buttons.Insert.Visible = False
             Navigator.Buttons.Delete.Visible = False
@@ -517,6 +706,7 @@ object GWorkerForm: TGWorkerForm
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
             Navigator.InfoPanel.Visible = True
             Navigator.Visible = True
+            ScrollbarAnnotations.CustomAnnotations = <>
             OnFocusedRecordChanged = TableViewFocusedRecordChanged
             DataController.DataSource = dsDistrict
             DataController.Filter.Options = [fcoCaseInsensitive]
@@ -562,11 +752,12 @@ object GWorkerForm: TGWorkerForm
       object tsTag: TcxTabSheet
         Caption = #1058#1101#1075#1080
         ImageIndex = 3
+        ExplicitHeight = 387
         object GridTag: TcxGrid
           Left = 0
           Top = 50
           Width = 337
-          Height = 337
+          Height = 513
           Align = alClient
           Font.Charset = RUSSIAN_CHARSET
           Font.Color = clWindowText
@@ -588,6 +779,7 @@ object GWorkerForm: TGWorkerForm
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
             Navigator.InfoPanel.Visible = True
             Navigator.Visible = True
+            ScrollbarAnnotations.CustomAnnotations = <>
             OnFocusedRecordChanged = TableViewFocusedRecordChanged
             DataController.DataSource = dsTag
             DataController.Filter.Options = [fcoCaseInsensitive]
@@ -635,10 +827,11 @@ object GWorkerForm: TGWorkerForm
     Left = 788
     Top = 50
     Width = 8
-    Height = 411
+    Height = 587
     HotZoneClassName = 'TcxSimpleStyle'
     AlignSplitter = salRight
     Control = pRight
+    ExplicitHeight = 411
   end
   object DataSource: TDataSource
     DataSet = Query
@@ -845,6 +1038,18 @@ object GWorkerForm: TGWorkerForm
         item
           Visible = True
           ItemName = 'dxBarButton18'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton9'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton10'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton15'
         end>
       NotDocking = [dsNone, dsLeft, dsTop, dsRight, dsBottom]
       OneOnRow = True
@@ -937,6 +1142,18 @@ object GWorkerForm: TGWorkerForm
       Action = aEditTiming
       Category = 4
     end
+    object dxBarButton9: TdxBarButton
+      Action = aDayType
+      Category = 4
+    end
+    object dxBarButton10: TdxBarButton
+      Action = aAddWorkRest
+      Category = 4
+    end
+    object dxBarButton15: TdxBarButton
+      Action = aDelWorkRest
+      Category = 4
+    end
   end
   object ActionList: TActionList
     Images = UtilForm.ImageList
@@ -1027,10 +1244,30 @@ object GWorkerForm: TGWorkerForm
     end
     object aEditTiming: TAction
       Category = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
-      Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1077
-      Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1077
-      ImageIndex = 102
+      Caption = #1043#1088#1072#1092#1080#1082' '#1088#1072#1073#1086#1090#1099
+      Hint = #1043#1088#1072#1092#1080#1082' '#1088#1072#1073#1086#1090#1099
+      ImageIndex = 432
       OnExecute = aEditTimingExecute
+    end
+    object aDayType: TAction
+      Category = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
+      Caption = #1054#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
+      ImageIndex = 433
+      OnExecute = aDayTypeExecute
+    end
+    object aAddWorkRest: TAction
+      Category = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1087#1077#1088#1080#1086#1076
+      Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1086#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
+      ImageIndex = 100
+      OnExecute = aAddWorkRestExecute
+    end
+    object aDelWorkRest: TAction
+      Category = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
+      Caption = #1059#1076#1072#1083#1080#1090#1100' '#1087#1077#1088#1080#1086#1076
+      Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1086#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
+      ImageIndex = 101
+      OnExecute = aDelWorkRestExecute
     end
   end
   object Query: TZQuery
@@ -1577,6 +1814,29 @@ object GWorkerForm: TGWorkerForm
       FieldName = 'Comment'
       Size = 200
     end
+    object qTimingTimingType: TSmallintField
+      FieldName = 'TimingType'
+    end
+    object qTimingFromDate: TDateTimeField
+      FieldName = 'FromDate'
+    end
+    object qTimingToDate: TDateTimeField
+      FieldName = 'ToDate'
+    end
+    object qTimingWorkdayCount: TSmallintField
+      FieldName = 'WorkdayCount'
+    end
+    object qTimingRestdayCount: TSmallintField
+      FieldName = 'RestdayCount'
+    end
+    object qTimingWorkTime: TWideStringField
+      FieldName = 'WorkTime'
+      Size = 44
+    end
+    object qTimingCommentDay: TWideStringField
+      FieldName = 'CommentDay'
+      Size = 800
+    end
   end
   object dsTiming: TDataSource
     DataSet = qTiming
@@ -1645,5 +1905,114 @@ object GWorkerForm: TGWorkerForm
       Font.Style = [fsBold]
       TextColor = clRed
     end
+  end
+  object qWorkRest: TZQuery
+    Connection = Datas.ZConnection
+    AfterOpen = qTimingAfterOpen
+    SQL.Strings = (
+      'select *, WorkRestDayTypeInfo(DateType)  as DTInfo'
+      'from WorkRestDay'
+      'where ID_Worker = :ID and Active = 1 and Deleted = 0'
+      'order by '
+      '  FromDate, ToDate')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    DataSource = DataSource
+    Left = 652
+    Top = 460
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    object qWorkRestID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qWorkRestActive: TSmallintField
+      FieldName = 'Active'
+    end
+    object qWorkRestDeleted: TSmallintField
+      FieldName = 'Deleted'
+    end
+    object qWorkRestID_AssertUser: TSmallintField
+      FieldName = 'ID_AssertUser'
+    end
+    object qWorkRestAssertTime: TDateTimeField
+      FieldName = 'AssertTime'
+    end
+    object qWorkRestID_Worker: TSmallintField
+      FieldName = 'ID_Worker'
+    end
+    object qWorkRestDateType: TSmallintField
+      FieldName = 'DateType'
+    end
+    object qWorkRestFromDate: TDateTimeField
+      DisplayLabel = #1053#1072#1095#1072#1083#1086
+      FieldName = 'FromDate'
+    end
+    object qWorkRestToDate: TDateTimeField
+      DisplayLabel = #1054#1082#1086#1085#1095#1072#1085#1080#1077
+      FieldName = 'ToDate'
+    end
+    object qWorkRestWorkTime: TWideStringField
+      DisplayLabel = #1056#1072#1073'. '#1074#1088#1077#1084#1103
+      FieldName = 'WorkTime'
+      Size = 44
+    end
+    object qWorkRestComment: TWideStringField
+      DisplayLabel = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081
+      FieldName = 'Comment'
+      Size = 800
+    end
+    object qWorkRestDTInfo: TWideStringField
+      DisplayLabel = #1058#1080#1087' '#1087#1077#1088#1080#1086#1076#1072
+      FieldName = 'DTInfo'
+      ReadOnly = True
+      Size = 80
+    end
+  end
+  object dsWorkRest: TDataSource
+    DataSet = qWorkRest
+    Left = 708
+    Top = 460
+  end
+  object tWorkRest: TZQuery
+    Connection = Datas.ZConnection
+    AfterOpen = qTimingAfterOpen
+    SQL.Strings = (
+      'select *'
+      'from WorkRestDay'
+      'where ID = :ID')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    Left = 652
+    Top = 508
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+  end
+  object pmWorkRest: TcxGridPopupMenu
+    Grid = GridWorkRest
+    PopupMenus = <
+      item
+        HitTypes = [gvhtCell]
+        Index = 0
+        PopupMenu = dxBarPopupMenu
+      end>
+    Left = 712
+    Top = 508
   end
 end

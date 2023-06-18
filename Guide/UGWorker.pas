@@ -27,7 +27,8 @@ uses
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, PropFilerEh, PropStorageEh, cxPC,
   cxDBLookupComboBox, cxMaskEdit, dxLayoutContainer, cxGridViewLayoutContainer,
-  cxGridLayoutView, cxGridDBLayoutView, cxGridCustomLayoutView;
+  cxGridLayoutView, cxGridDBLayoutView, cxGridCustomLayoutView,
+  dxScrollbarAnnotations;
 
 type
   TGWorkerForm = class(TForm)
@@ -186,24 +187,24 @@ type
     ViewTimingDay7: TcxGridDBColumn;
     ViewTimingComment: TcxGridDBColumn;
     ViewTimingFree: TcxGridDBColumn;
-    ViewTimeGroup_Root: TdxLayoutGroup;
-    ViewTime: TcxGridDBLayoutView;
-    ViewTimeLayoutItem3: TcxGridLayoutItem;
-    ViewTimeDay1: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem4: TcxGridLayoutItem;
-    ViewTimeDay2: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem5: TcxGridLayoutItem;
-    ViewTimeDay3: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem6: TcxGridLayoutItem;
-    ViewTimeDay4: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem7: TcxGridLayoutItem;
-    ViewTimeDay5: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem8: TcxGridLayoutItem;
-    ViewTimeDay6: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem9: TcxGridLayoutItem;
-    ViewTimeDay7: TcxGridDBLayoutViewItem;
-    ViewTimeLayoutItem10: TcxGridLayoutItem;
-    ViewTimeComment: TcxGridDBLayoutViewItem;
+    ViewTimeWeekGroup_Root: TdxLayoutGroup;
+    ViewTimeWeek: TcxGridDBLayoutView;
+    ViewTimeWeekLayoutItem3: TcxGridLayoutItem;
+    ViewTimeWeekDay1: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem4: TcxGridLayoutItem;
+    ViewTimeWeekDay2: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem5: TcxGridLayoutItem;
+    ViewTimeWeekDay3: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem6: TcxGridLayoutItem;
+    ViewTimeWeekDay4: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem7: TcxGridLayoutItem;
+    ViewTimeWeekDay5: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem8: TcxGridLayoutItem;
+    ViewTimeWeekDay6: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem9: TcxGridLayoutItem;
+    ViewTimeWeekDay7: TcxGridDBLayoutViewItem;
+    ViewTimeWeekLayoutItem10: TcxGridLayoutItem;
+    ViewTimeWeekComment: TcxGridDBLayoutViewItem;
     StyleRepository: TcxStyleRepository;
     StyleTiming: TcxStyle;
     aEditTiming: TAction;
@@ -214,6 +215,57 @@ type
     qCategoryTag: TWideStringField;
     ViewCategoryPriority: TcxGridDBColumn;
     ViewCategoryTag: TcxGridDBColumn;
+    aDayType: TAction;
+    dxBarButton9: TdxBarButton;
+    qTimingTimingType: TSmallintField;
+    qTimingFromDate: TDateTimeField;
+    qTimingToDate: TDateTimeField;
+    qTimingWorkdayCount: TSmallintField;
+    qTimingRestdayCount: TSmallintField;
+    qTimingWorkTime: TWideStringField;
+    qTimingCommentDay: TWideStringField;
+    ViewTimeDayGroup_Root: TdxLayoutGroup;
+    ViewTimeDay: TcxGridDBLayoutView;
+    ViewTimeDayLayoutItem13: TcxGridLayoutItem;
+    ViewTimeDayFromDate: TcxGridDBLayoutViewItem;
+    ViewTimeDayLayoutItem14: TcxGridLayoutItem;
+    ViewTimeDayToDate: TcxGridDBLayoutViewItem;
+    ViewTimeDayLayoutItem15: TcxGridLayoutItem;
+    ViewTimeDayWorkdayCount: TcxGridDBLayoutViewItem;
+    ViewTimeDayLayoutItem16: TcxGridLayoutItem;
+    ViewTimeDayRestdayCount: TcxGridDBLayoutViewItem;
+    ViewTimeDayLayoutItem17: TcxGridLayoutItem;
+    ViewTimeDayWorkTime: TcxGridDBLayoutViewItem;
+    ViewTimeDayLayoutItem18: TcxGridLayoutItem;
+    ViewTimeDayCommentDay: TcxGridDBLayoutViewItem;
+    GridWorkRest: TcxGrid;
+    ViewWorkRest: TcxGridDBTableView;
+    LevelWorkRest: TcxGridLevel;
+    qWorkRest: TZQuery;
+    dsWorkRest: TDataSource;
+    qWorkRestID: TIntegerField;
+    qWorkRestActive: TSmallintField;
+    qWorkRestDeleted: TSmallintField;
+    qWorkRestID_AssertUser: TSmallintField;
+    qWorkRestAssertTime: TDateTimeField;
+    qWorkRestID_Worker: TSmallintField;
+    qWorkRestDateType: TSmallintField;
+    qWorkRestFromDate: TDateTimeField;
+    qWorkRestToDate: TDateTimeField;
+    qWorkRestWorkTime: TWideStringField;
+    qWorkRestComment: TWideStringField;
+    qWorkRestDTInfo: TWideStringField;
+    ViewWorkRestFromDate: TcxGridDBColumn;
+    ViewWorkRestToDate: TcxGridDBColumn;
+    ViewWorkRestWorkTime: TcxGridDBColumn;
+    ViewWorkRestDTInfo: TcxGridDBColumn;
+    aAddWorkRest: TAction;
+    aDelWorkRest: TAction;
+    dxBarButton10: TdxBarButton;
+    dxBarButton15: TdxBarButton;
+    tWorkRest: TZQuery;
+    pmWorkRest: TcxGridPopupMenu;
+    ViewWorkRestID: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -259,6 +311,9 @@ type
       var AStyle: TcxStyle);
     procedure TableViewPhoneGetDataText(Sender: TcxCustomGridTableItem;
       ARecordIndex: Integer; var AText: string);
+    procedure aDayTypeExecute(Sender: TObject);
+    procedure aAddWorkRestExecute(Sender: TObject);
+    procedure aDelWorkRestExecute(Sender: TObject);
   private
     { Private declarations }
     FModified : boolean;
@@ -298,7 +353,7 @@ uses Types,
   MainUnit, UPermitTree, Jpeg,
   USelectWorkClass, USelectWorkerClassMulti, USelectWorkType, USelectWorkTypeMulti,
   USelectDistrict, USelectDistrictMulti, USelectOrderTagMulti,
-  UScheduleParams, UShowTextModal;
+  UScheduleParams, UShowTextModal, UGWorkRestDay, UGWorkRestDayParams;
 
 function DoAction(var AIDWorker : integer; AAction : string; AParentAction : TAction) : boolean;
   var
@@ -319,6 +374,7 @@ begin
   with vForm do
   begin
     ShowWaiting(cDataGetting);
+    qWorkRest.Open;
     qDistrict.Open;
     qTiming.Open;
     qTag.Open;
@@ -386,7 +442,7 @@ end;
 procedure TGWorkerForm.SetEnabledButtons;
   var
     ce, e, del : boolean;
-    ec, es, ed, et, etm : boolean;
+    ec, es, ed, et, etm, etd : boolean;
     md, mnd : boolean;
 begin
   with TableView.Controller do
@@ -443,6 +499,18 @@ begin
       FocusedRow.IsData;
 
   aEditTiming.Enabled := e and ce and not del;
+  aDayType.Enabled := e and ce and not del;
+
+
+  with ViewWorkRest.Controller do
+    etd :=
+      qWorkRest.Active and
+      not qWorkRest.IsEmpty and
+      Assigned(FocusedRow) and
+      FocusedRow.IsData;
+
+  aAddWorkRest.Enabled := e and ce and not del;
+  aDelWorkRest.Enabled := e and ce and not del and etd;
 
   //------------------------------------------
   //видимость
@@ -574,6 +642,37 @@ begin
   qTag.Open;
 end;
 
+procedure TGWorkerForm.aDelWorkRestExecute(Sender: TObject);
+  var
+    vID, i : integer;
+begin
+  if ViewWorkRest.Controller.SelectedRecordCount > 0 then
+  begin
+    for i := 0 to ViewWorkRest.Controller.SelectedRecordCount - 1 do
+      if ViewWorkRest.Controller.SelectedRecords[i].IsData then
+       begin
+          vID := IsNull(ViewWorkRest.Controller.SelectedRecords[i].Values[ViewWorkRestID.Index], 0);
+          tWorkRest.Close;
+          tWorkRest.ParamByName('ID').AsINteger := vID;
+          tWorkRest.Open;
+          tWorkRest.Delete;
+          tWorkRest.Close;
+       end;
+  end
+  else
+  begin
+    vID := qWorkRest.FieldBYName('ID').AsInteger;
+
+    tWorkRest.Close;
+    tWorkRest.ParamByName('ID').AsINteger := vID;
+    tWorkRest.Open;
+    tWorkRest.Delete;
+    tWorkRest.Close;
+  end;
+  qWorkRest.Close;
+  qWorkRest.Open;
+end;
+
 procedure TGWorkerForm.aEditExecute(Sender: TObject);
 begin
   FModified := EditWorkerDialog or FModified;
@@ -582,11 +681,15 @@ end;
 
 procedure TGWorkerForm.aEditTimingExecute(Sender: TObject);
   var
+    vTimingType : integer;
+    vFromDate, vToDate, vWorkTime, vWorkdayCount, vRestdayCount, vCommentDay : string;
     vIDR : integer;
     d1, d2, d3, d4, d5, d6, d7, vComment : string;
 begin
   if qTiming.RecordCount = 0 then
   begin
+    vTimingType := 1;
+
     vIDR := 0;
     d1 := '';
     d2 := '';
@@ -596,6 +699,13 @@ begin
     d6 := '';
     d7 := '';
     vComment := '';
+
+    vFromDate := '';
+    vToDate := '';
+    vWorkdayCount := '1';
+    vRestdayCount := '1';
+    vWorkTime := '';
+    vCommentDay := '';
 
     tTiming.Close;
     tTiming.ParamByName('ID').AsInteger := 0;
@@ -609,6 +719,14 @@ begin
     tTiming.FieldByName('Day5').AsString := d5;
     tTiming.FieldByName('Day6').AsString := d6;
     tTiming.FieldByName('Day7').AsString := d7;
+
+    tTiming.FieldByName('TimingType').AsInteger := vTimingType;
+    tTiming.FieldByName('FromDate').AsString := vFromDate;
+    tTiming.FieldByName('ToDate').AsString := vToDate;
+    tTiming.FieldByName('WorkdayCount').AsString := vWorkdayCount;
+    tTiming.FieldByName('RestdayCount').AsString := vRestdayCount;
+    tTiming.FieldByName('WorkTime').AsString := vWorkTime;
+
     tTiming.Post;
     vIDR := tTiming.FieldByName('ID').AsINteger;
     tTiming.Close;
@@ -616,6 +734,9 @@ begin
   else
   begin
     vIDR := qTiming.FieldByName('ID').AsInteger;
+
+    vTimingType := qTiming.FieldByName('TimingType').AsInteger;
+
     d1 := qTiming.FieldByName('Day1').AsString;
     d2 := qTiming.FieldByName('Day2').AsString;
     d3 := qTiming.FieldByName('Day3').AsString;
@@ -624,14 +745,24 @@ begin
     d6 := qTiming.FieldByName('Day6').AsString;
     d7 := qTiming.FieldByName('Day7').AsString;
     vComment := qTiming.FieldByName('Comment').AsString;
+
+    vFromDate := qTiming.FieldByName('FromDate').AsString;
+    vToDate := qTiming.FieldByName('ToDate').AsString;
+    vWorkdayCount := qTiming.FieldByName('WorkdayCount').AsString;
+    vRestdayCount := qTiming.FieldByName('RestdayCount').AsString;
+    vWorkTime := qTiming.FieldByName('WorkTime').AsString;
+    vCommentDay := qTiming.FieldByName('CommentDay').AsString;
   end;
 
-  if GetScheduleParams(d1, d2, d3, d4, d5, d6, d7, vComment) then
+  if GetScheduleParams(vTimingType, d1, d2, d3, d4, d5, d6, d7, vComment, vFromDate, vToDate, vWorkdayCount, vRestdayCount, vWorkTime, vCommentDay) then
   begin
     tTiming.Close;
     tTiming.ParamByName('ID').AsInteger := vIDR;
     tTiming.Open;
     tTiming.Edit;
+
+    tTiming.FieldByName('TimingType').AsInteger := vTimingType;
+
     tTiming.FieldByName('Day1').AsString := d1;
     tTiming.FieldByName('Day2').AsString := d2;
     tTiming.FieldByName('Day3').AsString := d3;
@@ -640,6 +771,15 @@ begin
     tTiming.FieldByName('Day6').AsString := d6;
     tTiming.FieldByName('Day7').AsString := d7;
     tTiming.FieldByName('Comment').AsString := vComment;
+
+    tTiming.FieldByName('TimingType').AsInteger := vTimingType;
+    tTiming.FieldByName('FromDate').AsString := vFromDate;
+    tTiming.FieldByName('ToDate').AsString := vToDate;
+    tTiming.FieldByName('WorkdayCount').AsString := vWorkdayCount;
+    tTiming.FieldByName('RestdayCount').AsString := vRestdayCount;
+    tTiming.FieldByName('WorkTime').AsString := vWorkTime;
+    tTiming.FieldByName('CommentDay').AsString := vCommentDay;
+
     tTiming.Post;
     tTiming.Close;
   end;
@@ -754,6 +894,17 @@ begin
 
   ViewTimeComment.Visible := false;
   ViewTimeComment.Visible := true;}
+
+  if not qTiming.Active or (qTIming.REcordCount = 0) then
+  begin
+    GridTIming.Visible := false;
+  end
+  else
+  begin
+    GridTIming.Visible := true;
+    if qTIming.FieldByName('TimingType').AsInteger = 1 then LevelTiming.GridView := ViewTimeWeek
+    else LevelTiming.GridView := ViewTimeDay;
+  end;
 end;
 
 procedure TGWorkerForm.ViewCategoryCustomDrawCell(
@@ -963,9 +1114,70 @@ begin
   end;
 end;
 
+procedure TGWorkerForm.aAddWorkRestExecute(Sender: TObject);
+  var
+    vFromDate, vToDate, vWorkTime, vComment : string;
+    vID, vIDW, vDateType, vActive : integer;
+    vResult : boolean;
+begin
+  vIDW := Query.FieldBYName('ID').AsInteger;
+  vActive := 1;
+  vDateType := 1;
+  vFromDate := DateToStr(Date);
+  vToDate := DateToStr(Date);;
+  vWorkTime := '';
+  vComment := '';
+
+  vResult :=
+    GetWorkRestDayParams(
+      vActive,
+      vDateType,
+      vFromDate,
+      vToDate,
+      vWorkTime,
+      vComment
+      );
+
+  if vResult then
+  begin
+    with tWorkRest do
+    begin
+      Close;
+      ParamByName('ID').AsInteger := 0;
+      Open;
+      Append;
+      FieldByName('ID_AssertUser').AsInteger := UserID;
+      FieldByName('Active').AsInteger := vActive;
+      FieldByName('Deleted').AsInteger := 0;
+
+      FieldByName('ID_Worker').AsInteger := vIDW;
+      FieldByName('DateType').AsInteger := vDateType;
+      FieldByName('FromDate').AsString := vFromDate;
+      FieldByName('ToDate').AsString := vToDate;
+      FieldByName('WorkTime').AsString := vWorkTime;
+      FieldByName('Comment').AsString := vComment;
+      Post;
+      vID := FieldByName('ID').AsInteger;
+      Close;
+
+      qWorkRest.Refresh;
+      qWorkRest.Locate('ID', vID, []);
+    end;
+  end;
+  SetEnabledButtons;
+end;
+
 procedure TGWorkerForm.aCancelExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TGWorkerForm.aDayTypeExecute(Sender: TObject);
+  var
+    vIDWorker : integer;
+begin
+  vIDWorker := Query.FieldByName('ID').AsInteger;
+  ShowWorkRestDay(vIDWorker, MainForm.agWorkRestDay);
 end;
 
 function TGWorkerForm.AddWorkerDialog(var IDWorker: integer): boolean;

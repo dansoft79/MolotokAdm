@@ -3,8 +3,8 @@ object OrderListForm: TOrderListForm
   Top = 196
   Action = MainForm.aaOrderList
   Caption = #1046#1091#1088#1085#1072#1083' '#1079#1072#1082#1072#1079#1086#1074
-  ClientHeight = 654
-  ClientWidth = 1248
+  ClientHeight = 658
+  ClientWidth = 1384
   Color = clBtnFace
   Constraints.MinHeight = 200
   Constraints.MinWidth = 350
@@ -25,8 +25,8 @@ object OrderListForm: TOrderListForm
   TextHeight = 13
   object StatusBar: TdxStatusBar
     Left = 0
-    Top = 633
-    Width = 1248
+    Top = 637
+    Width = 1384
     Height = 21
     Panels = <
       item
@@ -39,31 +39,31 @@ object OrderListForm: TOrderListForm
   object PageControl: TcxPageControl
     Left = 0
     Top = 50
-    Width = 1248
-    Height = 583
+    Width = 1384
+    Height = 587
     Align = alClient
     TabOrder = 1
-    Properties.ActivePage = tsTableRequest
+    Properties.ActivePage = tsPlanner
     Properties.CustomButtons.Buttons = <>
     OnChange = PageControlChange
     OnPageChanging = PageControlPageChanging
-    ClientRectBottom = 583
-    ClientRectRight = 1248
+    ClientRectBottom = 587
+    ClientRectRight = 1384
     ClientRectTop = 24
     object tsPlanner: TcxTabSheet
       Caption = #1055#1083#1072#1085#1080#1088#1086#1074#1097#1080#1082
       ImageIndex = 1
       OnResize = tsPlannerResize
       DesignSize = (
-        1248
-        559)
+        1384
+        563)
       object Scheduler: TcxScheduler
         Left = 0
         Top = 26
-        Width = 1245
-        Height = 530
+        Width = 1381
+        Height = 534
         ParentCustomHint = False
-        DateNavigator.ColCount = 2
+        DateNavigator.ColCount = 3
         DateNavigator.Visible = False
         ViewTimeGrid.Active = True
         ViewTimeGrid.EventMaxLineCount = 1
@@ -124,12 +124,12 @@ object OrderListForm: TOrderListForm
         OnMouseMove = SchedulerMouseMove
         Splitters = {
           B00300007E0000003F04000083000000AB03000001000000B003000032020000}
-        StoredClientBounds = {0100000001000000DC04000011020000}
+        StoredClientBounds = {01000000010000006405000015020000}
       end
       object DockControlScheduler: TdxBarDockControl
         Left = 0
         Top = 0
-        Width = 1248
+        Width = 1384
         Height = 26
         Align = dalTop
         BarManager = BarManager
@@ -144,8 +144,8 @@ object OrderListForm: TOrderListForm
       object Grid: TcxGrid
         Left = 0
         Top = 0
-        Width = 1248
-        Height = 373
+        Width = 1384
+        Height = 348
         Align = alClient
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
@@ -171,6 +171,7 @@ object OrderListForm: TOrderListForm
           Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
           Navigator.InfoPanel.Visible = True
           Navigator.Visible = True
+          ScrollbarAnnotations.CustomAnnotations = <>
           OnFocusedRecordChanged = TableViewFocusedRecordChanged
           OnSelectionChanged = TableViewSelectionChanged
           DataController.DataSource = DataSource
@@ -357,113 +358,218 @@ object OrderListForm: TOrderListForm
           GridView = TableView
         end
       end
-      object gbWorks: TcxGroupBox
-        Left = 0
-        Top = 381
-        Align = alBottom
-        Caption = #1056#1072#1073#1086#1090#1099' '#1087#1086' '#1079#1072#1082#1072#1079#1091':'
-        Constraints.MinHeight = 1
-        TabOrder = 1
-        Height = 178
-        Width = 1248
-        object GridWork: TcxGrid
-          Left = 2
-          Top = 18
-          Width = 1244
-          Height = 158
-          Align = alClient
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          LookAndFeel.ScrollbarMode = sbmDefault
-          object ViewWork: TcxGridDBTableView
-            OnKeyPress = TableViewKeyPress
-            Navigator.Buttons.CustomButtons = <>
-            Navigator.Buttons.Insert.Visible = False
-            Navigator.Buttons.Delete.Visible = False
-            Navigator.Buttons.Edit.Visible = False
-            Navigator.Buttons.Post.Visible = False
-            Navigator.Buttons.Cancel.Visible = False
-            Navigator.Buttons.Refresh.Visible = True
-            Navigator.Buttons.SaveBookmark.Visible = False
-            Navigator.Buttons.GotoBookmark.Visible = False
-            Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
-            Navigator.InfoPanel.Visible = True
-            Navigator.Visible = True
-            DataController.DataSource = dsOrderWork
-            DataController.Filter.Options = [fcoCaseInsensitive]
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <
-              item
-                Format = ',0.##'
-                Kind = skSum
-                Column = ViewWorkWorkCost
-              end>
-            DataController.Summary.SummaryGroups = <>
-            FilterRow.Visible = True
-            FilterRow.ApplyChanges = fracImmediately
-            FilterRow.OperatorCustomization = True
-            OptionsBehavior.GoToNextCellOnEnter = True
-            OptionsData.CancelOnExit = False
-            OptionsData.Deleting = False
-            OptionsData.DeletingConfirmation = False
-            OptionsData.Editing = False
-            OptionsData.Inserting = False
-            OptionsSelection.HideFocusRectOnExit = False
-            OptionsSelection.UnselectFocusedRecordOnExit = False
-            OptionsView.Footer = True
-            OptionsView.GroupByBox = False
-            OptionsView.Indicator = True
-            object ViewWorkWorkCode: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkCode'
-              Options.FilterRowOperator = foContains
-              Width = 100
-            end
-            object ViewWorkWCTag: TcxGridDBColumn
-              DataBinding.FieldName = 'WCTag'
-              Options.FilterRowOperator = foContains
-              Width = 100
-            end
-            object ViewWorkWorkName: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkName'
-              Options.FilterRowOperator = foContains
-              Width = 500
-            end
-            object ViewWorkWorkAmount: TcxGridDBColumn
-              DataBinding.FieldName = 'AmountText'
-              Width = 100
-            end
-            object ViewWorkWorkPrice: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkPrice'
-              Width = 100
-            end
-            object ViewWorkWorkCost: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkCost'
-              Width = 100
-            end
-            object ViewWorkWarranty: TcxGridDBColumn
-              DataBinding.FieldName = 'Warranty'
-              Width = 100
-            end
-          end
-          object LevelWork: TcxGridLevel
-            GridView = ViewWork
-          end
-        end
-      end
       object SplitterWorks: TcxSplitter
         Left = 0
-        Top = 373
-        Width = 1248
+        Top = 348
+        Width = 8
         Height = 8
         HotZoneClassName = 'TcxSimpleStyle'
         AlignSplitter = salBottom
-        Control = gbWorks
-        ExplicitWidth = 8
+        Control = pBottomOrder
+      end
+      object pBottomOrder: TPanel
+        Left = 0
+        Top = 356
+        Width = 1384
+        Height = 207
+        Align = alBottom
+        BevelOuter = bvNone
+        TabOrder = 2
+        OnResize = pBottomOrderResize
+        object gbWorks: TcxGroupBox
+          Left = 0
+          Top = 0
+          Align = alClient
+          Caption = #1056#1072#1073#1086#1090#1099' '#1087#1086' '#1079#1072#1082#1072#1079#1091':'
+          Constraints.MinHeight = 1
+          TabOrder = 0
+          Height = 207
+          Width = 704
+          object GridWork: TcxGrid
+            Left = 2
+            Top = 18
+            Width = 700
+            Height = 187
+            Align = alClient
+            Font.Charset = RUSSIAN_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            LookAndFeel.ScrollbarMode = sbmDefault
+            object ViewWork: TcxGridDBTableView
+              OnKeyPress = TableViewKeyPress
+              Navigator.Buttons.CustomButtons = <>
+              Navigator.Buttons.Insert.Visible = False
+              Navigator.Buttons.Delete.Visible = False
+              Navigator.Buttons.Edit.Visible = False
+              Navigator.Buttons.Post.Visible = False
+              Navigator.Buttons.Cancel.Visible = False
+              Navigator.Buttons.Refresh.Visible = True
+              Navigator.Buttons.SaveBookmark.Visible = False
+              Navigator.Buttons.GotoBookmark.Visible = False
+              Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+              Navigator.InfoPanel.Visible = True
+              Navigator.Visible = True
+              ScrollbarAnnotations.CustomAnnotations = <>
+              DataController.DataSource = dsOrderWork
+              DataController.Filter.Options = [fcoCaseInsensitive]
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <
+                item
+                  Format = ',0.##'
+                  Kind = skSum
+                  Column = ViewWorkWorkCost
+                end>
+              DataController.Summary.SummaryGroups = <>
+              FilterRow.Visible = True
+              FilterRow.ApplyChanges = fracImmediately
+              FilterRow.OperatorCustomization = True
+              OptionsBehavior.GoToNextCellOnEnter = True
+              OptionsData.CancelOnExit = False
+              OptionsData.Deleting = False
+              OptionsData.DeletingConfirmation = False
+              OptionsData.Editing = False
+              OptionsData.Inserting = False
+              OptionsSelection.HideFocusRectOnExit = False
+              OptionsSelection.UnselectFocusedRecordOnExit = False
+              OptionsView.Footer = True
+              OptionsView.GroupByBox = False
+              OptionsView.Indicator = True
+              object ViewWorkWorkCode: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkCode'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object ViewWorkWCTag: TcxGridDBColumn
+                DataBinding.FieldName = 'WCTag'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object ViewWorkWorkName: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkName'
+                Options.FilterRowOperator = foContains
+                Width = 500
+              end
+              object ViewWorkWorkAmount: TcxGridDBColumn
+                DataBinding.FieldName = 'AmountText'
+                Width = 100
+              end
+              object ViewWorkWorkPrice: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkPrice'
+                Width = 100
+              end
+              object ViewWorkWorkCost: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkCost'
+                Width = 100
+              end
+              object ViewWorkWarranty: TcxGridDBColumn
+                DataBinding.FieldName = 'Warranty'
+                Width = 100
+              end
+            end
+            object LevelWork: TcxGridLevel
+              GridView = ViewWork
+            end
+          end
+        end
+        object gbMaterialOrder: TcxGroupBox
+          Left = 704
+          Top = 0
+          Align = alRight
+          Caption = #1052#1072#1090#1077#1088#1080#1072#1083#1099' '#1087#1086' '#1079#1072#1082#1072#1079#1091':'
+          Constraints.MinHeight = 1
+          TabOrder = 1
+          Height = 207
+          Width = 680
+          object GridMaterial: TcxGrid
+            Left = 2
+            Top = 18
+            Width = 676
+            Height = 187
+            Align = alClient
+            Font.Charset = RUSSIAN_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            LookAndFeel.ScrollbarMode = sbmDefault
+            object ViewMaterial: TcxGridDBTableView
+              OnKeyPress = TableViewKeyPress
+              Navigator.Buttons.CustomButtons = <>
+              Navigator.Buttons.Insert.Visible = False
+              Navigator.Buttons.Delete.Visible = False
+              Navigator.Buttons.Edit.Visible = False
+              Navigator.Buttons.Post.Visible = False
+              Navigator.Buttons.Cancel.Visible = False
+              Navigator.Buttons.Refresh.Visible = True
+              Navigator.Buttons.SaveBookmark.Visible = False
+              Navigator.Buttons.GotoBookmark.Visible = False
+              Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+              Navigator.InfoPanel.Visible = True
+              Navigator.Visible = True
+              ScrollbarAnnotations.CustomAnnotations = <>
+              DataController.DataSource = dsOrderMaterial
+              DataController.Filter.Options = [fcoCaseInsensitive]
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <
+                item
+                  Format = ',0.##'
+                  Kind = skSum
+                  Column = cxGridDBColumn41
+                end>
+              DataController.Summary.SummaryGroups = <>
+              FilterRow.Visible = True
+              FilterRow.ApplyChanges = fracImmediately
+              FilterRow.OperatorCustomization = True
+              OptionsBehavior.GoToNextCellOnEnter = True
+              OptionsData.CancelOnExit = False
+              OptionsData.Deleting = False
+              OptionsData.DeletingConfirmation = False
+              OptionsData.Editing = False
+              OptionsData.Inserting = False
+              OptionsSelection.HideFocusRectOnExit = False
+              OptionsSelection.UnselectFocusedRecordOnExit = False
+              OptionsView.Footer = True
+              OptionsView.GroupByBox = False
+              OptionsView.Indicator = True
+              object cxGridDBColumn36: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialCode'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object cxGridDBColumn37: TcxGridDBColumn
+                DataBinding.FieldName = 'Category'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object cxGridDBColumn38: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialName'
+                Options.FilterRowOperator = foContains
+                Width = 500
+              end
+              object cxGridDBColumn39: TcxGridDBColumn
+                DataBinding.FieldName = 'AmountText'
+                Width = 100
+              end
+              object cxGridDBColumn40: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialPrice'
+                Width = 100
+              end
+              object cxGridDBColumn41: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialCost'
+                Width = 100
+              end
+            end
+            object LevelMaterial: TcxGridLevel
+              GridView = ViewMaterial
+            end
+          end
+        end
       end
     end
     object tsTableLead: TcxTabSheet
@@ -475,8 +581,8 @@ object OrderListForm: TOrderListForm
       object LeadGrid: TcxGrid
         Left = 0
         Top = 0
-        Width = 1248
-        Height = 373
+        Width = 1384
+        Height = 378
         Align = alClient
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
@@ -502,6 +608,7 @@ object OrderListForm: TOrderListForm
           Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
           Navigator.InfoPanel.Visible = True
           Navigator.Visible = True
+          ScrollbarAnnotations.CustomAnnotations = <>
           OnFocusedRecordChanged = TableViewFocusedRecordChanged
           OnSelectionChanged = TableViewLeadSelectionChanged
           DataController.DataSource = DataSource
@@ -584,7 +691,7 @@ object OrderListForm: TOrderListForm
             RepositoryItem = Datas.EditRepositoryIntCheckBox
             Width = 103
           end
-          object cxGridDBColumn14: TcxGridDBColumn
+          object TableViewLeadAddress: TcxGridDBColumn
             DataBinding.FieldName = 'Address'
             Options.FilterRowOperator = foContains
             Width = 200
@@ -607,7 +714,7 @@ object OrderListForm: TOrderListForm
             DataBinding.FieldName = 'OCInfo'
             Visible = False
           end
-          object cxGridDBColumn11: TcxGridDBColumn
+          object TableViewLeadPhone: TcxGridDBColumn
             DataBinding.FieldName = 'Phone'
             Visible = False
           end
@@ -685,114 +792,219 @@ object OrderListForm: TOrderListForm
           GridView = TableViewLead
         end
       end
-      object gbWorksLead: TcxGroupBox
-        Left = 0
-        Top = 381
-        Align = alBottom
-        Caption = #1056#1072#1073#1086#1090#1099' '#1087#1086' '#1079#1072#1103#1074#1082#1077':'
-        Constraints.MinHeight = 1
-        TabOrder = 1
-        Height = 178
-        Width = 1248
-        object GridWorkLead: TcxGrid
-          Left = 2
-          Top = 18
-          Width = 1244
-          Height = 158
-          Align = alClient
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          LookAndFeel.ScrollbarMode = sbmDefault
-          object ViewWorkLead: TcxGridDBTableView
-            OnKeyPress = TableViewKeyPress
-            Navigator.Buttons.CustomButtons = <>
-            Navigator.Buttons.Insert.Visible = False
-            Navigator.Buttons.Delete.Visible = False
-            Navigator.Buttons.Edit.Visible = False
-            Navigator.Buttons.Post.Visible = False
-            Navigator.Buttons.Cancel.Visible = False
-            Navigator.Buttons.Refresh.Visible = True
-            Navigator.Buttons.SaveBookmark.Visible = False
-            Navigator.Buttons.GotoBookmark.Visible = False
-            Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
-            Navigator.InfoPanel.Visible = True
-            Navigator.Visible = True
-            DataController.DataSource = dsOrderWork
-            DataController.Filter.Options = [fcoCaseInsensitive]
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <
-              item
-                Format = ',0.##'
-                Kind = skSum
-                Column = ViewWorkLeadWorkCost
-              end>
-            DataController.Summary.SummaryGroups = <>
-            FilterRow.Visible = True
-            FilterRow.ApplyChanges = fracImmediately
-            FilterRow.OperatorCustomization = True
-            OptionsBehavior.GoToNextCellOnEnter = True
-            OptionsData.CancelOnExit = False
-            OptionsData.Deleting = False
-            OptionsData.DeletingConfirmation = False
-            OptionsData.Editing = False
-            OptionsData.Inserting = False
-            OptionsSelection.HideFocusRectOnExit = False
-            OptionsSelection.UnselectFocusedRecordOnExit = False
-            OptionsView.Footer = True
-            OptionsView.GroupByBox = False
-            OptionsView.Indicator = True
-            object ViewWorkLeadWorkCode: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkCode'
-              Options.FilterRowOperator = foContains
-              Width = 100
-            end
-            object ViewWorkLeadWCTag: TcxGridDBColumn
-              DataBinding.FieldName = 'WCTag'
-              Options.FilterRowOperator = foContains
-              Width = 100
-            end
-            object ViewWorkLeadWorkName: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkName'
-              Options.FilterRowOperator = foContains
-              Width = 500
-            end
-            object ViewWorkLeadAmountText: TcxGridDBColumn
-              DataBinding.FieldName = 'AmountText'
-              Width = 100
-            end
-            object ViewWorkLeadWorkPrice: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkPrice'
-              Width = 100
-            end
-            object ViewWorkLeadWorkCost: TcxGridDBColumn
-              DataBinding.FieldName = 'WorkCost'
-              Width = 100
-            end
-            object ViewWorkLeadWarranty: TcxGridDBColumn
-              DataBinding.FieldName = 'Warranty'
-              Width = 100
-            end
-          end
-          object LevelWorkLead: TcxGridLevel
-            GridView = ViewWorkLead
-          end
-        end
-      end
       object cxSplitter1: TcxSplitter
         Left = 0
-        Top = 373
-        Width = 1248
+        Top = 378
+        Width = 8
         Height = 8
         HotZoneClassName = 'TcxSimpleStyle'
         AlignSplitter = salBottom
-        Control = gbWorksLead
-        ExplicitTop = 374
-        ExplicitWidth = 8
+        Control = pBottomLead
+      end
+      object pBottomLead: TPanel
+        Left = 0
+        Top = 386
+        Width = 1384
+        Height = 177
+        Align = alBottom
+        BevelOuter = bvNone
+        Constraints.MinHeight = 1
+        TabOrder = 2
+        OnResize = pBottomLeadResize
+        object gbWorksLead: TcxGroupBox
+          Left = 0
+          Top = 0
+          Align = alClient
+          Caption = #1056#1072#1073#1086#1090#1099' '#1087#1086' '#1079#1072#1103#1074#1082#1077':'
+          Constraints.MinHeight = 1
+          TabOrder = 0
+          Height = 177
+          Width = 704
+          object GridWorkLead: TcxGrid
+            Left = 2
+            Top = 18
+            Width = 700
+            Height = 157
+            Align = alClient
+            Font.Charset = RUSSIAN_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            LookAndFeel.ScrollbarMode = sbmDefault
+            object ViewWorkLead: TcxGridDBTableView
+              OnKeyPress = TableViewKeyPress
+              Navigator.Buttons.CustomButtons = <>
+              Navigator.Buttons.Insert.Visible = False
+              Navigator.Buttons.Delete.Visible = False
+              Navigator.Buttons.Edit.Visible = False
+              Navigator.Buttons.Post.Visible = False
+              Navigator.Buttons.Cancel.Visible = False
+              Navigator.Buttons.Refresh.Visible = True
+              Navigator.Buttons.SaveBookmark.Visible = False
+              Navigator.Buttons.GotoBookmark.Visible = False
+              Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+              Navigator.InfoPanel.Visible = True
+              Navigator.Visible = True
+              ScrollbarAnnotations.CustomAnnotations = <>
+              DataController.DataSource = dsOrderWork
+              DataController.Filter.Options = [fcoCaseInsensitive]
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <
+                item
+                  Format = ',0.##'
+                  Kind = skSum
+                  Column = ViewWorkLeadWorkCost
+                end>
+              DataController.Summary.SummaryGroups = <>
+              FilterRow.Visible = True
+              FilterRow.ApplyChanges = fracImmediately
+              FilterRow.OperatorCustomization = True
+              OptionsBehavior.GoToNextCellOnEnter = True
+              OptionsData.CancelOnExit = False
+              OptionsData.Deleting = False
+              OptionsData.DeletingConfirmation = False
+              OptionsData.Editing = False
+              OptionsData.Inserting = False
+              OptionsSelection.HideFocusRectOnExit = False
+              OptionsSelection.UnselectFocusedRecordOnExit = False
+              OptionsView.Footer = True
+              OptionsView.GroupByBox = False
+              OptionsView.Indicator = True
+              object ViewWorkLeadWorkCode: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkCode'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object ViewWorkLeadWCTag: TcxGridDBColumn
+                DataBinding.FieldName = 'WCTag'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object ViewWorkLeadWorkName: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkName'
+                Options.FilterRowOperator = foContains
+                Width = 500
+              end
+              object ViewWorkLeadAmountText: TcxGridDBColumn
+                DataBinding.FieldName = 'AmountText'
+                Width = 100
+              end
+              object ViewWorkLeadWorkPrice: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkPrice'
+                Width = 100
+              end
+              object ViewWorkLeadWorkCost: TcxGridDBColumn
+                DataBinding.FieldName = 'WorkCost'
+                Width = 100
+              end
+              object ViewWorkLeadWarranty: TcxGridDBColumn
+                DataBinding.FieldName = 'Warranty'
+                Width = 100
+              end
+            end
+            object LevelWorkLead: TcxGridLevel
+              GridView = ViewWorkLead
+            end
+          end
+        end
+        object gbMaterialLead: TcxGroupBox
+          Left = 704
+          Top = 0
+          Align = alRight
+          Caption = #1052#1072#1090#1077#1088#1080#1072#1083#1099' '#1087#1086' '#1079#1072#1103#1074#1082#1077':'
+          Constraints.MinHeight = 1
+          TabOrder = 1
+          Height = 177
+          Width = 680
+          object GridMaterialLead: TcxGrid
+            Left = 2
+            Top = 18
+            Width = 676
+            Height = 157
+            Align = alClient
+            Font.Charset = RUSSIAN_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            LookAndFeel.ScrollbarMode = sbmDefault
+            object ViewMaterialLead: TcxGridDBTableView
+              OnKeyPress = TableViewKeyPress
+              Navigator.Buttons.CustomButtons = <>
+              Navigator.Buttons.Insert.Visible = False
+              Navigator.Buttons.Delete.Visible = False
+              Navigator.Buttons.Edit.Visible = False
+              Navigator.Buttons.Post.Visible = False
+              Navigator.Buttons.Cancel.Visible = False
+              Navigator.Buttons.Refresh.Visible = True
+              Navigator.Buttons.SaveBookmark.Visible = False
+              Navigator.Buttons.GotoBookmark.Visible = False
+              Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
+              Navigator.InfoPanel.Visible = True
+              Navigator.Visible = True
+              ScrollbarAnnotations.CustomAnnotations = <>
+              DataController.DataSource = dsOrderMaterial
+              DataController.Filter.Options = [fcoCaseInsensitive]
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <
+                item
+                  Format = ',0.##'
+                  Kind = skSum
+                  Column = cxGridDBColumn35
+                end>
+              DataController.Summary.SummaryGroups = <>
+              FilterRow.Visible = True
+              FilterRow.ApplyChanges = fracImmediately
+              FilterRow.OperatorCustomization = True
+              OptionsBehavior.GoToNextCellOnEnter = True
+              OptionsData.CancelOnExit = False
+              OptionsData.Deleting = False
+              OptionsData.DeletingConfirmation = False
+              OptionsData.Editing = False
+              OptionsData.Inserting = False
+              OptionsSelection.HideFocusRectOnExit = False
+              OptionsSelection.UnselectFocusedRecordOnExit = False
+              OptionsView.Footer = True
+              OptionsView.GroupByBox = False
+              OptionsView.Indicator = True
+              object cxGridDBColumn1: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialCode'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object cxGridDBColumn10: TcxGridDBColumn
+                DataBinding.FieldName = 'Category'
+                Options.FilterRowOperator = foContains
+                Width = 100
+              end
+              object cxGridDBColumn11: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialName'
+                Options.FilterRowOperator = foContains
+                Width = 500
+              end
+              object cxGridDBColumn14: TcxGridDBColumn
+                DataBinding.FieldName = 'AmountText'
+                Width = 100
+              end
+              object cxGridDBColumn34: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialPrice'
+                Width = 100
+              end
+              object cxGridDBColumn35: TcxGridDBColumn
+                DataBinding.FieldName = 'MaterialCost'
+                Width = 100
+              end
+            end
+            object LevelMaterialLead: TcxGridLevel
+              GridView = ViewMaterialLead
+            end
+          end
+        end
       end
     end
   end
@@ -880,6 +1092,10 @@ object OrderListForm: TOrderListForm
         item
           BeginGroup = True
           Visible = True
+          ItemName = 'dxBarButton11'
+        end
+        item
+          Visible = True
           ItemName = 'dxBarButton5'
         end>
       NotDocking = [dsNone, dsLeft, dsTop, dsRight, dsBottom]
@@ -915,6 +1131,10 @@ object OrderListForm: TOrderListForm
         item
           Visible = True
           ItemName = 'cbSignalTypes'
+        end
+        item
+          Visible = True
+          ItemName = 'cbWorkerCompany'
         end
         item
           BeginGroup = True
@@ -1139,6 +1359,28 @@ object OrderListForm: TOrderListForm
       Action = aPrintReport
       Category = 0
     end
+    object cbWorkerCompany: TcxBarEditItem
+      Caption = #1055#1086#1076#1088#1103#1076#1095#1080#1082#1080':'
+      Category = 0
+      Hint = #1055#1086#1076#1088#1103#1076#1095#1080#1082#1080':'
+      Visible = ivAlways
+      OnKeyDown = cbWorkerCompanyKeyDown
+      ShowCaption = True
+      Width = 200
+      PropertiesClassName = 'TcxCheckComboBoxProperties'
+      Properties.EmptySelectionText = #1053#1080#1095#1077#1075#1086' '#1085#1077' '#1091#1082#1072#1079#1072#1085#1086
+      Properties.DropDownRows = 20
+      Properties.DropDownSizeable = True
+      Properties.EditValueFormat = cvfStatesString
+      Properties.ImmediatePost = True
+      Properties.Items = <>
+      Properties.OnChange = cbWorkerCompanyPropertiesChange
+      Properties.OnCloseUp = cbWorkerCompanyPropertiesCloseUp
+    end
+    object dxBarButton11: TdxBarButton
+      Action = aHistory
+      Category = 0
+    end
   end
   object ActionList: TActionList
     Images = UtilForm.ImageList
@@ -1204,6 +1446,15 @@ object OrderListForm: TOrderListForm
       Caption = #1054#1090#1095#1077#1090#1085#1099#1077' '#1092#1086#1088#1084#1099
       Hint = #1055#1077#1095#1072#1090#1072#1090#1100' '#1086#1090#1095#1077#1090#1085#1099#1077' '#1092#1086#1088#1084#1099
       OnExecute = aPrintReportExecute
+    end
+    object aFiles: TAction
+      Caption = 'aFiles'
+    end
+    object aHistory: TAction
+      Caption = #1048#1089#1090#1086#1088#1080#1103' '#1079#1072#1082#1072#1079#1086#1074
+      Hint = #1048#1089#1090#1086#1088#1080#1103' '#1079#1072#1082#1072#1079#1086#1074
+      ImageIndex = 431
+      OnExecute = aHistoryExecute
     end
   end
   object qWorkList: TZQuery
@@ -1272,18 +1523,19 @@ object OrderListForm: TOrderListForm
       'select'
       
         '  WorkerCategoryList(W.ID) as CatList, WorkerTagList(W.ID) as Ta' +
-        'gList,'
-      
-        '  W.Deleted, W.ID, WorkerInfo(W.ID) as WInfo, WorkerSurnameName(' +
-        'W.ID) as WSNInfo,'
+        'gList, W.Deleted, W.ID, WorkerInfo(W.ID) as WInfo, WorkerSurname' +
+        'Name(W.ID) as WSNInfo,'
       
         '  (Select ID from OrderList where Deleted = 0 and ID_Worker = W.' +
         'ID and Date_Format(WorkDate, '#39'%Y.%m.%d'#39') = :DS limit 1) as CID,'
+      '  WC.OrgType, WC.Name, WC.INN, WC.KPP, WC.OGRN,'
       '  WT.*'
       'from'
       '  Worker W'
       '  left outer join WorkerTiming WT on'
       '    WT.ID_Worker = W.ID'
+      '  inner join WorkerCompany WC on'
+      '    W.ID_WorkerCompany = WC.ID'
       'where'
       
         '  (Exists(select ID_WorkerClass from WorkerCategory where ID_Wor' +
@@ -1292,7 +1544,8 @@ object OrderListForm: TOrderListForm
       
         '  (Exists(select ID_District from WorkerDistrict where ID_Worker' +
         ' = W.ID and FIND_IN_SET(ID_District, :DList1) > 0 limit 1) or :D' +
-        'List2 = '#39#39')'
+        'List2 = '#39#39') and'
+      '  (FIND_IN_SET(WC.ID, :WCList1) > 0 or :WCList2 = '#39#39')'
       'order by '
       '  W.Surname, W.Name, W.Patro')
     Params = <
@@ -1319,6 +1572,16 @@ object OrderListForm: TOrderListForm
       item
         DataType = ftUnknown
         Name = 'DList2'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'WCList1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'WCList2'
         ParamType = ptUnknown
       end>
     Left = 624
@@ -1347,6 +1610,16 @@ object OrderListForm: TOrderListForm
       item
         DataType = ftUnknown
         Name = 'DList2'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'WCList1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'WCList2'
         ParamType = ptUnknown
       end>
   end
@@ -1382,6 +1655,7 @@ object OrderListForm: TOrderListForm
       '   left join Worker W on'
       '     W.ID = OL.ID_Worker'
       'where'
+      '  (OL.ID = :IDDef1) or (:IDDef2 = 0) and'
       
         '  (FIND_IN_SET(OL.ID_SignalType, :STList1) > 0 or :STList2 = '#39#39')' +
         ' and'
@@ -1401,6 +1675,16 @@ object OrderListForm: TOrderListForm
         Name = 'D'
         ParamType = ptUnknown
         Value = '0'
+      end
+      item
+        DataType = ftUnknown
+        Name = 'IDDef1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'IDDef2'
+        ParamType = ptUnknown
       end
       item
         DataType = ftWideString
@@ -1446,6 +1730,16 @@ object OrderListForm: TOrderListForm
         Name = 'D'
         ParamType = ptUnknown
         Value = '0'
+      end
+      item
+        DataType = ftUnknown
+        Name = 'IDDef1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'IDDef2'
+        ParamType = ptUnknown
       end
       item
         DataType = ftWideString
@@ -1693,6 +1987,18 @@ object OrderListForm: TOrderListForm
     end
     object QueryID_DiscountPromo: TSmallintField
       FieldName = 'ID_DiscountPromo'
+    end
+    object QueryOrderNumberExt: TWideStringField
+      DisplayLabel = #1042#1085#1077#1096#1085#1080#1081' '#1085#1086#1084#1077#1088
+      FieldName = 'OrderNumberExt'
+      ReadOnly = True
+      Size = 800
+    end
+    object QueryPersonalAccount: TWideStringField
+      DisplayLabel = #1051#1080#1094'.'#1089#1095#1077#1090'/GUID'
+      FieldName = 'PersonalAccount'
+      ReadOnly = True
+      Size = 400
     end
   end
   object Table: TZQuery
@@ -2194,7 +2500,7 @@ object OrderListForm: TOrderListForm
         Name = 'ID'
         ParamType = ptUnknown
       end>
-    Left = 256
+    Left = 280
     Top = 520
     ParamData = <
       item
@@ -2366,15 +2672,14 @@ object OrderListForm: TOrderListForm
     end
   end
   object PopupMenuWork: TcxGridPopupMenu
-    Grid = GridWork
     PopupMenus = <
       item
         HitTypes = [gvhtCell]
         Index = 0
         PopupMenu = dxBarPopupMenu
       end>
-    Left = 572
-    Top = 552
+    Left = 588
+    Top = 508
   end
   object qWorkOne: TZQuery
     Connection = Datas.ZConnection
@@ -2481,8 +2786,8 @@ object OrderListForm: TOrderListForm
   end
   object dsWorkList: TDataSource
     DataSet = qWorkList
-    Left = 508
-    Top = 524
+    Left = 504
+    Top = 504
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.xlsx'
@@ -2508,5 +2813,195 @@ object OrderListForm: TOrderListForm
     OnTimer = DetailTimerTimer
     Left = 932
     Top = 202
+  end
+  object qOrderMaterial: TZQuery
+    Connection = Datas.ZConnection
+    SQL.Strings = (
+      'select'
+      
+        '  OM.*, UserInfo(OM.ID_AssertUser) as AssertUser, MaterialTypeIn' +
+        'fo(OM.ID_MaterialType) as MTInfo,'
+      
+        '  (select Category from MaterialType MT where MT.ID = OM.ID_Mate' +
+        'rialType) as Category,'
+      
+        '  Concat(Convert(OM.MaterialAmount, CHAR CHARACTER SET utf8mb4),' +
+        ' '#39' '#39', OM.MaterialUnitName) as AmountText,'
+      '  OM.MaterialPrice * OM.MaterialAmount as MaterialCost'
+      'from'
+      '  OrderMaterial OM'
+      'where'
+      '  (OM.Deleted = :D or :D = 2)  and'
+      '  OM.ID_OrderList = :ID'
+      'order by'
+      '  OM.MaterialName')
+    Params = <
+      item
+        DataType = ftWideString
+        Name = 'D'
+        ParamType = ptUnknown
+        Value = '0'
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    Left = 280
+    Top = 568
+    ParamData = <
+      item
+        DataType = ftWideString
+        Name = 'D'
+        ParamType = ptUnknown
+        Value = '0'
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    object SmallintField1: TSmallintField
+      FieldName = 'ID'
+      Required = True
+    end
+    object SmallintField2: TSmallintField
+      DisplayLabel = #1059#1076#1072#1083#1077#1085#1072
+      FieldName = 'Deleted'
+    end
+    object SmallintField3: TSmallintField
+      FieldName = 'ID_AssertUser'
+    end
+    object WideStringField1: TWideStringField
+      DisplayLabel = #1055#1088#1080#1084#1077#1085#1080#1083
+      FieldName = 'AssertUser'
+      ReadOnly = True
+      Size = 50
+    end
+    object DateTimeField1: TDateTimeField
+      DisplayLabel = #1042#1088#1077#1084#1103' '#1087#1088#1080#1084#1077#1085#1077#1085#1080#1103
+      FieldName = 'AssertTime'
+    end
+    object IntegerField1: TIntegerField
+      FieldName = 'ID_OrderList'
+    end
+    object SmallintField4: TSmallintField
+      FieldName = 'ID_MaterialType'
+    end
+    object WideStringField2: TWideStringField
+      DisplayLabel = #1053#1072#1079#1074#1072#1085#1080#1077
+      DisplayWidth = 300
+      FieldName = 'MaterialName'
+      Size = 300
+    end
+    object FloatField1: TFloatField
+      DisplayLabel = #1062#1077#1085#1072
+      FieldName = 'MaterialPrice'
+      DisplayFormat = ',0.##'
+    end
+    object FloatField3: TFloatField
+      DisplayLabel = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+      FieldName = 'MaterialAmount'
+    end
+    object WideStringField3: TWideStringField
+      DisplayLabel = #1045#1076'. '#1080#1079#1084'.'
+      FieldName = 'MaterialUnitName'
+    end
+    object WideStringField4: TWideStringField
+      DisplayLabel = #1050#1086#1076
+      FieldName = 'MaterialCode'
+    end
+    object FloatField4: TFloatField
+      DisplayLabel = #1057#1091#1084#1084#1072
+      FieldName = 'MaterialCost'
+      ReadOnly = True
+      DisplayFormat = ',0.##'
+    end
+    object WideStringField10: TWideStringField
+      DisplayLabel = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+      FieldName = 'AmountText'
+      ReadOnly = True
+      Size = 172
+    end
+    object FloatField5: TFloatField
+      FieldName = 'MaterialSum'
+    end
+    object qOrderMaterialMTInfo: TWideStringField
+      FieldName = 'MTInfo'
+      ReadOnly = True
+      Size = 1200
+    end
+    object qOrderMaterialCategory: TWideStringField
+      DisplayLabel = #1050#1072#1090#1077#1075#1086#1088#1080#1103
+      FieldName = 'Category'
+      ReadOnly = True
+      Size = 400
+    end
+  end
+  object dsOrderMaterial: TDataSource
+    DataSet = qOrderMaterial
+    Left = 368
+    Top = 568
+  end
+  object qMaterial: TZQuery
+    Connection = Datas.ZConnection
+    SQL.Strings = (
+      'select *'
+      'from OrderMaterial'
+      'where ID_OrderList = :ID and Deleted = 0')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    Left = 128
+    Top = 584
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+  end
+  object mdMaterial: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 76
+    Top = 584
+    object LargeintField1: TLargeintField
+      FieldName = 'ID'
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'ID_MaterialType'
+    end
+    object StringField1: TStringField
+      DisplayLabel = #1042#1080#1076' '#1088#1072#1073#1086#1090#1099
+      FieldName = 'MaterialName'
+      Size = 100
+    end
+    object FloatField2: TFloatField
+      DisplayLabel = #1062#1077#1085#1072' ('#1088#1091#1073')'
+      FieldName = 'MaterialPrice'
+    end
+    object FloatField6: TFloatField
+      DisplayLabel = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+      FieldName = 'MaterialAmount'
+    end
+    object FloatField7: TFloatField
+      FieldName = 'MaterialSum'
+    end
+    object StringField2: TStringField
+      DisplayLabel = #1045#1076'. '#1080#1079#1084#1077#1088'.'
+      FieldName = 'MaterialUnitName'
+    end
+    object StringField3: TStringField
+      DisplayWidth = 2
+      FieldName = 'MaterialCode'
+      Size = 2
+    end
+    object SmallintField5: TSmallintField
+      FieldName = 'Edited'
+    end
   end
 end

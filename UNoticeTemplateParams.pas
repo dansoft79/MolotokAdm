@@ -22,7 +22,8 @@ uses
   cxGridBandedTableView, cxGridDBBandedTableView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   System.Actions, Vcl.ActnList, dxBar, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox;
+  ZDataset, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
+  dxScrollbarAnnotations;
 
 type
   TNoticeTemplateParamForm = class(TForm)
@@ -324,7 +325,7 @@ begin
   vImage.Free;
   vStream.Free;
 
-  ShowNotification(0, IDOrderList, eHeader.Text, eText.Text, eColor.ColorValue, eShowTime.Value, n);
+  ShowNotification(0, 0, IDOrderList, eHeader.Text, eText.Text, eColor.ColorValue, eShowTime.Value, n);
 end;
 
 procedure TNoticeTemplateParamForm.cbTimeFieldNamePropertiesChange(

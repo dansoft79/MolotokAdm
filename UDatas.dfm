@@ -101,7 +101,7 @@ object Datas: TDatas
     Top = 152
   end
   object frxReport: TfrxReport
-    Version = '2022.1.3'
+    Version = '2023.1'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -222,11 +222,11 @@ object Datas: TDatas
       'codepage=utf8mb4'
       'AutoEncodeStrings=ON'
       'controls_cp=CP_UTF16')
-    HostName = 'localhost'
-    Port = 3306
+    HostName = '217.107.193.196'
+    Port = 45678
     Database = 'portalpro'
-    User = 'root'
-    Password = 'root'
+    User = 'admin'
+    Password = 'Adm030403'
     Protocol = 'mysql-5'
     Left = 40
     Top = 12

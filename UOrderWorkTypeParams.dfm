@@ -24,8 +24,6 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 16
-    ExplicitLeft = -4
-    ExplicitTop = 241
     DesignSize = (
       425
       36)
@@ -38,7 +36,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
       Caption = 'OK'
       ModalResult = 1
       OptionsImage.NumGlyphs = 2
-      TabOrder = 1
+      TabOrder = 0
     end
     object bCancel: TcxButton
       Left = 335
@@ -50,7 +48,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
       Caption = #1054#1090#1084#1077#1085#1072
       ModalResult = 2
       OptionsImage.NumGlyphs = 2
-      TabOrder = 2
+      TabOrder = 1
     end
     object bDel: TcxButton
       Left = 11
@@ -62,7 +60,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
       Caption = #1059#1076#1072#1083#1080#1090#1100
       ModalResult = 3
       OptionsImage.NumGlyphs = 2
-      TabOrder = 0
+      TabOrder = 2
     end
   end
   object eName: TcxTextEdit
@@ -71,7 +69,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 3
+    TabOrder = 2
     OnKeyDown = eKeyDown
     Height = 24
     Width = 409
@@ -106,7 +104,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     Properties.DisplayFormat = ',0. '#1088#1091#1073
     Properties.ImmediatePost = True
     Properties.OnChange = eChange
-    TabOrder = 10
+    TabOrder = 9
     OnKeyDown = eKeyDown
     Height = 24
     Width = 201
@@ -126,7 +124,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     EditValue = 0.000000000000000000
     Properties.ImmediatePost = True
     Properties.OnChange = eChange
-    TabOrder = 6
+    TabOrder = 5
     OnKeyDown = eKeyDown
     Height = 24
     Width = 201
@@ -139,7 +137,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     Properties.ImmediatePost = True
     Properties.ImmediateUpdateText = True
     Properties.OnChange = eChange
-    TabOrder = 7
+    TabOrder = 6
     OnKeyDown = eKeyDown
     Height = 24
     Width = 201
@@ -150,7 +148,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 1
+    TabOrder = 0
     OnKeyDown = eKeyDown
     Height = 24
     Width = 409
@@ -180,7 +178,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     Properties.MaxValue = 1440.000000000000000000
     Properties.SpinButtons.ShowFastButtons = True
     Properties.OnChange = eChange
-    TabOrder = 11
+    TabOrder = 10
     OnKeyDown = eKeyDown
     Height = 24
     Width = 201
@@ -208,7 +206,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     Properties.ImmediatePost = True
     Properties.MaxValue = 9999.000000000000000000
     Properties.OnChange = eChange
-    TabOrder = 14
+    TabOrder = 13
     OnKeyDown = eKeyDown
     Height = 24
     Width = 201
@@ -224,7 +222,7 @@ object OrderListWorkTypeParamsForm: TOrderListWorkTypeParamsForm
     Properties.Items.Strings = (
       #1042' '#1076#1085#1103#1093
       #1042' '#1084#1077#1089#1103#1094#1072#1093)
-    TabOrder = 15
+    TabOrder = 14
     OnKeyDown = eKeyDown
     Height = 24
     Width = 201

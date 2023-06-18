@@ -388,7 +388,7 @@ function AddChatMessage(AIDOrderList : integer; AText : string) : integer;
 function AddNotificationManual(AIDOrderList, AIDNoticeTemplate, AIDUser: integer; AHeader, AText : string; AColor, AShowTime : integer) : integer;
 
 //отображение уведомлени€
-function ShowNotification(AIDNotification, AIDOrderList : integer; AHeader, AText : string; AColor, AShowTime : integer; AImageIndex : integer; AInfo : string = '') : integer;
+function ShowNotification(AType, AIDNotification, AIDOrderList : integer; AHeader, AText : string; AColor, AShowTime : integer; AImageIndex : integer; AInfo : string = '') : integer;
 
 //загрузка картинок дл€ уведомлений
 function LoadNoticeIcons : boolean;
@@ -412,8 +412,8 @@ uses
 { изменить текущий рабочий мес€ц }
 function ChangeEnterpriseParams : boolean;
   var
-    vName, vShortName, vMasterName, vMasterPost,
-    vAddress, vPhone, vEMail, vWEBSite, vWorkDay, vWorkTime, vUpdateURL,
+    vName, vShortName, vINN, vOGRN, vMasterName, vMasterPost,
+    vAddress, vAddressJur, vPhone, vEMail, vWEBSite, vWorkDay, vWorkTime, vUpdateURL,
     vAPIKeyDadata, vSecretKeyDadata : string;
     vOldOrderTime, vCheckUpdateTime, vNotificationTIme : integer;
     vWorkPeriodStart, vWorkPeriodEnd : TDate;
@@ -449,9 +449,12 @@ begin
   begin
     vName := FieldByName('Name').AsString;
     vShortName := FieldByName('ShortName').AsString;
+    vINN := FieldByName('INN').AsString;
+    vOGRN := FieldByName('OGRN').AsString;
     vMasterName := FieldByName('MasterName').AsString;
     vMasterPost := FieldByName('MasterPost').AsString;
     vAddress := FieldByName('Address').AsString;
+    vAddressJur := FieldByName('AddressJur').AsString;
     vPhone := FieldByName('Phone').AsString;
     vEMail := FieldByName('EMail').AsString;
     vWEBSite := FieldByName('WEBSite').AsString;
@@ -539,9 +542,12 @@ begin
     EditEnterpriseParams(
       vName,
       vShortName,
+      vINN,
+      vOGRN,
       vMasterName,
       vMasterPost,
       vAddress,
+      vAddressJur,
       vPhone,
       vEMail,
       vWEBSite,
@@ -602,9 +608,12 @@ begin
         //информаци€
         FieldByName('Name').AsString := vName;
         FieldByName('ShortName').AsString := vShortName;
+        FieldByName('INN').AsString := vINN;
+        FieldByName('OGRN').AsString := vOGRN;
         FieldByName('MasterName').AsString := vMasterName;
         FieldByName('MasterPost').AsString := vMasterPost;
         FieldByName('Address').AsString := vAddress;
+        FieldByName('AddressJur').AsString := vAddressJur;
         FieldByName('Phone').AsString := vPhone;
         FieldByName('EMail').AsString := vEMail;
         FieldByName('WEBSite').AsString := vWEBSite;
@@ -762,13 +771,22 @@ procedure TDatas.AlertWindowManagerClick(Sender: TObject;
   AAlertWindow: TdxAlertWindow);
   var
     vOpenUser : string;
-    vIDOL, vIDN, vIDU : integer;
+    vType, vIDOL, vIDN, vIDU : integer;
     i : integer;
 begin
   if IsInteger(AAlertWindow.Hint) then
-    vIDOL := StrToInt(AAlertWindow.Hint)
+  begin
+    vType := StrToInt(AAlertWindow.Hint);
+    if vType = 0 then
+      vIDOL := IsNull(Datas.ReadValues('notification', 'ID_OrderList', AAlertWindow.Tag)[0], 0)
+    else
+      vIDOL := 0;
+  end
   else
+  begin
     vIDOL := 0;
+    vType := -1;
+  end;
 
   vIDN := AAlertWindow.Tag;
 
@@ -778,57 +796,61 @@ begin
 
   Application.RestoreTopMosts;
 
-  if vIDOL = 0 then ShowMsg('¬ уведомлении нет информации о заказе', smtInformation, [smbOK], smbOK, smbOK, 3)
-  else
-    if Assigned(MainForm.ActiveMDIChild) and (MainForm.ActiveMDIChild is TOrderListForm)then
-    begin
-      for i := 0 to Screen.FormCount - 1 do
-        if fsModal in Screen.Forms[i].FormState then
-        begin
-          ShowMsg('Ќужно закрыть все диалоговые окна', smtInformation, [smbOK], smbOK, smbOK, 3);
-          Exit;
-        end;
-
-        //активно окно заказов и закрыты все диалоги, ищем нужный заказ
-        with TOrderListForm(MainForm.ActiveMDIChild) do
-        begin
-          if not Query.Locate('ID', vIDOL, []) then
-            ShowMsg('«аказ є' + IntToStr(vIDOL) + ' не найден в списке заказов!', smtInformation, [smbOK], smbOK, smbOK, 3)
-          else
+  if vType = 0 then
+  begin
+    if vIDOL = 0 then ShowMsg('¬ уведомлении нет информации о заказе', smtInformation, [smbOK], smbOK, smbOK, 3)
+    else
+      if Assigned(MainForm.ActiveMDIChild) and (MainForm.ActiveMDIChild is TOrderListForm)then
+      begin
+        for i := 0 to Screen.FormCount - 1 do
+          if fsModal in Screen.Forms[i].FormState then
           begin
-            if Query.FieldByName('OrderCategory').AsInteger = 0 then PageControl.ActivePageIndex := 2
-            else PageControl.ActivePageIndex := 1;
+            ShowMsg('Ќужно закрыть все диалоговые окна', smtInformation, [smbOK], smbOK, smbOK, 3);
+            Exit;
+          end;
 
-            if aEdit.Enabled then
+          //активно окно заказов и закрыты все диалоги, ищем нужный заказ
+          with TOrderListForm(MainForm.ActiveMDIChild) do
+          begin
+            if not Query.Locate('ID', vIDOL, []) then
+              ShowMsg('«аказ є' + IntToStr(vIDOL) + ' не найден в списке заказов!', smtInformation, [smbOK], smbOK, smbOK, 3)
+            else
             begin
-              if vIDN = 0 then aEdit.Execute
-              else
-              begin
-                //провер€ем, была ли реакци€ другого пользовател€
-                vIDU := IsNUll(Datas.ReadValues('notification', 'ID_UserOpen', vIDN)[0], 0);
-                if vIDU = 0 then
-                begin
-                  //даем редактировать если никто не открыл и записываем себ€
-                  Datas.WriteValues('notification', 'ID_UserOpen;OpenTIme', VarArrayOf([UserID, ServerTime]), vIDN);
+              if Query.FieldByName('OrderCategory').AsInteger = 0 then PageControl.ActivePageIndex := 2
+              else PageControl.ActivePageIndex := 1;
 
-                  aEdit.Execute;
-                end
+              if aEdit.Enabled then
+              begin
+                if vIDN = 0 then aEdit.Execute
                 else
-                  if vIDU = UserID then aEdit.Execute
-                  else
+                begin
+                  //провер€ем, была ли реакци€ другого пользовател€
+                  vIDU := IsNUll(Datas.ReadValues('notification', 'ID_UserOpen', vIDN)[0], 0);
+                  if vIDU = 0 then
                   begin
-                    vOpenUser := IfNull(Datas.ReadValuesSQL('select userinfo(' + IntToStr(vIDU) + ') as UInfo', 'UInfo')[0], '');
-                    ShowMsg('”ведомление открыл оператор ' + vOpenUser, smtInformation, [smbOK], smbOK, smbOK, 3);
-                  end;
+                    //даем редактировать если никто не открыл и записываем себ€
+                    Datas.WriteValues('notification', 'ID_UserOpen;OpenTIme', VarArrayOf([UserID, ServerTime]), vIDN);
+
+                    aEdit.Execute;
+                  end
+                  else
+                    if vIDU = UserID then aEdit.Execute
+                    else
+                    begin
+                      vOpenUser := IfNull(Datas.ReadValuesSQL('select userinfo(' + IntToStr(vIDU) + ') as UInfo', 'UInfo')[0], '');
+                      ShowMsg('”ведомление открыл оператор ' + vOpenUser, smtInformation, [smbOK], smbOK, smbOK, 3);
+                    end;
+                end;
               end;
             end;
           end;
-        end;
-    end
-    else
-    begin
-      ShowMsg('ƒолжно быть активным окно списка заказов', smtInformation, [smbOK], smbOK, smbOK, 3);
-    end;
+      end
+      else
+      begin
+        ShowMsg('ƒолжно быть активным окно списка заказов', smtInformation, [smbOK], smbOK, smbOK, 3);
+      end;
+  end;
+
 end;
 
 procedure TDatas.AlertWindowManagerCustomDrawBackground(Sender: TObject;
@@ -1825,11 +1847,11 @@ function CreateDatabaseBackup(AFileName : string) : integer;
     vBat : TStringList;
 begin
   vDumpUtil := cMySQLDumpUtilPath;
-  if ExtractFilePath(vDumpUtil) = '' then
+  if ExtractFileDrive(vDumpUtil) = '' then
     vDumpUtil := AppDir + vDumpUtil;
 
   vMySQLCharsetDir := cMySQLCharsetDir;
-  if ExtractFilePath(vMySQLCharsetDir) = '' then
+  if ExtractFileDrive(vMySQLCharsetDir) = '' then
     vMySQLCharsetDir := AppDir + vMySQLCharsetDir;
 
   if not FileExists(vDumpUtil) then Result := -1
@@ -1911,11 +1933,11 @@ function RestoreDatabaseBackup(AFileName : string) : integer;
     vBat : TStringList;
 begin
   vMySQLUtil := cMySQLUtilPath;
-  if ExtractFilePath(vMySQLUtil) = '' then
+  if ExtractFileDrive(vMySQLUtil) = '' then
     vMySQLUtil := AppDir + vMySQLUtil;
 
   vMySQLCharsetDir := cMySQLCharsetDir;
-  if ExtractFilePath(vMySQLCharsetDir) = '' then
+  if ExtractFileDrive(vMySQLCharsetDir) = '' then
     vMySQLCharsetDir := AppDir + vMySQLCharsetDir;
 
   if not FileExists(vMySQLUtil) then Result := -1
@@ -2529,7 +2551,7 @@ begin
 end;
 
 //отображение уведомлени€
-function ShowNotification(AIDNotification, AIDOrderList : integer; AHeader, AText : string; AColor, AShowTime : integer; AImageIndex : integer; AInfo : string = '') : integer;
+function ShowNotification(AType, AIDNotification, AIDOrderList : integer; AHeader, AText : string; AColor, AShowTime : integer; AImageIndex : integer; AInfo : string = '') : integer;
   var
     vWin : TdxAlertWindow;
 begin
@@ -2539,11 +2561,14 @@ begin
   if AShowTime = 0 then vWin.Pinned := true
   else vWin.OptionsBehavior.DisplayTime := AShowTime * 1000;
 
-  vWin.Color := AColor;
+  if AColor <> 0 then
+    vWin.Color := AColor;
 
   vWin.Tag := AIDNotification;
 
-  vWin.Hint := INtToStr(AIDOrderList);
+{  if AIDOrderList <> 0 then
+    vWin.Hint := INtToStr(AIDOrderList);}
+  vWin.Hint := IntToStr(AType);
 
   vWin.HelpKeyword := AInfo;
 end;

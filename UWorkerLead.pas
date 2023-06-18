@@ -25,7 +25,8 @@ uses
   cxDBRichEdit, cxImage, cxDBEdit, cxContainer, cxGroupBox, cxSplitter,
   cxLookAndFeels, System.Actions, cxNavigator, dxDateRanges, dxBarBuiltInMenu,
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
-  GridsEh, DBAxisGridsEh, DBGridEh, PropFilerEh, PropStorageEh;
+  GridsEh, DBAxisGridsEh, DBGridEh, PropFilerEh, PropStorageEh,
+  dxScrollbarAnnotations;
 
 type
   TWorkerLeadForm = class(TForm)
@@ -53,7 +54,6 @@ type
     TableViewAssertTime: TcxGridDBColumn;
     TableViewAssertUser: TcxGridDBColumn;
     TableViewDeleted: TcxGridDBColumn;
-    TableViewName: TcxGridDBColumn;
     TableViewComment: TcxGridDBColumn;
     Level: TcxGridLevel;
     QueryAssertUser: TWideStringField;
@@ -62,29 +62,35 @@ type
     QueryDeleted: TSmallintField;
     QueryID_AssertUser: TSmallintField;
     QueryAssertTime: TDateTimeField;
-    QuerySurname: TWideStringField;
-    QueryName: TWideStringField;
-    QueryPatro: TWideStringField;
     QueryComment: TWideStringField;
-    TableViewSurname: TcxGridDBColumn;
-    TableViewPatro: TcxGridDBColumn;
     cbDel: TdxBarCombo;
     cbActive: TdxBarCombo;
     dxBarPopupMenu: TdxBarPopupMenu;
     qExists: TZQuery;
     aUndoDelete: TAction;
     dxBarButton4: TdxBarButton;
-    QueryCity: TWideStringField;
     QueryID_WorkClass: TSmallintField;
     QueryPhone: TWideStringField;
     QueryInfo: TWideStringField;
     QueryWCInfo: TWideStringField;
-    TableViewCity: TcxGridDBColumn;
     TableViewPhone: TcxGridDBColumn;
     TableViewInfo: TcxGridDBColumn;
-    TableViewState: TcxGridDBColumn;
     TableViewWCInfo: TcxGridDBColumn;
-    QueryProcessed: TSmallintField;
+    aStatusTypeLead: TAction;
+    dxBarButton6: TdxBarButton;
+    QueryID_StatusTypeLead: TSmallintField;
+    QueryFIO: TWideStringField;
+    QueryID_DistrictLive: TSmallintField;
+    QueryLeadDateTime: TDateTimeField;
+    QueryLeadDateTimeComment: TWideStringField;
+    QueryDistrInfo: TWideStringField;
+    QueryStatusTypeInfo: TWideStringField;
+    TableViewFIO: TcxGridDBColumn;
+    TableViewLeadDateTime: TcxGridDBColumn;
+    TableViewLeadDateTimeComment: TcxGridDBColumn;
+    TableViewDistrInfo: TcxGridDBColumn;
+    TableViewStatusTypeInfo: TcxGridDBColumn;
+    TableViewActive: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -111,6 +117,7 @@ type
       ARecord: TcxCustomGridRecord; AItem: TcxCustomGridTableItem;
       var AStyle: TcxStyle);
     procedure aUndoDeleteExecute(Sender: TObject);
+    procedure aStatusTypeLeadExecute(Sender: TObject);
   private
     { Private declarations }
     FModified : boolean;
@@ -145,7 +152,7 @@ implementation
 
 uses
   UOptions, UDatas, UWorkerLeadParams, mesdlg, UUtil, DTKUtils, UWaiting, UConsts,
-  MainUnit, UPermitTree, Jpeg;
+  MainUnit, Jpeg, UGStatusTypeLead;
 
 function DoAction(var AIDWorkerLead : integer; AAction : string; AParentAction : TAction) : boolean;
   var
@@ -247,6 +254,8 @@ begin
   aUndoDelete.Enabled := e and ce and del;
   aEdit.Enabled := e and ce and not del;
 
+  aStatusTypeLead.Enabled := true;
+
   //------------------------------------------
   //видимость
   //------------------------------------------
@@ -306,6 +315,11 @@ end;
 procedure TWorkerLeadForm.aPrintExecute(Sender: TObject);
 begin
   PrintGuideGridDX(Caption, Grid);
+end;
+
+procedure TWorkerLeadForm.aStatusTypeLeadExecute(Sender: TObject);
+begin
+  ShowStatusTypeLead(aStatusTypeLead);
 end;
 
 procedure TWorkerLeadForm.aUndoDeleteExecute(Sender: TObject);
@@ -422,30 +436,34 @@ end;
 
 function TWorkerLeadForm.AddWorkerLeadDialog(var IDWorkerLead: integer): boolean;
   var
-    vPhone, vInfo, vCity, vSurname, vName, vPatro, vComment : string;
-    vActive, vProcessed, vIDWorkClass : integer;
+    vPhone, vInfo, vFIO, vComment, vLeadDateTime, vLeadDateTimeComment : string;
+    vActive, vIDWorkClass, vIDDistrict, vIDStatusTypeLead : integer;
 begin
   vActive := 1;
-  vProcessed := 0;
+
+  vIDStatusTypeLEad := IsNUll(Datas.ReadValuesSQL('select ID from StatusTypeLead where DefStatus = 1 limit 1', 'ID')[0], 0);
   vIDWorkClass := 0;
-  vSurname := '';
-  vName := '';
-  vPatro := '';
+  vIDDistrict := 0;
+
+  vFIO := '';
   vPhone := '';
-  vCity := '';
+
+  vLeadDateTime := '';
+  vLeadDateTimeComment := '';
+
   vInfo := '';
   vComment := '';
 
   Result :=
     GetWorkerLeadParams(
       vActive,
-      vProcessed,
+      vIDStatusTypeLead,
       vIDWorkClass,
-      vSurname,
-      vName,
-      vPatro,
+      vIDDistrict,
+      vFIO,
       vPhone,
-      vCity,
+      vLeadDateTime,
+      vLeadDateTimeComment,
       vInfo,
       vComment,
       0
@@ -464,13 +482,17 @@ begin
       FieldByName('ID_AssertUser').AsInteger := UserID;
       FieldByName('Deleted').AsInteger := 0;
       FieldByName('Active').AsInteger := vActive;
-      FieldByName('Processed').AsInteger := vProcessed;
+
+      FieldByName('ID_StatusTypeLead').AsInteger := vIDStatusTypeLead;
       FieldByName('ID_WorkClass').AsInteger := vIDWorkClass;
-      FieldByName('Surname').AsString := vSurname;
-      FieldByName('Name').AsString := vName;
-      FieldByName('Patro').AsString := vPatro;
+      FieldByName('ID_DistrictLive').AsInteger := vIDDistrict;
+
+      FieldByName('FIO').AsString := vFIO;
       FieldByName('Phone').AsString := vPhone;
-      FieldByName('City').AsString := vCity;
+
+      FieldByName('LeadDateTime').AsString := vLeadDateTime;
+      FieldByName('LeadDateTimeComment').AsString := vLeadDateTimeComment;
+
       FieldByName('Info').AsString := vInfo;
       FieldByName('Comment').AsString := vComment;
       Post;
@@ -523,20 +545,20 @@ end;
 
 function TWorkerLeadForm.EditWorkerLeadDialog: boolean;
   var
-    vPhone, vInfo, vCity, vSurname, vName, vPatro, vComment : string;
-    vActive, vProcessed, vIDWorkClass : integer;
+    vPhone, vInfo, vFIO, vComment, vLeadDateTime, vLeadDateTimeComment : string;
+    vActive, vIDWorkClass, vIDDistrict, vIDStatusTypeLead : integer;
     vID: integer;
 begin
   with Query do
   begin
     vActive := FieldByName('Active').AsInteger;
-    vProcessed := FieldByName('Processed').AsInteger;
+    vIDStatusTypeLead := FieldByName('ID_StatusTypeLead').AsInteger;
     vIDWorkClass := FieldByName('ID_WorkClass').AsInteger;
-    vSurname := FieldByName('Surname').AsString;
-    vName := FieldByName('Name').AsString;
-    vPatro := FieldByName('Patro').AsString;
+    vIDDistrict := FieldByName('ID_DistrictLive').AsInteger;
+    vFIO := FieldByName('FIO').AsString;
     vPhone := FieldByName('Phone').AsString;
-    vCity := FieldByName('City').AsString;
+    vLeadDateTime := FieldByName('LeadDateTime').AsString;
+    vLeadDateTimeComment := FieldByName('LeadDateTimeComment').AsString;
     vInfo := FieldByName('Info').AsString;
     vComment := FieldByName('Comment').AsString;
     vID := FieldByName('ID').AsInteger;
@@ -545,13 +567,13 @@ begin
   Result :=
     GetWorkerLeadParams(
       vActive,
-      vProcessed,
+      vIDStatusTypeLead,
       vIDWorkClass,
-      vSurname,
-      vName,
-      vPatro,
+      vIDDistrict,
+      vFIO,
       vPhone,
-      vCity,
+      vLeadDateTime,
+      vLeadDateTimeComment,
       vInfo,
       vComment,
       vID);
@@ -568,13 +590,17 @@ begin
       Edit;
       FieldByName('ID_AssertUser').AsInteger := UserID;
       FieldByName('Active').AsInteger := vActive;
-      FieldByName('Processed').AsInteger := vProcessed;
+
+      FieldByName('ID_StatusTypeLead').AsInteger := vIDStatusTypeLead;
       FieldByName('ID_WorkClass').AsInteger := vIDWorkClass;
-      FieldByName('Surname').AsString := vSurname;
-      FieldByName('Name').AsString := vName;
-      FieldByName('Patro').AsString := vPatro;
+      FieldByName('ID_DistrictLive').AsInteger := vIDDistrict;
+
+      FieldByName('FIO').AsString := vFIO;
       FieldByName('Phone').AsString := vPhone;
-      FieldByName('City').AsString := vCity;
+
+      FieldByName('LeadDateTime').AsString := vLeadDateTime;
+      FieldByName('LeadDateTimeComment').AsString := vLeadDateTimeComment;
+
       FieldByName('Info').AsString := vInfo;
       FieldByName('Comment').AsString := vComment;
       Post;

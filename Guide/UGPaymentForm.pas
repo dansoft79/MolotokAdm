@@ -25,7 +25,7 @@ uses
   cxNavigator, dxDateRanges, dxBarBuiltInMenu, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, cxContainer, cxTextEdit, cxRichEdit,
   cxDBRichEdit, cxImage, cxDBEdit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
-  PropFilerEh, PropStorageEh;
+  PropFilerEh, PropStorageEh, dxScrollbarAnnotations;
 
 type
   TGPaymentFormForm = class(TForm)
@@ -78,6 +78,12 @@ type
     TableViewShowOnClient: TcxGridDBColumn;
     TableViewShowOnMaster: TcxGridDBColumn;
     TableViewShowClientButton: TcxGridDBColumn;
+    QueryWorkerAppPayButton: TSmallintField;
+    QueryPayStatus: TSmallintField;
+    QueryPayStatusInfo: TWideStringField;
+    QueryWorkerButtonInfo: TWideStringField;
+    TableViewPayStatusInfo: TcxGridDBColumn;
+    TableViewWorkerButtonInfo: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -405,6 +411,7 @@ function TGPaymentFormForm.AddPaymentFormDialog(var IDPaymentForm: integer): boo
     vName, vComment : string;
     vActive, vDefForm : integer;
     vShowOnClient, vShowOnMaster, vShowClientButton : integer;
+    vPayStatus, vWorkerAppPayButton : integer;
 begin
   vActive := 1;
   vDefForm := 0;
@@ -416,6 +423,9 @@ begin
 
   vComment := '';
 
+  vPayStatus := -1;
+  vWorkerAppPayButton := -1;
+
   Result :=
     GetPaymentFormParams(
       vActive,
@@ -424,7 +434,9 @@ begin
       vComment,
       vShowOnClient,
       vShowOnMaster,
-      vShowClientButton
+      vShowClientButton,
+      vPayStatus,
+      vWorkerAppPayButton
       );
 
   if Result then
@@ -446,6 +458,10 @@ begin
       FieldByName('ShowOnMaster').AsInteger := vShowOnMaster;
       FieldByName('ShowClientButton').AsInteger := vShowClientButton;
       FieldByName('Comment').AsString := vComment;
+
+      FieldByName('PayStatus').AsInteger := vPayStatus;
+      FieldByName('WorkerAppPayButton').AsInteger := vWorkerAppPayButton;
+
       Post;
       IDPaymentForm := FieldByName('ID').AsInteger;
       Close;
@@ -500,6 +516,7 @@ function TGPaymentFormForm.EditPaymentFormDialog: boolean;
     vName, vComment : string;
     vActive, vDefForm, vID : integer;
     vShowOnClient, vShowOnMaster, vShowClientButton : integer;
+    vPayStatus, vWorkerAppPayButton : integer;
 begin
   with Query do
   begin
@@ -510,6 +527,10 @@ begin
     vShowOnMaster := FieldByName('ShowOnMaster').AsInteger;
     vShowClientButton := FieldByName('ShowClientButton').AsInteger;
     vComment := FieldByName('Comment').AsString;
+
+    vPayStatus := FieldByName('PayStatus').AsInteger;
+    vWorkerAppPayButton := FieldByName('WorkerAppPayButton').AsInteger;
+
     vID := FieldByName('ID').AsInteger;
   end;
 
@@ -521,7 +542,9 @@ begin
       vComment,
       vShowOnClient,
       vShowOnMaster,
-      vShowClientButton
+      vShowClientButton,
+      vPayStatus,
+      vWorkerAppPayButton
       );
 
   if Result then
@@ -542,6 +565,10 @@ begin
       FieldByName('ShowOnMaster').AsInteger := vShowOnMaster;
       FieldByName('ShowClientButton').AsInteger := vShowClientButton;
       FieldByName('Comment').AsString := vComment;
+
+      FieldByName('PayStatus').AsInteger := vPayStatus;
+      FieldByName('WorkerAppPayButton').AsInteger := vWorkerAppPayButton;
+
       Post;
       Close;
 

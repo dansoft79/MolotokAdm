@@ -70,7 +70,7 @@ object AboutForm: TAboutForm
     Top = 160
     Width = 122
     Height = 13
-    Caption = '('#1089') 2021-2022, Portal pro'
+    Caption = '('#1089') 2021-2023, Portal pro'
     Transparent = True
   end
   object lEMail: TLabel

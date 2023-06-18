@@ -31,7 +31,8 @@ uses
   cxGridCustomPopupMenu, cxGridPopupMenu, cxDBExtLookupComboBox, dxBar,
   System.Actions, Vcl.ActnList, cxSpinEdit, cxSpinButton,
   cxExtEditRepositoryItems, JvComponentBase, JvClipboardMonitor,
-  System.ImageList, Vcl.ImgList, cxImageList, dxScreenTip, dxCustomHint, cxHint;
+  System.ImageList, Vcl.ImgList, cxImageList, dxScreenTip, dxCustomHint, cxHint,
+  dxScrollbarAnnotations;
 
 type
   TOrderParamForm = class(TForm)
@@ -65,14 +66,6 @@ type
     gbWork: TcxGroupBox;
     cxLabel3: TcxLabel;
     eRequestText: TcxMemo;
-    cxLabel7: TcxLabel;
-    GridWork: TcxGrid;
-    ViewWork: TcxGridDBTableView;
-    ViewWorkWorkName: TcxGridDBColumn;
-    ViewWorkPrice: TcxGridDBColumn;
-    ViewWorkAmountText: TcxGridDBColumn;
-    ViewWorkSum: TcxGridDBColumn;
-    LevelWork: TcxGridLevel;
     StyleRepository: TcxStyleRepository;
     TimeStyle: TcxStyle;
     DayStyle: TcxStyle;
@@ -93,16 +86,6 @@ type
     mdWorkWorkerClassTag: TStringField;
     mdWorkWorkNorm: TFloatField;
     mdWorkTimeSum: TFloatField;
-    ViewWorkWorkerClassTag: TcxGridDBColumn;
-    ViewWorkBanded: TcxGridDBBandedTableView;
-    ViewWorkBandedWorkName: TcxGridDBBandedColumn;
-    ViewWorkBandedPrice: TcxGridDBBandedColumn;
-    ViewWorkBandedAmount: TcxGridDBBandedColumn;
-    ViewWorkBandedSum: TcxGridDBBandedColumn;
-    ViewWorkBandedUnitName: TcxGridDBBandedColumn;
-    ViewWorkBandedWorkerClassTag: TcxGridDBBandedColumn;
-    ViewWorkBandedNorm: TcxGridDBBandedColumn;
-    ViewWorkBandedTimeSum: TcxGridDBBandedColumn;
     TimeStyleContent: TcxStyle;
     TimeInfoStyle: TcxStyle;
     PopupMenu: TcxGridPopupMenu;
@@ -149,10 +132,6 @@ type
     lInfo1: TcxLabel;
     mdWorkAmountText: TStringField;
     lInfo21: TcxLabel;
-    ViewWorkAmount: TcxGridDBColumn;
-    ViewWorkUnitName: TcxGridDBColumn;
-    ViewWorkNorm: TcxGridDBColumn;
-    ViewWorkTimeSum: TcxGridDBColumn;
     BoldColumn: TcxStyle;
     eFlatNumber: TcxTextEdit;
     eClientTime: TcxTextEdit;
@@ -162,10 +141,6 @@ type
     mdWorkWorkWarranryType: TIntegerField;
     mdWorkWorkWarranryTime: TIntegerField;
     mdWorkID: TIntegerField;
-    bAdd: TcxButton;
-    bAddManual: TcxButton;
-    bEdit: TcxButton;
-    bDelete: TcxButton;
     qMetro: TZQuery;
     cbStatusType: TcxLookupComboBox;
     qStatus: TZQuery;
@@ -246,17 +221,94 @@ type
     mdWorkDiscountPromoMinOrderSum: TFloatField;
     mdWorkPrice: TFloatField;
     mdWorkWorkSum: TFloatField;
-    ViewWorkDiscountSum: TcxGridDBColumn;
     StyleDiscount: TcxStyle;
+    HintStyleController: TcxHintStyleController;
+    mdWorkDiscountSumRes: TFloatField;
+    mdWorkDiscountPromoSumApply: TFloatField;
+    lInfo0: TcxLabel;
+    eOrderNumberExt: TcxTextEdit;
+    cxLabel8: TcxLabel;
+    ePersonalAccount: TcxTextEdit;
+    cxLabel9: TcxLabel;
+    sbHistory: TSpeedButton;
+    PageControl: TcxPageControl;
+    tsWorkList: TcxTabSheet;
+    tsMaterial: TcxTabSheet;
+    GridWork: TcxGrid;
+    ViewWork: TcxGridDBTableView;
+    ViewWorkWorkerClassTag: TcxGridDBColumn;
+    ViewWorkWorkName: TcxGridDBColumn;
+    ViewWorkAmountText: TcxGridDBColumn;
+    ViewWorkPrice: TcxGridDBColumn;
+    ViewWorkSum: TcxGridDBColumn;
+    ViewWorkAmount: TcxGridDBColumn;
+    ViewWorkUnitName: TcxGridDBColumn;
+    ViewWorkNorm: TcxGridDBColumn;
+    ViewWorkTimeSum: TcxGridDBColumn;
+    ViewWorkDiscountSum: TcxGridDBColumn;
     ViewWorkWorkSum: TcxGridDBColumn;
     ViewWorkWorkPrice: TcxGridDBColumn;
-    HintStyleController: TcxHintStyleController;
     ViewWorkDiscountPromoSum: TcxGridDBColumn;
-    mdWorkDiscountSumRes: TFloatField;
     ViewWorkDiscountSumRes: TcxGridDBColumn;
-    mdWorkDiscountPromoSumApply: TFloatField;
     ViewWorkDiscountPromoSumApply: TcxGridDBColumn;
-    lInfo0: TcxLabel;
+    ViewWorkBanded: TcxGridDBBandedTableView;
+    ViewWorkBandedWorkName: TcxGridDBBandedColumn;
+    ViewWorkBandedWorkerClassTag: TcxGridDBBandedColumn;
+    ViewWorkBandedPrice: TcxGridDBBandedColumn;
+    ViewWorkBandedAmount: TcxGridDBBandedColumn;
+    ViewWorkBandedSum: TcxGridDBBandedColumn;
+    ViewWorkBandedUnitName: TcxGridDBBandedColumn;
+    ViewWorkBandedNorm: TcxGridDBBandedColumn;
+    ViewWorkBandedTimeSum: TcxGridDBBandedColumn;
+    LevelWork: TcxGridLevel;
+    bDelete: TcxButton;
+    bEdit: TcxButton;
+    bAddManual: TcxButton;
+    bAdd: TcxButton;
+    bAddMaterial: TcxButton;
+    GridMaterial: TcxGrid;
+    ViewMaterial: TcxGridDBTableView;
+    ViewMaterialMaterialCode: TcxGridDBColumn;
+    ViewMaterialMaterialName: TcxGridDBColumn;
+    ViewMaterialAmountText: TcxGridDBColumn;
+    ViewMaterialPrice: TcxGridDBColumn;
+    ViewMaterialSum: TcxGridDBColumn;
+    ViewMaterialAmount: TcxGridDBColumn;
+    ViewMaterialUnitName: TcxGridDBColumn;
+    ViewMaterialMaterialSum: TcxGridDBColumn;
+    ViewMaterialMaterialPrice: TcxGridDBColumn;
+    cxGridDBBandedTableView1: TcxGridDBBandedTableView;
+    cxGridDBBandedColumn1: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn2: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn3: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn4: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn5: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn6: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn7: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn8: TcxGridDBBandedColumn;
+    LevelMaterial: TcxGridLevel;
+    bAddManuualMaterial: TcxButton;
+    bEditMaterial: TcxButton;
+    bDeleteMaterial: TcxButton;
+    aAddGuideMaterial: TAction;
+    aAddManualMaterial: TAction;
+    aEditMaterial: TAction;
+    aDelMaterial: TAction;
+    dsMaterial: TDataSource;
+    mdMaterial: TdxMemData;
+    IntegerField1: TIntegerField;
+    IntegerField3: TIntegerField;
+    StringField1: TStringField;
+    FloatField1: TFloatField;
+    FloatField2: TFloatField;
+    FloatField3: TFloatField;
+    StringField2: TStringField;
+    SmallintField1: TSmallintField;
+    FloatField5: TFloatField;
+    FloatField6: TFloatField;
+    StringField4: TStringField;
+    mdMaterialNaterialCode: TStringField;
+    lInfo01: TcxLabel;
     procedure eChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure eKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -341,6 +393,25 @@ type
     procedure ePromocodePropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
     procedure pBottomDblClick(Sender: TObject);
+    procedure sbHistoryClick(Sender: TObject);
+    procedure aAddGuideMaterialExecute(Sender: TObject);
+    procedure mdMaterialCalcFields(DataSet: TDataSet);
+    procedure aAddManualMaterialExecute(Sender: TObject);
+    procedure aEditMaterialExecute(Sender: TObject);
+    procedure aDelMaterialExecute(Sender: TObject);
+    procedure ViewMaterialCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure ViewMaterialDataControllerSummaryAfterSummary(
+      ASender: TcxDataSummary);
+    procedure ViewMaterialSumGetCellHint(Sender: TcxCustomGridTableItem;
+      ARecord: TcxCustomGridRecord; ACellViewInfo: TcxGridTableDataCellViewInfo;
+      const AMousePos: TPoint; var AHintText: TCaption;
+      var AIsHintMultiLine: Boolean; var AHintTextRect: TRect);
+    procedure ViewMaterialPriceGetCellHint(Sender: TcxCustomGridTableItem;
+      ARecord: TcxCustomGridRecord; ACellViewInfo: TcxGridTableDataCellViewInfo;
+      const AMousePos: TPoint; var AHintText: TCaption;
+      var AIsHintMultiLine: Boolean; var AHintTextRect: TRect);
   private
     { Private declarations }
     FID, FIDClient, FIDWorker, FIDStatusType : integer;
@@ -362,6 +433,12 @@ type
     function AddManual : integer;
     function EditWork : integer;
     function DeleteWork : integer;
+
+    procedure AddGuideMaterial;
+    function AddManualMaterial : integer;
+    function EditMaterial : integer;
+    function EditGuideMaterial : integer;
+    function DeleteMaterial : integer;
 
     procedure FillPhone;
     procedure FillClientInfo;
@@ -452,6 +529,16 @@ type
 
     //обновление информации по промо
     procedure UpdateDiscountPromoInfo;
+
+    //обновление итогов
+    procedure UpdateSummary;
+
+    //--------------------------------------------------------------------------
+    // материалы
+    //--------------------------------------------------------------------------
+
+    //получение суммы материалов
+    function GetMaterialSum : double;
   end;
 
 function GetOrderLIstParams(
@@ -462,6 +549,7 @@ function GetOrderLIstParams(
   var AStatusComment : string;
   var APayed : integer;
   var ACheckNum : string;
+  var AOrderNumberExt, APersonalAccount : string;
 
   var AIDClient : integer;
   var APhone, AName, AAddress, AFlatNumber : string;
@@ -475,8 +563,8 @@ function GetOrderLIstParams(
   var AWorkDate, AWorkTime, APLanTime : string;
   var AIDWorker : integer;
 
-  var AWorkList : TMemoryStream;
-  var AWorkSum : double;
+  var AWorkList, AMaterialList : TMemoryStream;
+  var AWorkSum, AMaterialSum : double;
   var AIDDiscountTypePromo : integer;
       AAdd : boolean) : boolean;
 
@@ -488,7 +576,8 @@ uses UShowDatasetModal,
   math, mesdlg, UGClient, types, DTKUtils, dateutils, Clipbrd, UDadataUtils,
   UDatas, UUtil, UConsts, USelectWorkType, USelectClient, USelectWorker,
   USelectWorkTypeMulti, UOrderWorkTypeParams, UOrderWorkerTimeParams,
-  UWaiting, UEditText, UDadataAddressParams, USelectDiscount;
+  UWaiting, UEditText, UDadataAddressParams, USelectDiscount, UBrowseOrderHistorySimple,
+  USelectMaterialTypeMulti, UOrderMaterialTypeParams, UOrderMaterialTypeGuideParams;
 
 function GetOrderLIstParams(
       AID, AAddTime : string;
@@ -498,6 +587,7 @@ function GetOrderLIstParams(
   var AStatusComment : string;
   var APayed : integer;
   var ACheckNum : string;
+  var AOrderNumberExt, APersonalAccount : string;
 
   var AIDClient : integer;
   var APhone, AName, AAddress, AFlatNumber : string;
@@ -511,8 +601,8 @@ function GetOrderLIstParams(
   var AWorkDate, AWorkTime, APLanTime : string;
   var AIDWorker : integer;
 
-  var AWorkList : TMemoryStream;
-  var AWorkSum : double;
+  var AWorkList, AMaterialList : TMemoryStream;
+  var AWorkSum, AMaterialSum : double;
   var AIDDiscountTypePromo : integer;
       AAdd : boolean) : boolean;
 begin
@@ -560,6 +650,9 @@ begin
       cbPayed.Checked := APayed = 1;
       eCheckNum.Text := ACheckNum;
 
+      eOrderNumberExt.Text := AOrderNumberExt;
+      ePersonalAccount.Text := APersonalAccount;
+
       FIDClient := AIDClient;
       FillClientInfo;
 
@@ -591,6 +684,10 @@ begin
       AWorkList.Position := 0;
       mdWork.Open;
       mdWork.LoadFromStream(AWorkList);
+
+      AMaterialList.Position := 0;
+      mdMaterial.Open;
+      mdMaterial.LoadFromStream(AMaterialList);
 
       if IsDateTime(AClientDateTime) then
         eClientTime.Text := FormatDateTime('dd.mm.yyyy hh:nn', StrToDateTime(AClientDateTime))
@@ -631,6 +728,9 @@ begin
         AStatusComment := Trim(mStatusComment.Text);
         APayed := BooleanToInt(cbPayed.Checked);
 
+        AOrderNumberExt := Trim(eOrderNumberExt.Text);
+        APersonalAccount := Trim(ePersonalAccount.Text);
+
         AIDClient := FIDClient;
         APhone := PreparePhone(Trim(ePhone.Text));
         AName := Trim(eName.Text);
@@ -647,6 +747,10 @@ begin
         AWorkList.Clear;
         mdWork.First;
         mdWork.SaveToStream(AWorkList);
+
+        AMaterialList.Clear;
+        mdMaterial.First;
+        mdMaterial.SaveToStream(AMaterialList);
 
         if IsDate(eResDate.Text) then
           AWorkDate := eResDate.Text
@@ -667,6 +771,7 @@ begin
 
 //        AWorkSum := GetWorkSum;
         AWorkSum := GetTotalSum;
+        AMaterialSum := GetMaterialSum;
 
         AIDDiscountTypePromo := FIDDiscountTypePromo;
       end;
@@ -685,11 +790,27 @@ begin
   SetOKEnabled;
 end;
 
+procedure TOrderParamForm.aAddGuideMaterialExecute(Sender: TObject);
+begin
+  AddGuideMaterial;
+//  DiscountFind;
+//  UpdateTime;
+  SetOKEnabled;
+end;
+
 procedure TOrderParamForm.aAddManualExecute(Sender: TObject);
 begin
   AddManual;
   DiscountFind;
   UpdateTime;
+  SetOKEnabled;
+end;
+
+procedure TOrderParamForm.aAddManualMaterialExecute(Sender: TObject);
+begin
+  AddManualMaterial;
+//  DiscountFind;
+//  UpdateTime;
   SetOKEnabled;
 end;
 
@@ -714,7 +835,7 @@ begin
           mdWork.FieldByName('WorkPrice').AsFloat := IsNull(v[1], 0);
           mdWork.FieldByName('WorkAmount').AsFloat := IsNull(v[2], 0);
 
-          mdWork.FieldByName('WorkSum').AsFloat := mdWork.FieldByName('WorkPrice').AsFloat * mdWork.FieldByName('WorkAmount').AsFloat;
+          mdWork.FieldByName('WorkSum').AsFloat := RoundTo(mdWork.FieldByName('WorkPrice').AsFloat * mdWork.FieldByName('WorkAmount').AsFloat, -2);
 
           mdWork.FieldByName('WorkUnitName').AsString := IsNull(v[3], '');
           mdWork.FieldByName('WorkNorm').AsFloat := IsNull(v[4], 0);
@@ -735,6 +856,41 @@ begin
       end;
     finally
       mdWork.EnableControls;
+    end;
+  end;
+end;
+
+procedure TOrderParamForm.AddGuideMaterial;
+  var
+    vID : TIntegerDynArray;
+    v : variant;
+    vIDWorkerClass, i : integer;
+begin
+  if SelectMaterialTypeMulti(vID) then
+  begin
+    mdMaterial.DisableControls;
+    try
+      for i := 0 to Length(vID) - 1 do
+      begin
+        if not mdMaterial.Locate('ID_MaterialType', vID[i], []) then
+        begin
+          mdMaterial.Append;
+          mdMaterial.FieldByName('ID_MaterialType').AsInteger := vID[i];
+          v := Datas.ReadValues('materialtype', 'Name;Price;Amount;Unit;Code', vID[i]);
+          mdMaterial.FieldByName('MaterialName').AsString := IsNull(v[0], '');
+          mdMaterial.FieldByName('MaterialPrice').AsFloat := IsNull(v[1], 0);
+          mdMaterial.FieldByName('MaterialAmount').AsFloat := IsNull(v[2], 0);
+
+          mdMaterial.FieldByName('MaterialSum').AsFloat := RoundTo(mdMaterial.FieldByName('MaterialPrice').AsFloat * mdMaterial.FieldByName('MaterialAmount').AsFloat, -2);
+
+          mdMaterial.FieldByName('MaterialUnitName').AsString := IsNull(v[3], '');
+          mdMaterial.FieldByName('MaterialCode').AsString := IsNull(v[4], '');
+
+          mdMaterial.Post;
+        end;
+      end;
+    finally
+      mdMaterial.EnableControls;
     end;
   end;
 end;
@@ -806,6 +962,47 @@ begin
   end;
 end;
 
+function TOrderParamForm.AddManualMaterial: integer;
+  var
+    vName : string;
+    vAmount : double;
+    vUnit : string;
+    vPrice : double;
+    vIDMaterialType : integer;
+    r : integer;
+    v : variant;
+begin
+  with mdWork do
+  begin
+    vName := '';
+    vAmount := 0;
+    vUnit := '';
+    vPrice := 0;
+    vIDMaterialType := 0;
+  end;
+
+  Result := GetOrderListMaterialTypeParams(
+    vName,
+    vAmount,
+    vUnit,
+    vPrice,
+    vIDMaterialType
+    );
+
+  if Result = mrOK then
+  begin
+    mdMaterial.Append;
+    mdMaterial.FieldByName('ID_MaterialType').AsInteger := vIDMaterialType;
+    mdMaterial.FieldByName('MaterialName').AsString := vName;
+    mdMaterial.FieldByName('MaterialPrice').AsFloat := vPrice;
+    mdMaterial.FieldByName('MaterialAmount').AsFloat := vAmount;
+    mdMaterial.FieldByName('MaterialSum').AsFloat := RoundTo(mdMaterial.FieldByName('MaterialPrice').AsFloat * mdMaterial.FieldByName('MaterialAmount').AsFloat, -2);
+    mdMaterial.FieldByName('MaterialUnitName').AsString := vUnit;
+    mdMaterial.FieldByName('MaterialCode').AsString := '';
+    mdMaterial.Post;
+  end;
+end;
+
 procedure TOrderParamForm.AddressTimerTimer(Sender: TObject);
   var
     i, n : integer;
@@ -849,12 +1046,36 @@ begin
   SetOKEnabled;
 end;
 
+procedure TOrderParamForm.aDelMaterialExecute(Sender: TObject);
+begin
+  DeleteMaterial;
+//  DiscountFind;
+//  UpdateTIme;
+  SetOKEnabled;
+end;
+
 procedure TOrderParamForm.aEditExecute(Sender: TObject);
 begin
   if mdWork.RecordCount = 0 then AddManual
-  else EditWork;
+  else
+  begin
+    EditWork
+  end;
   DiscountFind;
   UpdateTime;
+  SetOKEnabled;
+end;
+
+procedure TOrderParamForm.aEditMaterialExecute(Sender: TObject);
+begin
+  if mdMaterial.RecordCount = 0 then AddManualMaterial
+  else
+  begin
+    if mdMaterial.FieldByName('ID_MaterialType').AsInteger = 0 then EditMaterial
+    else EditGuideMaterial;
+  end;
+//  DiscountFind;
+//  UpdateTime;
   SetOKEnabled;
 end;
 
@@ -908,6 +1129,15 @@ procedure TOrderParamForm.sbCopyClick(Sender: TObject);
 begin
   if cbPhone.Text <> '' then
     Clipboard.AsText := cbPhone.Text;
+end;
+
+procedure TOrderParamForm.sbHistoryClick(Sender: TObject);
+  var
+    a, p : string;
+begin
+  p := PreparePhone(cbPhone.Text);
+  a := eAddress.Text;
+  BrowseOrderHistorySimple(p, a);
 end;
 
 procedure TOrderParamForm.cbDistrictPropertiesChange(Sender: TObject);
@@ -1129,6 +1359,11 @@ procedure TOrderParamForm.DeleteDiscountPromo;
 begin
   FIDDiscountTypePromo := 0;
   ClearDiscountPromo;
+end;
+
+function TOrderParamForm.DeleteMaterial: integer;
+begin
+
 end;
 
 function TOrderParamForm.DeleteWork: integer;
@@ -2023,6 +2258,109 @@ begin
   SetOKEnabled;
 end;
 
+function TOrderParamForm.EditGuideMaterial: integer;
+  var
+    vName, vCode, vCategory, vComment : string;
+    vAmount : double;
+    vUnit : string;
+    vPrice : double;
+    vIDMaterialType : integer;
+    r : integer;
+    v :variant;
+begin
+  with mdMaterial do
+  begin
+    vName := FieldByName('MaterialName').AsString;
+    vAmount := FieldByName('MaterialAmount').AsFloat;
+    vUnit := FieldByName('MaterialUnitName').AsString;
+    vPrice := FieldByName('MaterialPrice').AsFloat;
+    vIDMaterialType := FieldByName('ID_MaterialType').AsInteger;
+    v := Datas.ReadValues('materialtype', 'Code;Category;Comment');
+    vCode := IsNull(v[0], '');
+    vCategory := IsNull(v[1], '');
+    vComment := IsNull(v[2], '');
+  end;
+
+  Result := GetOrderListMaterialTypeGuideParams(
+    vCategory,
+    vCode,
+    vName,
+    vAmount,
+    vUnit,
+    vPrice,
+    vComment,
+    vIDMaterialType
+    );
+
+    if Result = mrAbort then
+    begin
+      mdMaterial.Delete
+    end
+    else
+      if Result = mrOK then
+      begin
+        mdMaterial.Edit;
+        mdMaterial.FieldByName('MaterialName').AsString := vName;
+        mdMaterial.FieldByName('MaterialAmount').AsFloat := vAmount;
+        mdMaterial.FieldByName('MaterialPrice').AsFloat := vPrice;
+
+        mdMaterial.FieldByName('MaterialSum').AsFloat := mdMaterial.FieldByName('MaterialPrice').AsFloat * mdMaterial.FieldByName('MaterialAmount').AsFloat;
+
+        mdMaterial.FieldByName('MaterialUnitName').AsString := vUnit;
+        mdMaterial.FieldByName('MaterialCode').AsString := vCode;
+        mdMaterial.FieldByName('ID_MaterialType').AsInteger := vIDMaterialType;
+
+        mdMaterial.FieldByName('Edited').AsInteger := 1;
+
+        mdMaterial.Post;
+      end;
+end;
+
+function TOrderParamForm.EditMaterial: integer;
+  var
+    vName : string;
+    vAmount : double;
+    vUnit : string;
+    vPrice : double;
+    vIDMaterialType : integer;
+    r : integer;
+begin
+  with mdMaterial do
+  begin
+    vName := FieldByName('MaterialName').AsString;
+    vAmount := FieldByName('MaterialAmount').AsFloat;
+    vUnit := FieldByName('MaterialUnitName').AsString;
+    vPrice := FieldByName('MaterialPrice').AsFloat;
+    vIDMaterialType := FieldByName('ID_MaterialType').AsInteger;
+  end;
+
+  Result := GetOrderListMaterialTypeParams(
+    vName,
+    vAmount,
+    vUnit,
+    vPrice,
+    vIDMaterialType
+    );
+
+  if Result = mrAbort then
+  begin
+    mdMaterial.Delete
+  end
+  else
+    if Result = mrOK then
+    begin
+      mdMaterial.Edit;
+      mdMaterial.FieldByName('MaterialName').AsString := vName;
+      mdMaterial.FieldByName('MaterialAmount').AsFloat := vAmount;
+      mdMaterial.FieldByName('MaterialPrice').AsFloat := vPrice;
+      mdMaterial.FieldByName('MaterialSum').AsFloat := mdMaterial.FieldByName('MaterialPrice').AsFloat * mdMaterial.FieldByName('MaterialAmount').AsFloat;
+      mdMaterial.FieldByName('MaterialUnitName').AsString := vUnit;
+      mdMaterial.FieldByName('ID_MaterialType').AsInteger := vIDMaterialType;
+      mdMaterial.FieldByName('Edited').AsInteger := 1;
+      mdMaterial.Post;
+    end;
+end;
+
 function TOrderParamForm.EditWork : integer;
   var
     vIDWorkerClass : integer;
@@ -2145,14 +2483,24 @@ begin
   aEdit.Enabled := mdWork.RecordCount > 0;
   aDel.Enabled := mdWork.RecordCount > 0;
 
+  aAddGuideMaterial.Enabled := true;
+  aAddManualMaterial.Enabled := true;
+  aEditMaterial.Enabled := mdMaterial.RecordCount > 0;
+  aDelMaterial.Enabled := mdMaterial.RecordCount > 0;
+
   ClipboardMonitorChange(nil);
   sbCall.Enabled := cbPhone.Text <> '';
 
   if (FID <> 0) then
   begin
     cbPayed.Enabled := (eCheckNum.Text = '');
-    cbPaymentForm.Enabled := cbPayed.Enabled;
-    lPaymentForm.Enabled := cbPayed.Enabled;
+
+//    cbPaymentForm.Enabled := cbPayed.Enabled;
+//    lPaymentForm.Enabled := cbPayed.Enabled;
+
+    cbPaymentForm.Enabled := true;
+    lPaymentForm.Enabled := true;
+
     eCheckNum.Enabled := cbPayed.Enabled;
     lCheckNum.Enabled := cbPayed.Enabled;
   end;
@@ -2232,6 +2580,38 @@ begin
   end;
 end;
 
+procedure TOrderParamForm.UpdateSummary;
+  var
+    h, w, m : double;
+begin
+  lInfo0.Caption := 'Работы: ' + IsNull(NullIf(ViewWork.DataController.Summary.FooterSummaryTexts[7], ''), '0') + ' р.';
+  lInfo01.Caption := 'Материалы: ' + IsNull(NullIf(ViewMaterial.DataController.Summary.FooterSummaryTexts[2], ''), '0') + ' р.';
+
+//  lInfo2.Caption := 'ВСЕГО: ' + IsNull(NullIf(ViewWork.DataController.Summary.FooterSummaryTexts[1], ''), '0') + ' р.';
+  w := IsNull(ViewWork.DataController.Summary.FooterSummaryValues[1], 0);//сумма по работам
+  m := IsNull(ViewMaterial.DataController.Summary.FooterSummaryValues[1], 0);//сумма по материалам
+  lInfo2.Caption := 'ВСЕГО: ' + FormatFloat(',0', m + w) + ' р.';
+
+  lInfo21.Caption := 'Скидка/Промо: ' + IsNull(NullIf(ViewWork.DataController.Summary.FooterSummaryTexts[5], ''), '0') + ' р.';
+  if (IsNUll(NullIf(ViewWork.DataController.Summary.FooterSummaryTexts[5], ''), '0') <> '0') then
+    lInfo21.Style.TextColor := clRed
+  else
+    lInfo21.Style.TextColor := clBlack;
+
+  FPromoSum := IsNull(NullIf(ViewWork.DataController.Summary.FooterSummaryTexts[6], ''), '0');
+
+  h := IsNUll(ViewWork.DataController.Summary.FooterSummaryValues[2], 0) / 60;
+  if ((h - trunc(h)) * 60) > 0 then h := trunc(h) + 1;
+
+  lInfo1.Caption := 'Работ: ' + ViewWork.DataController.Summary.FooterSummaryTexts[0];
+  lInfo11.Caption := 'Длительность: ' + FloatToStr(IsNull(ViewWork.DataController.Summary.FooterSummaryValues[2], 0)) + ' м. ≈ ' + FloatToStr(h) + ' ч.';
+
+//  eTimeCalc.Properties.Buttons.Items[1].Caption := FloatToStr(h) + ' ч.';
+//  eTimeLen.Value := h;
+
+  UpdateDiscountPromoInfo;
+end;
+
 procedure TOrderParamForm.UpdateTime;
   var
     h : double;
@@ -2279,6 +2659,39 @@ begin
   else AStyle := ChatStyleTextWorker;
 end;
 
+procedure TOrderParamForm.ViewMaterialCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  aEditMaterial.Execute;
+//  DiscountFind;
+//  UpdateTime;
+end;
+
+procedure TOrderParamForm.ViewMaterialDataControllerSummaryAfterSummary(
+  ASender: TcxDataSummary);
+begin
+  UpdateSummary;
+end;
+
+procedure TOrderParamForm.ViewMaterialPriceGetCellHint(
+  Sender: TcxCustomGridTableItem; ARecord: TcxCustomGridRecord;
+  ACellViewInfo: TcxGridTableDataCellViewInfo; const AMousePos: TPoint;
+  var AHintText: TCaption; var AIsHintMultiLine: Boolean;
+  var AHintTextRect: TRect);
+begin
+  AHintText := FormatFloat(',0.##', IsNull(ARecord.Values[ViewMaterialMaterialPrice.Index], 0))
+end;
+
+procedure TOrderParamForm.ViewMaterialSumGetCellHint(
+  Sender: TcxCustomGridTableItem; ARecord: TcxCustomGridRecord;
+  ACellViewInfo: TcxGridTableDataCellViewInfo; const AMousePos: TPoint;
+  var AHintText: TCaption; var AIsHintMultiLine: Boolean;
+  var AHintTextRect: TRect);
+begin
+  AHintText := FormatFloat(',0.##', IsNull(ARecord.Values[ViewMaterialMaterialSum.Index], 0));
+end;
+
 procedure TOrderParamForm.ViewWorkCellDblClick(Sender: TcxCustomGridTableView;
   ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
   AShift: TShiftState; var AHandled: Boolean);
@@ -2290,31 +2703,8 @@ end;
 
 procedure TOrderParamForm.ViewWorkDataControllerSummaryAfterSummary(
   ASender: TcxDataSummary);
-  var
-    h : double;
 begin
-  lInfo0.Caption := 'Сумма: ' + IsNull(NullIf(ASender.FooterSummaryTexts[7], ''), '0') + ' р.';
-
-  lInfo2.Caption := 'ИТОГО: ' + IsNull(NullIf(ASender.FooterSummaryTexts[1], ''), '0') + ' р.';
-
-  lInfo21.Caption := 'Скидка/Промо: ' + IsNull(NullIf(ASender.FooterSummaryTexts[5], ''), '0') + ' р.';
-  if (IsNUll(NullIf(ASender.FooterSummaryTexts[5], ''), '0') <> '0') then
-    lInfo21.Style.TextColor := clRed
-  else
-    lInfo21.Style.TextColor := clBlack;
-
-  FPromoSum := IsNull(NullIf(ASender.FooterSummaryTexts[6], ''), '0');
-
-  h := IsNUll(ASender.FooterSummaryValues[2], 0) / 60;
-  if ((h - trunc(h)) * 60) > 0 then h := trunc(h) + 1;
-
-  lInfo1.Caption := 'Работ: ' + ASender.FooterSummaryTexts[0];
-  lInfo11.Caption := 'Длительность: ' + FloatToStr(IsNull(ASender.FooterSummaryValues[2], 0)) + ' м. ≈ ' + FloatToStr(h) + ' ч.';
-
-//  eTimeCalc.Properties.Buttons.Items[1].Caption := FloatToStr(h) + ' ч.';
-//  eTimeLen.Value := h;
-
-  UpdateDiscountPromoInfo;
+  UpdateSummary;
 end;
 
 procedure TOrderParamForm.ViewWorkNavigatorButtonsButtonClick(Sender: TObject;
@@ -2409,6 +2799,16 @@ begin
   begin
     FIDClient := tClient.FieldByName('ID').AsInteger;
     FillClientInfo;
+
+    //по заданию апреля 2023 проверяем район и метро у выбранного адреса
+    //если не указано что-то, то запрашиваем у Dadata и заполняем
+    if (Trim(cbDistrict.Text) = '') or (Trim(cbMetro.Text) = '') then
+    begin
+      //чтение при выходе района и метро
+      DoRequestAddressXML1;
+
+      FillInfoFromDadata;
+    end;
   end;
 
   SetOKEnabled;
@@ -2721,6 +3121,8 @@ begin
 
   if cbPhone.Enabled then cbPhone.SetFocus
   else eName.SetFocus;
+
+  PageControl.ActivePageIndex := 0;
 end;
 
 procedure TOrderParamForm.GetLocationList;
@@ -2751,6 +3153,26 @@ begin
   qLocations.Close;
 
   FLocations := '"locations":[' + FLocations + ']';
+end;
+
+function TOrderParamForm.GetMaterialSum: double;
+  var
+    vRecNo : integer;
+begin
+  vRecNo := mdMaterial.RecNo;
+  Result := 0;
+  try
+    mdMaterial.DisableControls;
+    mdMaterial.First;
+    while not mdMaterial.eof do
+    begin
+      Result := Result + mdMaterial.FieldByName('MaterialSum').AsFloat;
+      mdMaterial.Next;
+    end;
+  finally
+    mdMaterial.RecNo := vRecNo;
+    mdMaterial.EnableControls;
+  end;
 end;
 
 function TOrderParamForm.GetTotalSum: double;
@@ -2792,6 +3214,15 @@ begin
     mdWork.RecNo := vRecNo;
     mdWork.EnableControls;
   end;
+end;
+
+procedure TOrderParamForm.mdMaterialCalcFields(DataSet: TDataSet);
+begin
+  Dataset.FieldByName('AmountText').AsString := Dataset.FieldByName('MaterialAmount').AsString + ' ' + Dataset.FieldByName('MaterialUnitName').AsString;
+
+  Dataset.FieldByName('Price').AsFloat := Dataset.FieldByName('MaterialPrice').AsFloat;
+
+  Dataset.FieldByName('Sum').AsFloat := Round(Dataset.FieldByName('MaterialSum').AsFloat * 100) / 100;
 end;
 
 procedure TOrderParamForm.mdWorkCalcFields(DataSet: TDataSet);

@@ -32,8 +32,6 @@ object SelectWorkTypeMultiForm: TSelectWorkTypeMultiForm
       end>
     PaintStyle = stpsUseLookAndFeel
     ParentFont = True
-    ExplicitTop = 401
-    ExplicitWidth = 824
   end
   object Grid: TcxGrid
     Left = 0
@@ -48,8 +46,6 @@ object SelectWorkTypeMultiForm: TSelectWorkTypeMultiForm
     Font.Style = []
     ParentFont = False
     TabOrder = 5
-    ExplicitWidth = 824
-    ExplicitHeight = 351
     object TableView: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Visible = False
@@ -63,6 +59,7 @@ object SelectWorkTypeMultiForm: TSelectWorkTypeMultiForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnCellDblClick = TableViewCellDblClick
       OnEditValueChanged = TableViewEditValueChanged
       OnFocusedRecordChanged = TableViewFocusedRecordChanged

@@ -26,7 +26,7 @@ uses
   cxNavigator, dxDateRanges, dxBarBuiltInMenu, cxSplitter, cxCalendar,
   cxBarEditItem, cxImage, cxGridCardView, cxGridDBCardView,
   cxGridCustomLayoutView, cxGridBandedTableView, cxGridDBBandedTableView, cxMemo,
-  dxScreenTip, dxCustomHint, cxHint;
+  dxScreenTip, dxCustomHint, cxHint, dxScrollbarAnnotations;
 
 type
   TBrowseNotificationForm = class(TForm)
@@ -282,13 +282,14 @@ end;
 
 procedure TBrowseNotificationForm.aBrowseExecute(Sender: TObject);
   var
-    vImageIndex, vColor, vShowTime, vIDN, vIDOL, vIDNT : integer;
+    vType, vImageIndex, vColor, vShowTime, vIDN, vIDOL, vIDNT : integer;
     vHeader, vText : string;
 begin
   with Query do
   begin
     vIDN := FieldByName('ID').AsInteger;
     vIDNT := FieldByName('ID_NoticeTemplate').AsInteger;
+    vType := FieldByName('Type').AsInteger;
 
     if Datas.AlertImageID.Strings.IndexOfName(IntToStr(vIDNT)) = -1 then
       MainForm.UpdateNotificationImages;
@@ -302,7 +303,7 @@ begin
     vColor := FieldByName('Color').AsInteger;
     vShowTime := FieldByName('ShowTime').AsInteger;
 
-    ShowNotification(vIDN, vIDOL, vHeader, vText, vColor, vShowTime, vImageIndex, 'fixed');
+    ShowNotification(vType, vIDN, vIDOL, vHeader, vText, vColor, vShowTime, vImageIndex, 'fixed');
   end;
 end;
 

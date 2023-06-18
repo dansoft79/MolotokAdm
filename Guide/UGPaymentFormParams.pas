@@ -31,6 +31,10 @@ type
     cbShowOnClient: TcxCheckBox;
     cbShowClientButton: TcxCheckBox;
     cbShowOnMaster: TcxCheckBox;
+    cxLabel1: TcxLabel;
+    cbPayStatus: TcxComboBox;
+    cxLabel4: TcxLabel;
+    cbWorkerAppPayButton: TcxComboBox;
     procedure eChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure eKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -44,7 +48,8 @@ type
 function GetPaymentFormParams(
   var AActive, ADefForm : integer;
   var AName, AComment : string;
-  var AShowOnClient, AShowOnMaster, AShowClientButton : integer) : boolean;
+  var AShowOnClient, AShowOnMaster, AShowClientButton : integer;
+  var APayStatus, AWorkerAppPayButton : integer) : boolean;
 
 implementation
 
@@ -56,7 +61,8 @@ uses
 function GetPaymentFormParams(
   var AActive, ADefForm : integer;
   var AName, AComment : string;
-  var AShowOnClient, AShowOnMaster, AShowClientButton : integer) : boolean;
+  var AShowOnClient, AShowOnMaster, AShowClientButton : integer;
+  var APayStatus, AWorkerAppPayButton : integer) : boolean;
 begin
   with TGPaymentFormParamForm.Create(nil) do
     try
@@ -68,6 +74,9 @@ begin
 
       eName.Text := AName;
       eComment.Text := AComment;
+
+      cbPayStatus.ItemIndex := APayStatus;
+      cbWorkerAppPayButton.ItemIndex := AWorkerAppPayButton;
 
       Result := ShowModal = mrOK;
 
@@ -81,6 +90,9 @@ begin
 
         AName := eName.Text;
         AComment := eComment.Text;
+
+        APayStatus := cbPayStatus.ItemIndex;
+        AWorkerAppPayButton := cbWorkerAppPayButton.ItemIndex;
       end;
     finally
       Free;
@@ -97,7 +109,9 @@ end;
 procedure TGPaymentFormParamForm.SetOKEnabled;
 begin
   bOK.Enabled :=
-    (Trim(eName.Text) <> '');
+    (Trim(eName.Text) <> '') and
+    (cbPayStatus.ItemIndex <> -1) and
+    (cbWorkerAppPayButton.ItemIndex <> -1);
 end;
 
 procedure TGPaymentFormParamForm.eKeyDown(Sender: TObject; var Key: Word;

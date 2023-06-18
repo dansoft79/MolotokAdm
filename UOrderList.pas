@@ -36,7 +36,7 @@ uses
   PlannerDataEh, MemTableEh, PlannerCalendarPickerEh, cxScrollBox,
   cxSchedulerDBStorage, dxmdaset, cxGroupBox, cxSplitter, cxCheckComboBox,
   cxCheckGroup, cxDropDownEdit, dxCalloutPopup, dxScreenTip, dxCustomHint,
-  cxHint;
+  cxHint, dxScrollbarAnnotations;
 
 type
   TOrderListForm = class(TForm)
@@ -165,11 +165,7 @@ type
     mdWorkNorm: TFloatField;
     mdWorkID_WorkerClass: TIntegerField;
     qWork: TZQuery;
-    gbWorks: TcxGroupBox;
     SplitterWorks: TcxSplitter;
-    GridWork: TcxGrid;
-    ViewWork: TcxGridDBTableView;
-    LevelWork: TcxGridLevel;
     dsOrderWork: TDataSource;
     qOrderWork: TZQuery;
     SmallintField15: TSmallintField;
@@ -190,10 +186,6 @@ type
     qOrderWorkWTInfo: TWideStringField;
     qOrderWorkWTypeInfo: TWideStringField;
     qOrderWorkWTypeShortInfo: TWideStringField;
-    ViewWorkWorkName: TcxGridDBColumn;
-    ViewWorkWorkPrice: TcxGridDBColumn;
-    ViewWorkWorkAmount: TcxGridDBColumn;
-    ViewWorkWorkCode: TcxGridDBColumn;
     qOrderWorkID: TSmallintField;
     PopupMenuWork: TcxGridPopupMenu;
     mdWorkID: TLargeintField;
@@ -258,10 +250,10 @@ type
     cxGridDBColumn8: TcxGridDBColumn;
     cxGridDBColumn9: TcxGridDBColumn;
     TableViewLeadOCOnfo: TcxGridDBColumn;
-    cxGridDBColumn11: TcxGridDBColumn;
+    TableViewLeadPhone: TcxGridDBColumn;
     cxGridDBColumn12: TcxGridDBColumn;
     cxGridDBColumn13: TcxGridDBColumn;
-    cxGridDBColumn14: TcxGridDBColumn;
+    TableViewLeadAddress: TcxGridDBColumn;
     cxGridDBColumn15: TcxGridDBColumn;
     cxGridDBColumn16: TcxGridDBColumn;
     cxGridDBColumn17: TcxGridDBColumn;
@@ -282,10 +274,6 @@ type
     cxGridDBColumn32: TcxGridDBColumn;
     cxGridDBColumn33: TcxGridDBColumn;
     LevelLead: TcxGridLevel;
-    gbWorksLead: TcxGroupBox;
-    GridWorkLead: TcxGrid;
-    ViewWorkLead: TcxGridDBTableView;
-    LevelWorkLead: TcxGridLevel;
     cxSplitter1: TcxSplitter;
     dsWorkList: TDataSource;
     cbDistricts: TcxBarEditItem;
@@ -298,18 +286,8 @@ type
     mdWorkEdited: TSmallintField;
     qOrderWorkWCTag: TWideStringField;
     qOrderWorkWarranty: TWideStringField;
-    ViewWorkWCTag: TcxGridDBColumn;
-    ViewWorkWarranty: TcxGridDBColumn;
     qOrderWorkWorkCost: TFloatField;
-    ViewWorkWorkCost: TcxGridDBColumn;
     qOrderWorkAmountText: TWideStringField;
-    ViewWorkLeadWorkName: TcxGridDBColumn;
-    ViewWorkLeadWorkPrice: TcxGridDBColumn;
-    ViewWorkLeadWorkCode: TcxGridDBColumn;
-    ViewWorkLeadWCTag: TcxGridDBColumn;
-    ViewWorkLeadWarranty: TcxGridDBColumn;
-    ViewWorkLeadWorkCost: TcxGridDBColumn;
-    ViewWorkLeadAmountText: TcxGridDBColumn;
     bPrint: TdxBarSubItem;
     dxBarButton10: TdxBarButton;
     aPrintReport: TAction;
@@ -355,6 +333,86 @@ type
     QueryWorkDateTime: TDateTimeField;
     QueryID_DiscountPromo: TSmallintField;
     DetailTimer: TTimer;
+    QueryOrderNumberExt: TWideStringField;
+    QueryPersonalAccount: TWideStringField;
+    cbWorkerCompany: TcxBarEditItem;
+    aFiles: TAction;
+    aHistory: TAction;
+    dxBarButton11: TdxBarButton;
+    qOrderMaterial: TZQuery;
+    SmallintField1: TSmallintField;
+    SmallintField2: TSmallintField;
+    SmallintField3: TSmallintField;
+    WideStringField1: TWideStringField;
+    DateTimeField1: TDateTimeField;
+    IntegerField1: TIntegerField;
+    SmallintField4: TSmallintField;
+    WideStringField2: TWideStringField;
+    FloatField1: TFloatField;
+    FloatField3: TFloatField;
+    WideStringField3: TWideStringField;
+    WideStringField4: TWideStringField;
+    FloatField4: TFloatField;
+    WideStringField10: TWideStringField;
+    FloatField5: TFloatField;
+    dsOrderMaterial: TDataSource;
+    qOrderMaterialMTInfo: TWideStringField;
+    qOrderMaterialCategory: TWideStringField;
+    pBottomLead: TPanel;
+    gbWorksLead: TcxGroupBox;
+    GridWorkLead: TcxGrid;
+    ViewWorkLead: TcxGridDBTableView;
+    ViewWorkLeadWorkCode: TcxGridDBColumn;
+    ViewWorkLeadWCTag: TcxGridDBColumn;
+    ViewWorkLeadWorkName: TcxGridDBColumn;
+    ViewWorkLeadAmountText: TcxGridDBColumn;
+    ViewWorkLeadWorkPrice: TcxGridDBColumn;
+    ViewWorkLeadWorkCost: TcxGridDBColumn;
+    ViewWorkLeadWarranty: TcxGridDBColumn;
+    LevelWorkLead: TcxGridLevel;
+    gbMaterialLead: TcxGroupBox;
+    GridMaterialLead: TcxGrid;
+    ViewMaterialLead: TcxGridDBTableView;
+    cxGridDBColumn1: TcxGridDBColumn;
+    cxGridDBColumn10: TcxGridDBColumn;
+    cxGridDBColumn11: TcxGridDBColumn;
+    cxGridDBColumn14: TcxGridDBColumn;
+    cxGridDBColumn34: TcxGridDBColumn;
+    cxGridDBColumn35: TcxGridDBColumn;
+    LevelMaterialLead: TcxGridLevel;
+    pBottomOrder: TPanel;
+    gbWorks: TcxGroupBox;
+    GridWork: TcxGrid;
+    ViewWork: TcxGridDBTableView;
+    ViewWorkWorkCode: TcxGridDBColumn;
+    ViewWorkWCTag: TcxGridDBColumn;
+    ViewWorkWorkName: TcxGridDBColumn;
+    ViewWorkWorkAmount: TcxGridDBColumn;
+    ViewWorkWorkPrice: TcxGridDBColumn;
+    ViewWorkWorkCost: TcxGridDBColumn;
+    ViewWorkWarranty: TcxGridDBColumn;
+    LevelWork: TcxGridLevel;
+    gbMaterialOrder: TcxGroupBox;
+    GridMaterial: TcxGrid;
+    ViewMaterial: TcxGridDBTableView;
+    cxGridDBColumn36: TcxGridDBColumn;
+    cxGridDBColumn37: TcxGridDBColumn;
+    cxGridDBColumn38: TcxGridDBColumn;
+    cxGridDBColumn39: TcxGridDBColumn;
+    cxGridDBColumn40: TcxGridDBColumn;
+    cxGridDBColumn41: TcxGridDBColumn;
+    LevelMaterial: TcxGridLevel;
+    qMaterial: TZQuery;
+    mdMaterial: TdxMemData;
+    LargeintField1: TLargeintField;
+    IntegerField2: TIntegerField;
+    StringField1: TStringField;
+    FloatField2: TFloatField;
+    FloatField6: TFloatField;
+    FloatField7: TFloatField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    SmallintField5: TSmallintField;
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure TableViewKeyPress(Sender: TObject; var Key: Char);
@@ -446,6 +504,13 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
     procedure DetailTimerTimer(Sender: TObject);
+    procedure cbWorkerCompanyKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cbWorkerCompanyPropertiesCloseUp(Sender: TObject);
+    procedure cbWorkerCompanyPropertiesChange(Sender: TObject);
+    procedure aHistoryExecute(Sender: TObject);
+    procedure pBottomOrderResize(Sender: TObject);
+    procedure pBottomLeadResize(Sender: TObject);
   private
     { Private declarations }
     FModified : boolean;
@@ -466,8 +531,13 @@ type
     function FindWorker(AIDWorker : integer) : TcxSchedulerStorageREsourceItem;
   public
     { Public declarations }
+    FIDDef : integer;
+
     procedure SaveWorkList(AIDOrderList : integer; AMemoryStream : TMemoryStream);
     procedure LoadWorkList(AIDOrderList : integer; AMemoryStream : TMemoryStream);
+
+    procedure SaveMaterialList(AIDOrderList : integer; AMemoryStream : TMemoryStream);
+    procedure LoadMaterialList(AIDOrderList : integer; AMemoryStream : TMemoryStream);
 
     //полное заполнение задач в шедулере
 //    procedure FillWorkList;
@@ -486,6 +556,7 @@ type
     procedure FillDistrict;
     procedure FillCategory;
     procedure FillSignalType;
+    procedure FillWorkerCompany;
 
     //таймер автообновлени€
     procedure StartAutoUpdateTimer;
@@ -517,7 +588,7 @@ implementation
 uses math,
   UOptions, UDatas, UOrderLIstParams, mesdlg, UUtil, DTKUtils, UWaiting, UConsts,
   MainUnit, dateutils, dxOffice11, cxDateUtils, USchedulerWorkerHint,
-  UShowDatasetModal, cxGridExportLink;
+  UShowDatasetModal, cxGridExportLink, UBrowseOrderHistorySimple;
 
 var
   W1, H1, C1, C2: Integer;
@@ -568,6 +639,10 @@ begin
   vForm := TOrderLIstForm.Create(nil);
   with vForm do
   begin
+    FIDDef := 0;
+    if (AAction = cEditAction) or (AAction = cDeleteAction) then
+      FIDDef := AIDOrderLIst;
+
     ShowWaiting(cDataGetting);
     try
       UpdateData;
@@ -597,14 +672,22 @@ begin
       else
         if AAction = cEditAction then
         begin
+          FIDDef := AIDOrderLIst;
           Query.Locate('ID', AIDOrderLIst, []);
+          if Query.FieldByName('OrderCategory').AsInteger = 0 then PageControl.ActivePage := tsTableLead
+          else PageControl.ActivePage := tsTableRequest;
+
           Result := EditOrderLIstDialog;
           Close;
         end
         else
           if AAction = cDeleteAction then
           begin
+            FIDDef := AIDOrderLIst;
             Query.Locate('ID', AIDOrderLIst, []);
+            if Query.FieldByName('OrderCategory').AsInteger = 0 then PageControl.ActivePage := tsTableLead
+            else PageControl.ActivePage := tsTableRequest;
+
             Result := DeleteOrderLIstDialog;
             Close;
           end;
@@ -632,6 +715,75 @@ end;
 function DeleteOrderLIst(AIDOrderLIst : integer; AParentAction : TAction) : boolean;
 begin
   Result := DoAction(AIDOrderLIst, cDeleteAction, nil);
+end;
+
+procedure TOrderListForm.SaveMaterialList(AIDOrderList: integer;
+  AMemoryStream: TMemoryStream);
+begin
+  qMaterial.Close;
+  qMaterial.ParamByName('ID').AsInteger := AIDOrderList;
+  qMaterial.Open;
+
+  AMemoryStream.Position := 0;;
+  mdMaterial.Close;
+  mdMaterial.Open;
+  mdMaterial.LoadFromStream(AMemoryStream);
+
+  //удал€ем записи, отсутствующие в мемдата
+  qMaterial.First;
+  while not qMaterial.eof do
+  begin
+    if not mdMaterial.Locate('ID', qMaterial.FieldByName('ID').AsInteger, []) then
+    begin
+      qMaterial.Edit;
+      qMaterial.FieldByName('ID_AssertUser').AsInteger := UserID;
+      qMaterial.FieldByName('Deleted').AsInteger := 1;
+      qMaterial.Post;
+    end;
+    qMaterial.Next;
+  end;
+
+  qMaterial.Close;
+  qMaterial.Open;
+
+  //добавл€ем или обновл€ем
+  mdMaterial.First;
+  while not mdMaterial.eof do
+  begin
+    if mdMaterial.FieldByName('ID').AsInteger = 0 then
+    begin
+      //добавл€ем строку
+      qMaterial.Append;
+      qMaterial.FieldByName('ID_OrderList').AsInteger := AIDOrderList;
+      qMaterial.FieldByName('ID_AssertUser').AsInteger := UserID;
+      qMaterial.FieldByName('ID_MaterialType').Value := NullIfZero(mdMaterial.FieldByName('ID_MaterialType').AsINteger);
+    end
+    else
+    begin
+      //редактируем строку
+      qMaterial.Locate('ID', mdMaterial.FieldByName('ID').AsInteger, []);
+      qMaterial.Edit;
+
+      if mdMaterial.FieldByName('Edited').AsInteger = 1 then
+      begin
+        qMaterial.FieldByName('ID_AssertUser').AsInteger := UserID;
+      end;
+    end;
+
+    qMaterial.FieldByName('MaterialName').AsString := mdMaterial.FieldByName('MaterialName').AsString;
+    qMaterial.FieldByName('MaterialPrice').AsFloat := mdMaterial.FieldByName('MaterialPrice').AsFloat;
+    qMaterial.FieldByName('MaterialAmount').AsFloat := mdMaterial.FieldByName('MaterialAmount').AsFloat;
+    qMaterial.FieldByName('MaterialUnitName').AsString := mdMaterial.FieldByName('MaterialUnitName').AsString;
+    qMaterial.FieldByName('MaterialCode').AsString := mdMaterial.FieldByName('MaterialCode').AsString;
+
+    //добавл€ем все пол€ по скидкам
+    qMaterial.FieldByName('MaterialSum').Value := mdMaterial.FieldByName('MaterialSum').Value;
+
+    qMaterial.Post;
+
+    mdMaterial.Next;
+  end;
+  qMaterial.Close;
 end;
 
 procedure TOrderListForm.SaveWorkList(AIDOrderList : integer; AMemoryStream: TMemoryStream);
@@ -678,44 +830,46 @@ begin
     else
     begin
       //редактируем строку
-      qWork.Locate('ID', mdWork.FieldByName('ID').AsInteger, []);
-      qWork.Edit;
-
       if mdWork.FieldByName('Edited').AsInteger = 1 then
       begin
+        qWork.Locate('ID', mdWork.FieldByName('ID').AsInteger, []);
+        qWork.Edit;
         qWork.FieldByName('ID_AssertUser').AsInteger := UserID;
       end;
     end;
 
-    qWork.FieldByName('WorkName').AsString := mdWork.FieldByName('WorkName').AsString;
-    qWork.FieldByName('WorkPrice').AsFloat := mdWork.FieldByName('WorkPrice').AsFloat;
-    qWork.FieldByName('WorkAmount').AsFloat := mdWork.FieldByName('WorkAmount').AsFloat;
-    qWork.FieldByName('WorkUnitName').AsString := mdWork.FieldByName('WorkUnitName').AsString;
-    qWork.FieldByName('WorkNorm').AsFloat := mdWork.FieldByName('WorkNorm').AsFloat;
-    qWork.FieldByName('WorkWarrantyType').Value := mdWork.FieldByName('WorkWarrantyType').Value;
-    qWork.FieldByName('WorkWarrantyTime').Value := mdWork.FieldByName('WorkWarrantyTime').Value;
+    if (mdWork.FieldByName('ID').AsInteger = 0) or (mdWork.FieldByName('Edited').AsInteger = 1) then
+    begin
+      qWork.FieldByName('WorkName').AsString := mdWork.FieldByName('WorkName').AsString;
+      qWork.FieldByName('WorkPrice').AsFloat := mdWork.FieldByName('WorkPrice').AsFloat;
+      qWork.FieldByName('WorkAmount').AsFloat := mdWork.FieldByName('WorkAmount').AsFloat;
+      qWork.FieldByName('WorkUnitName').AsString := mdWork.FieldByName('WorkUnitName').AsString;
+      qWork.FieldByName('WorkNorm').AsFloat := mdWork.FieldByName('WorkNorm').AsFloat;
+      qWork.FieldByName('WorkWarrantyType').Value := mdWork.FieldByName('WorkWarrantyType').Value;
+      qWork.FieldByName('WorkWarrantyTime').Value := mdWork.FieldByName('WorkWarrantyTime').Value;
 
-    //добавл€ем все пол€ по скидкам
-    qWork.FieldByName('WorkSum').Value := mdWork.FieldByName('WorkSum').Value;
+      //добавл€ем все пол€ по скидкам
+      qWork.FieldByName('WorkSum').Value := mdWork.FieldByName('WorkSum').Value;
 
-    qWork.FieldByName('ID_Discount').Value := mdWork.FieldByName('ID_Discount').Value;
-    qWork.FieldByName('ID_DiscountPromo').Value := mdWork.FieldByName('ID_DiscountPromo').Value;
-    qWork.FieldByName('DiscountPercent').Value := mdWork.FieldByName('DiscountPercent').Value;
-    qWork.FieldByName('DiscountSum').Value := mdWork.FieldByName('DiscountSum').Value;
-    qWork.FieldByName('DiscountPromoPercent').Value := mdWork.FieldByName('DiscountPromoPercent').Value;
-    qWork.FieldByName('DiscountPromoSum').Value := mdWork.FieldByName('DiscountPromoSum').Value;
-    qWork.FieldByName('TotalPrice').AsFloat := mdWork.FieldByName('TotalPrice').AsFloat;
-    qWork.FieldByName('TotalSum').AsFloat := mdWork.FieldByName('TotalSum').AsFloat;
-    qWork.FieldByName('DiscountDebtType').Value := mdWork.FieldByName('DiscountDebtType').Value;
-    qWork.FieldByName('DiscountSubType').Value := mdWork.FieldByName('DiscountSubType').Value;
-    qWork.FieldByName('DiscountCanAdd').Value := mdWork.FieldByName('DiscountCanAdd').Value;
-    qWork.FieldByName('DiscountMinOrderSum').Value := mdWork.FieldByName('DiscountMinOrderSum').Value;
-    qWork.FieldByName('DiscountPromoDebtType').Value := mdWork.FieldByName('DiscountPromoDebtType').Value;
-    qWork.FieldByName('DiscountPromoSubType').Value := mdWork.FieldByName('DiscountPromoSubType').Value;
-    qWork.FieldByName('DiscountPromoCanAdd').Value := mdWork.FieldByName('DiscountPromoCanAdd').Value;
-    qWork.FieldByName('DiscountPromoMinOrderSum').Value := mdWork.FieldByName('DiscountPromoMinOrderSum').Value;
+      qWork.FieldByName('ID_Discount').Value := mdWork.FieldByName('ID_Discount').Value;
+      qWork.FieldByName('ID_DiscountPromo').Value := mdWork.FieldByName('ID_DiscountPromo').Value;
+      qWork.FieldByName('DiscountPercent').Value := mdWork.FieldByName('DiscountPercent').Value;
+      qWork.FieldByName('DiscountSum').Value := mdWork.FieldByName('DiscountSum').Value;
+      qWork.FieldByName('DiscountPromoPercent').Value := mdWork.FieldByName('DiscountPromoPercent').Value;
+      qWork.FieldByName('DiscountPromoSum').Value := mdWork.FieldByName('DiscountPromoSum').Value;
+      qWork.FieldByName('TotalPrice').AsFloat := mdWork.FieldByName('TotalPrice').AsFloat;
+      qWork.FieldByName('TotalSum').AsFloat := mdWork.FieldByName('TotalSum').AsFloat;
+      qWork.FieldByName('DiscountDebtType').Value := mdWork.FieldByName('DiscountDebtType').Value;
+      qWork.FieldByName('DiscountSubType').Value := mdWork.FieldByName('DiscountSubType').Value;
+      qWork.FieldByName('DiscountCanAdd').Value := mdWork.FieldByName('DiscountCanAdd').Value;
+      qWork.FieldByName('DiscountMinOrderSum').Value := mdWork.FieldByName('DiscountMinOrderSum').Value;
+      qWork.FieldByName('DiscountPromoDebtType').Value := mdWork.FieldByName('DiscountPromoDebtType').Value;
+      qWork.FieldByName('DiscountPromoSubType').Value := mdWork.FieldByName('DiscountPromoSubType').Value;
+      qWork.FieldByName('DiscountPromoCanAdd').Value := mdWork.FieldByName('DiscountPromoCanAdd').Value;
+      qWork.FieldByName('DiscountPromoMinOrderSum').Value := mdWork.FieldByName('DiscountPromoMinOrderSum').Value;
 
-    qWork.Post;
+      qWork.Post;
+    end;
 
     mdWork.Next;
   end;
@@ -1009,6 +1163,8 @@ begin
   aPrint.Enabled := (PageControl.ActivePageIndex = 1) or (PageControl.ActivePageIndex = 2);
   aExportData.Enabled := (PageControl.ActivePageIndex = 1) or (PageControl.ActivePageIndex = 2);
   aPrintReport.Enabled := CanShowAction(MainForm.arCreateReport);
+
+  aHistory.Enabled := e and (PageControl.ActivePageIndex in [1..2])
 end;
 
 procedure TOrderListForm.StartAutoUpdateTimer;
@@ -1078,6 +1234,14 @@ begin
   cbSignalTypes.Properties.OnChange := nil;
   FillBarCheckComboBoxExSQL(cbSignalTypes, 'select Code, Name, ID from SignalType order by Name', 'Name', 'Code', 'ID');
   cbSignalTypes.Properties.OnChange := cbSignalTypesPropertiesChange;
+end;
+
+procedure TOrderListForm.FillWorkerCompany;
+begin
+  //мультивыбор
+  cbWorkerCompany.Properties.OnChange := nil;
+  FillBarCheckComboBoxExSQL(cbWorkerCompany, 'select OrgType, Name, ID from WorkerCompany where Active = 1 order by OrgType, Name', 'Name', 'Name', 'ID');
+  cbWorkerCompany.Properties.OnChange := cbWorkerCompanyPropertiesChange;
 end;
 
 {procedure TOrderListForm.FillWorkList;
@@ -1178,9 +1342,11 @@ begin
 
   TableView.StoreToIniFile(cIniFileName, false);
   ViewWork.StoreToIniFile(cIniFileName, false);
+  ViewMaterial.StoreToIniFile(cIniFileName, false);
 
   TableViewLead.StoreToIniFile(cIniFileName, false);
   ViewWorkLead.StoreToIniFile(cIniFileName, false);
+  ViewMaterialLead.StoreToIniFile(cIniFileName, false);
 
   BarManager.SaveToIniFile(cIniFileNameToolbar);
 
@@ -1201,15 +1367,18 @@ begin
   FillCategory;
   FillDistrict;
   FillSignalType;
+  FillWorkerCompany;
 
   PropertiesStore.StorageName := cIniFileName;
   PropertiesStore.RestoreFrom;
 
   TableView.RestoreFromIniFile(cIniFileName);
   ViewWork.RestoreFromIniFile(cIniFileName);
+  ViewMaterial.RestoreFromIniFile(cIniFileName);
 
   TableViewLead.RestoreFromIniFile(cIniFileName);
   ViewWorkLead.RestoreFromIniFile(cIniFileName);
+  ViewMaterialLead.RestoreFromIniFile(cIniFileName);
 
   try BarManager.LoadFromIniFile(cIniFileNameToolbar) except ResetBarManager(BarManager) end;
   BarScheduler.Visible := true;
@@ -1387,6 +1556,26 @@ begin
 //      ExportGridDataToXLSX('C:\Temp\2.xlsx', Grid);
     end;
 
+  end;
+end;
+
+procedure TOrderListForm.aHistoryExecute(Sender: TObject);
+  var
+    p, a : string;
+begin
+  if PageControl.ActivePageIndex = 1 then
+  begin
+    p := TableView.Controller.FocusedRecord.Values[TableViewPhone.Index];
+    a := TableView.Controller.FocusedRecord.Values[TableViewAddress.Index];
+    BrowseOrderHistorySimple(p, a);
+  end;
+
+  if PageControl.ActivePageIndex = 2 then
+  begin
+    p := TableViewLead.Controller.FocusedRecord.Values[TableViewLeadPhone.Index];
+    a := TableViewLead.Controller.FocusedRecord.Values[TableViewLeadAddress.Index];
+
+    BrowseOrderHistorySimple(p, a);
   end;
 end;
 
@@ -1651,6 +1840,40 @@ begin
 //  cbSignalTypes.SetFocus;
 end;
 
+procedure TOrderListForm.cbWorkerCompanyKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+  var
+    s : string;
+begin
+  if Key = vk_Return then
+  begin
+    Key := vk_Tab;
+  end
+  else
+    if Key = vk_Delete then
+    begin
+      //ќчищаем все €чейки
+
+      cbWorkerCompany.EditValue := 'Ќичего не указано';
+
+      eDate.SetFocus;
+      cbWorkerCompany.SetFocus;
+      cbWorkerCompany.Properties.OnChange(nil);
+    end;
+end;
+
+procedure TOrderListForm.cbWorkerCompanyPropertiesChange(Sender: TObject);
+begin
+  UpdateData;
+  UpdateWorkList;
+  UpdateResources;
+end;
+
+procedure TOrderListForm.cbWorkerCompanyPropertiesCloseUp(Sender: TObject);
+begin
+//
+end;
+
 procedure TOrderListForm.cxGridDBColumn23GetDisplayText(
   Sender: TcxCustomGridTableItem; ARecord: TcxCustomGridRecord;
   var AText: string);
@@ -1667,6 +1890,16 @@ procedure TOrderListForm.PageControlPageChanging(Sender: TObject;
   NewPage: TcxTabSheet; var AllowChange: Boolean);
 begin
   //  if NewPage = tsPlanner then Scheduler.FullRefresh;
+end;
+
+procedure TOrderListForm.pBottomLeadResize(Sender: TObject);
+begin
+  gbMaterialLead.Width := pBottomLead.Width div 2;
+end;
+
+procedure TOrderListForm.pBottomOrderResize(Sender: TObject);
+begin
+  gbMaterialOrder.Width := pBottomOrder.Width div 2;
 end;
 
 procedure TOrderListForm.TableViewKeyDown(Sender: TObject; var Key: Word;
@@ -1794,11 +2027,14 @@ procedure TOrderListForm.UpdateData;
     vDistrictList, vCategoriesList, vSignalTypeList : string;
     vID : integer;
 begin
-  vID := 0;
-  if Query.Active then
-    vID := Query.FieldByName('ID').AsInteger;
+  vID := FIDDef;
+
+  if vID = 0 then
+    if Query.Active then
+      vID := Query.FieldByName('ID').AsInteger;
 
   qOrderWork.Close;
+  qOrderMaterial.Close;
   Query.Close;
 
   vDistrictList := GetBarCheckComboboxIDList(cbDistricts);
@@ -1806,6 +2042,7 @@ begin
   vSignalTypeList := GetBarCheckComboboxIDList(cbSignalTypes);
 
   qOrderWork.Open;
+  qOrderMaterial.Open;
 
 {  Query.ParamByName('CLIst1').AsString := vCategoriesList;
   Query.ParamByName('CLIst2').AsString := vCategoriesList;
@@ -1819,6 +2056,9 @@ begin
   Query.ParamByName('STLIst1').AsString := '';
   Query.ParamByName('STLIst2').AsString := '';
 
+  Query.ParamByName('IDDef1').AsInteger := FIDDef;
+  Query.ParamByName('IDDef2').AsInteger := FIDDef;
+
   Query.Open;
   if vID <> 0 then Query.Locate('ID', vID, []);
 end;
@@ -1827,6 +2067,9 @@ procedure TOrderListForm.UpdateDetailData;
 begin
   if qOrderWork.ParamByName('ID').AsInteger <> Query.FieldBYName('ID').AsInteger then
     qOrderWork.Close;
+
+  if qOrderMaterial.ParamByName('ID').AsInteger <> Query.FieldBYName('ID').AsInteger then
+    qOrderMaterial.Close;
 
   DetailTimer.Enabled := false;
   DetailTimer.Interval := 1000;
@@ -1845,7 +2088,7 @@ procedure TOrderListForm.UpdateResources;
     vIDWorker : integer;
     vRes : TcxSchedulerStorageREsourceItem;
     vTime1, vTime2 : TTime;
-    vCategoriesList, vDistrictList : string;
+    vCategoriesList, vDistrictList, vWCList : string;
 begin
   if Assigned(Scheduler.SelResource) and (Scheduler.SelResource.ResourceID <> unAssigned) then
     vIDWorker := IsNull(Scheduler.SelResource.ResourceID, 0)
@@ -1862,11 +2105,17 @@ begin
 //  vDistrictList := IfNull(cbDistricts.CurEditValue, '');
   vCategoriesList := GetBarCheckComboboxIDList(cbCategories);
 //  vCategoriesList := IfNull(cbCategories.CurEditValue, '');
+
+  vWCList := GetBarCheckComboboxIDList(cbWorkerCompany);
+
   qMaster.ParamByName('DS').AsString := DateToSQLDate(eDate.Date);
   qMaster.ParamByName('CLIst1').AsString := vCategoriesList;
   qMaster.ParamByName('CLIst2').AsString := vCategoriesList;
   qMaster.ParamByName('DLIst1').AsString := vDistrictList;
   qMaster.ParamByName('DLIst2').AsString := vDistrictList;
+  qMaster.ParamByName('WCList1').AsString := vWCList;
+  qMaster.ParamByName('WCList2').AsString := vWCList;
+
 {  qMaster.ParamByName('IDD1').AsInteger := GetBarIDByItemIndex(cbDistrict);
   qMaster.ParamByName('IDD2').AsInteger := GetBarIDByItemIndex(cbDistrict);
   qMaster.ParamByName('IDC1').AsInteger := GetBarIDByItemIndex(cbCategory);
@@ -1897,6 +2146,16 @@ begin
       if FieldByName('TagList').AsString <> '' then
       begin
         Name := Name + #13#10 + FieldByName('TagList').AsString
+      end;
+
+      //по заданию от апрел€ 2023 добавл€ем подр€дчика
+      if AnsiLowerCase(FieldByName('OrgType').AsString) = AnsiLowerCase('самозан€тый') then
+      begin
+        Name := Name + #13#10'—амозан€тый';
+      end
+      else
+      begin
+        Name := Name + #13#10 + FieldByName('Name').AsString;
       end;
 
       //если график по конкретным дн€м
@@ -2150,6 +2409,43 @@ begin
   UpdateDetailData;
 end;
 
+procedure TOrderListForm.LoadMaterialList(AIDOrderList: integer;
+  AMemoryStream: TMemoryStream);
+  var
+    v : variant;
+begin
+  mdMaterial.Close;
+  mdMaterial.Open;
+
+  qMaterial.Close;
+  qMaterial.ParamByName('ID').AsInteger := AIDOrderList;
+  qMaterial.Open;
+  qMaterial.First;
+  while not qMaterial.eof do
+  begin
+    mdMaterial.Append;
+    mdMaterial.FieldByName('Edited').AsInteger := 0;
+    mdMaterial.FieldByName('ID').AsInteger := qMaterial.FieldByName('ID').AsInteger;
+    mdMaterial.FieldByName('ID_MaterialType').Value := qMaterial.FieldByName('ID_MaterialType').Value;
+    mdMaterial.FieldByName('MaterialName').AsString := qMaterial.FieldByName('MaterialName').AsString;
+    mdMaterial.FieldByName('MaterialPrice').AsFloat := qMaterial.FieldByName('MaterialPrice').AsFloat;
+    mdMaterial.FieldByName('MaterialAmount').AsFloat := qMaterial.FieldByName('MaterialAmount').AsFloat;
+    mdMaterial.FieldByName('MaterialUnitName').AsString := qMaterial.FieldByName('MaterialUnitName').AsString;
+    mdMaterial.FieldByName('MaterialCode').AsString := qMaterial.FieldByName('MaterialCode').AsString;
+
+    //добавл€ем все пол€ по скидкам
+    mdMaterial.FieldByName('MaterialSum').Value := qMaterial.FieldByName('MaterialSum').Value;
+
+    mdMaterial.Post;
+
+    qMaterial.Next;
+  end;
+  qMaterial.Close;
+
+  AMemoryStream.Clear;
+  mdMaterial.SaveToStream(AMemoryStream);
+end;
+
 procedure TOrderListForm.LoadWorkList(AIDOrderList : integer; AMemoryStream: TMemoryStream);
   var
     v : variant;
@@ -2241,11 +2537,12 @@ function TOrderListForm.AddOrderLIstDialog(var IDOrderLIst: integer): boolean;
     vPayed, vID, vIDClient, vIDSourceType, vIDStatusType, vIDSignalType, vIDPaymentForm, vIDDistrict, vIDMetro, vIDReason : integer;
     vPhone, vName, vAddress, vFlatNumber, vRequestText, vClientComment : string;
     vClientDomSPB : integer;
-    vWorkList : TMemoryStream;
+    vWorkList, vMaterialList : TMemoryStream;
     vClientDateTime : string;
     vCheckNumber, vNeedCallDate, vWorkDate, vWorkTime, vPLanTime : string;
+    vOrderNumberExt, vPersonalAccount : string;
     vIDDiscountTypePromo, vClosed, vIDWorker : integer;
-    vSum : double;
+    vSumMaterial, vSum : double;
 begin
   vID := 0;
   vOrderNum := '';
@@ -2259,6 +2556,9 @@ begin
   vStatusComment := '';
   vPayed := 0;
   vCheckNumber := '';
+
+  vOrderNumberExt := '';
+  vPersonalAccount := '';
 
   vIDClient := 0;
   vPhone := '';
@@ -2277,6 +2577,7 @@ begin
   vPLanTime := '';
   vIDWorker := IDWorkerDef;
   vSum := 0;
+  vSumMaterial := 0;
   vIDDiscountTypePromo := 0;
 
   IDWorkerDef := 0;
@@ -2284,15 +2585,16 @@ begin
   WorkTimeDef := '';
 
   vWorkList := TMemoryStream.Create;
+  vMaterialList := TMemoryStream.Create;
 
   Result :=
     GetOrderListParams(IntToStr(vID), vAddTime, vOrderNum, vOrderDate, vOrderType,
       vIDSourceType, vIDStatusType, vIDPaymentForm, vIDSignalType, vIDReason,
-      vNeedCallDate, vStatusComment, vPayed, vCheckNumber,
+      vNeedCallDate, vStatusComment, vPayed, vCheckNumber, vOrderNumberExt, vPersonalAccount,
       vIDClient, vPhone, vName, vAddress, vFlatNumber, vIDDistrict, vIDMetro,
       vClientDomSPB, vClientComment, vRequestText,
       vClientDateTime, vWorkDate, vWorkTime, vPLanTime, vIDWorker,
-      vWorkList, vSum,
+      vWorkList, vMaterialList, vSum, vSumMaterial,
       vIDDiscountTypePromo,
       true
       );
@@ -2340,6 +2642,9 @@ begin
       FieldByName('Payed').AsInteger := vPayed;
       FieldByName('CheckNumber').AsString := vCheckNumber;
 
+      FieldByName('OrderNumberExt').AsString := vOrderNumberExt;
+      FieldByName('PersonalAccount').AsString := vPersonalAccount;
+
       FieldByName('ID_Client').AsInteger := vIDClient;
       FieldByName('Phone').AsString := vPhone;
       FieldByName('Name').AsString := vName;
@@ -2358,15 +2663,26 @@ begin
       FieldByName('PLanTime').AsString := vPLanTime;
       FieldByName('ID_Worker').Value := NullIfZero(vIDWorker);
 
-      if (FieldByName('ID_Worker').AsInteger <> 0) and (FieldByName('ID_Client').AsInteger <> 0) then
+      //теперь лид или не лид решаетс€ только на основе присвоени€ статуса по “« от 13.03.2023 п.14
+{      if (FieldByName('ID_Worker').AsInteger <> 0) and (FieldByName('ID_Client').AsInteger <> 0) then
         FieldByName('OrderCategory').AsInteger := 1
       else
-        FieldByName('OrderCategory').AsInteger := 0;
+        FieldByName('OrderCategory').AsInteger := 0;}
 
       FieldByName('WorkCost').AsFloat := vSum;
+      FieldByName('MaterialCost').AsFloat := vSumMaterial;
+      FieldByName('FullCost').AsFloat := vSum + vSumMaterial;
 
-      if IsNull(Datas.ReadValues('StatusType', 'FinStatus', vIDStatusType)[0], 0) = 1 then FieldByName('Closed').AsInteger := 1
-      else FieldByName('Closed').AsInteger := 0;
+      if IsNull(Datas.ReadValues('StatusType', 'FinStatus', vIDStatusType)[0], 0) = 1 then
+      begin
+        FieldByName('Closed').AsInteger := 1;
+        FieldByName('Cancelled').AsInteger := IsNull(Datas.ReadValues('StatusType', 'FinStatusCancel', vIDStatusType)[0], 0);
+      end
+      else
+      begin
+        FieldByName('Closed').AsInteger := 0;
+        FieldByName('Cancelled').AsInteger := 0;
+      end;
 
       FieldByName('ID_DiscountPromo').Value := NullIfZero(vIDDiscountTypePromo);
 
@@ -2375,17 +2691,20 @@ begin
       Close;
 
       SaveWorkList(IDOrderLIst, vWorkList);
+      SaveMaterialList(IDOrderLIst, vMaterialList);
 
       Query.Refresh;
 
       Query.Locate('ID', IDOrderLIst, []);
 
-      //добавл€ем в шедулер
-      AppendScheduleOrder(IDOrderLIst);
+      //добавл€ем в шедулер, если не лид
+      if Query.FieldByName('OrderCategory').AsInteger = 1 then
+        AppendScheduleOrder(IDOrderLIst);
     end;
   end;
 
   vWorkList.Free;
+  vMaterialList.Free;
 
   SetEnabledButtons;
 end;
@@ -2450,10 +2769,24 @@ begin
         qOrderWork.Close;
     end;
 
+    if qOrderMaterial.Active then
+    begin
+      if qOrderMaterial.ParamByName('ID').AsInteger = Query.FieldBYName('ID').AsInteger then
+        qOrderMaterial.Refresh
+      else
+        qOrderMaterial.Close;
+    end;
+
     if not qOrderWork.Active and Query.Active then
     begin
       qOrderWork.ParamByName('ID').AsInteger := Query.FieldBYName('ID').AsInteger;
       qOrderWork.Open;
+    end;
+
+    if not qOrderMaterial.Active and Query.Active then
+    begin
+      qOrderMaterial.ParamByName('ID').AsInteger := Query.FieldBYName('ID').AsInteger;
+      qOrderMaterial.Open;
     end;
 
   finally
@@ -2509,13 +2842,15 @@ function TOrderListForm.EditOrderLIstDialog: boolean;
     vIDReason, vPayed, vID, vIDClient, vIDSignalType, vIDSourceType, vIDStatusType, vIDPaymentForm, vIDDistrict, vIDMetro : integer;
     vClientComment, vPhone, vName, vAddress, vFlatNumber, vRequestText : string;
     vClientDomSPB : integer;
-    vWorkList : TMemoryStream;
-    vClientDateTime : string;
+    vWorkList, vMaterialList: TMemoryStream;
+    vOrderNumberExt, vPersonalAccount, vClientDateTime : string;
     vNeedCallDate, vWorkDate, vWorkTime, vPLanTime : string;
     vIDDiscountTypePromo, vIDWorker : integer;
-    vSum : double;
+    vSumMaterial, vSum : double;
+    vOldOrderCategory : integer;
 begin
   vWorkList := TMemoryStream.Create;
+  vMaterialList := TMemoryStream.Create;
   with Query do
   begin
     vOrderNum := FieldByName('OrderNumber').AsString;
@@ -2532,6 +2867,8 @@ begin
     vStatusComment := FieldByName('StatusComment').AsString;
     vPayed := FieldByName('Payed').AsInteger;
     vCheckNumber := FieldByName('CheckNumber').AsString;
+    vOrderNumberExt := FieldByName('OrderNumberExt').AsString;
+    vPersonalAccount := FieldByName('PersonalAccount').AsString;
 
     vIDClient := FieldByName('ID_Client').AsInteger;
     vPhone := FieldByName('Phone').AsString;
@@ -2555,19 +2892,24 @@ begin
 
     vID := FieldByName('ID').AsInteger;
 
+    vOldOrderCategory := FieldByName('OrderCategory').AsInteger;
+
     LoadWorkList(vID, vWorkList);
+    LoadMaterialList(vID, vMaterialList);
+
     vSum := 0;
+    vSumMaterial := 0;
   end;
 
   Result :=
     GetOrderLIstParams(
       IntToStr(vID), vAddTime,  vOrderNum, vOrderDate, vOrderType,
       vIDSourceType, vIDStatusType, vIDPaymentForm, vIDSignalType, vIDReason,
-      vNeedCallDate, vStatusComment, vPayed, vCheckNumber,
+      vNeedCallDate, vStatusComment, vPayed, vCheckNumber, vOrderNumberExt, vPersonalAccount,
       vIDClient, vPhone, vName, vAddress, vFlatNumber, vIDDistrict, vIDMetro,
       vClientDOMSPB, vClientComment, vRequestText,
       vClientDateTime, vWorkDate, vWorkTime, vPLanTime, vIDWorker,
-      vWorkList, vSum,
+      vWorkList, vMaterialList, vSum, vSumMaterial,
       vIDDiscountTypePromo,
       False
       );
@@ -2597,6 +2939,9 @@ begin
       ParamByName('ID').AsInteger := vID;
       Open;
       Edit;
+
+      FieldByName('AssertTime').AsDateTime := ServerTime;
+
       FieldByName('ID_AssertUser').AsInteger := UserID;
       FieldByName('OrderNumber').AsString := vOrderNum;
       FieldByName('OrderDate').AsString := vOrderDate;
@@ -2609,6 +2954,8 @@ begin
       FieldByName('StatusComment').AsString := vStatusComment;
       FieldByName('Payed').AsInteger := vPayed;
       FieldByName('CheckNumber').AsString := vCheckNumber;
+      FieldByName('OrderNumberExt').AsString := vOrderNumberExt;
+      FieldByName('PersonalAccount').AsString := vPersonalAccount;
 
       FieldByName('ID_Client').AsInteger := vIDClient;
       FieldByName('Phone').AsString := vPhone;
@@ -2628,15 +2975,26 @@ begin
       FieldByName('PLanTime').AsString := vPLanTime;
       FieldByName('ID_Worker').Value := NullIfZero(vIDWorker);
 
-      if (FieldByName('ID_Worker').AsInteger <> 0) and (FieldByName('ID_Client').AsInteger <> 0) then
+      //теперь лид или не лид решаетс€ только на основе присвоени€ статуса по “« от 13.03.2023 п.14
+{      if (FieldByName('ID_Worker').AsInteger <> 0) and (FieldByName('ID_Client').AsInteger <> 0) then
         FieldByName('OrderCategory').AsInteger := 1
       else
-        FieldByName('OrderCategory').AsInteger := 0;
+        FieldByName('OrderCategory').AsInteger := 0;}
 
       FieldByName('WorkCost').AsFloat := vSum;
+      FieldByName('MaterialCost').AsFloat := vSumMaterial;
+      FieldByName('FullCost').AsFloat := vSum + vSumMaterial;
 
-      if IsNull(Datas.ReadValues('StatusType', 'FinStatus', vIDStatusType)[0], 0) = 1 then FieldByName('Closed').AsInteger := 1
-      else FieldByName('Closed').AsInteger := 0;
+      if IsNull(Datas.ReadValues('StatusType', 'FinStatus', vIDStatusType)[0], 0) = 1 then
+      begin
+        FieldByName('Closed').AsInteger := 1;
+        FieldByName('Cancelled').AsInteger := IsNull(Datas.ReadValues('StatusType', 'FinStatusCancel', vIDStatusType)[0], 0);
+      end
+      else
+      begin
+        FieldByName('Closed').AsInteger := 0;
+        FieldByName('Cancelled').AsInteger := 0;
+      end;
 
       FieldByName('ID_DiscountPromo').Value := NullIfZero(vIDDiscountTypePromo);
 
@@ -2644,10 +3002,15 @@ begin
       Close;
 
       SaveWorkList(vID, vWorkList);
+      SaveMaterialList(vID, vMaterialList);
 
       Query.Refresh;
 
       Query.Locate('ID', vID, []);
+
+      if (vOldOrderCategory = 0) and (Query.FieldByName('OrderCategory').AsInteger = 1) then AppendScheduleOrder(vID)
+      else
+        if (vOldOrderCategory = 1) and (Query.FieldByName('OrderCategory').AsInteger = 0) then DeleteScheduleOrder(vID);
 
       //обновл€ем в шедулере
       UpdateScheduleOrder(vID);
@@ -2655,6 +3018,7 @@ begin
   end;
 
   vWorkList.Free;
+  vMaterialList.Free;
 
   SetEnabledButtons;
 end;

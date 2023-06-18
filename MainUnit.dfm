@@ -4,7 +4,7 @@ object MainForm: TMainForm
   HelpContext = 1100
   Caption = 'Portal pro'
   ClientHeight = 628
-  ClientWidth = 1306
+  ClientWidth = 1371
   Color = clBtnFace
   Constraints.MinHeight = 300
   Constraints.MinWidth = 600
@@ -31,8 +31,8 @@ object MainForm: TMainForm
   object TopBarDockControl: TdxBarDockControl
     Left = 0
     Top = 0
-    Width = 1306
-    Height = 22
+    Width = 1371
+    Height = 72
     Margins.Left = 5
     Margins.Top = 5
     Margins.Right = 5
@@ -45,7 +45,7 @@ object MainForm: TMainForm
   object StatusBar: TdxStatusBar
     Left = 0
     Top = 607
-    Width = 1306
+    Width = 1371
     Height = 21
     Panels = <
       item
@@ -80,12 +80,12 @@ object MainForm: TMainForm
   object BottomBarDockControl: TdxBarDockControl
     Left = 0
     Top = 604
-    Width = 1306
+    Width = 1371
     Align = dalBottom
     BarManager = BarManager
   end
   object RightDockSite: TdxDockSite
-    Left = 1306
+    Left = 1371
     Top = 72
     Width = 0
     Height = 532
@@ -104,8 +104,6 @@ object MainForm: TMainForm
     Height = 532
     Align = alLeft
     AutoSize = True
-    ExplicitTop = 107
-    ExplicitHeight = 586
     DockingType = 5
     OriginalWidth = 0
     OriginalHeight = 586
@@ -115,7 +113,6 @@ object MainForm: TMainForm
       Width = 0
       Height = 532
       Visible = False
-      ExplicitWidth = 217
       DockingType = 0
       OriginalWidth = 217
       OriginalHeight = 200
@@ -134,7 +131,6 @@ object MainForm: TMainForm
       ImageIndex = 124
       TabsProperties.CustomButtons.Buttons = <>
       OnCloseQuery = WindowsPanelCloseQuery
-      ExplicitHeight = 497
       DockingType = 0
       OriginalWidth = 217
       OriginalHeight = 140
@@ -161,7 +157,6 @@ object MainForm: TMainForm
         OptionsImage.LargeImages = UtilForm.ImageListBig
         OptionsImage.SmallImages = UtilForm.ImageList
         OnLinkClick = NavBarLinkClick
-        ExplicitWidth = 213
         object SelectedStyle: TdxNavBarStyleItem
           Style.BackColor = clWhite
           Style.BackColor2 = clWhite
@@ -418,6 +413,14 @@ object MainForm: TMainForm
       ImageIndex = 17
       OnExecute = agWorkTypeExecute
     end
+    object agMaterialType: TAction
+      Tag = 11
+      Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
+      Caption = #1042#1080#1076#1099' '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074
+      Hint = #1042#1080#1076#1099' '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074
+      ImageIndex = 235
+      OnExecute = agMaterialTypeExecute
+    end
     object agOrderTag: TAction
       Tag = 11
       Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
@@ -538,7 +541,7 @@ object MainForm: TMainForm
       OnExecute = agFAQExecute
     end
     object aaBrowseOrderArch: TAction
-      Tag = 10
+      Tag = 11
       Category = #1044#1077#1081#1089#1090#1074#1080#1103
       Caption = #1040#1088#1093#1080#1074' '#1079#1072#1082#1072#1079#1086#1074
       Hint = #1040#1088#1093#1080#1074' '#1079#1072#1082#1072#1079#1086#1074
@@ -608,6 +611,22 @@ object MainForm: TMainForm
       Hint = #1057#1082#1080#1076#1082#1080
       ImageIndex = 429
       OnExecute = agDiscountTypeExecute
+    end
+    object aaBrowseOrderHist: TAction
+      Tag = 10
+      Category = #1044#1077#1081#1089#1090#1074#1080#1103
+      Caption = #1048#1089#1090#1086#1088#1080#1103' '#1079#1072#1082#1072#1079#1086#1074
+      Hint = #1048#1089#1090#1086#1088#1080#1103' '#1079#1072#1082#1072#1079#1086#1074
+      ImageIndex = 430
+      OnExecute = aaBrowseOrderHistExecute
+    end
+    object agWorkRestDay: TAction
+      Tag = 11
+      Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
+      Caption = #1054#1090#1087#1091#1089#1082#1072'/'#1086#1090#1075#1091#1083#1099'/'#1088#1072#1073#1086#1095#1080#1077' '#1076#1085#1080
+      Hint = #1054#1090#1087#1091#1089#1082#1072'/'#1086#1090#1075#1091#1083#1099'/'#1088#1072#1073#1086#1095#1080#1077' '#1076#1085#1080
+      ImageIndex = 433
+      OnExecute = agWorkRestDayExecute
     end
   end
   object dsQuery: TDataSource
@@ -747,11 +766,6 @@ object MainForm: TMainForm
     Left = 668
     Top = 140
     PixelsPerInch = 96
-    DockControlHeights = (
-      0
-      0
-      50
-      0)
     object BarMenu: TdxBar
       AllowClose = False
       AllowCustomizing = False
@@ -822,10 +836,10 @@ object MainForm: TMainForm
     object BatTool: TdxBar
       Caption = #1055#1072#1085#1077#1083#1100' '#1080#1085#1089#1090#1088#1091#1084#1077#1085#1090#1086#1074
       CaptionButtons = <>
-      DockedDockingStyle = dsTop
+      DockControl = TopBarDockControl
+      DockedDockControl = TopBarDockControl
       DockedLeft = 0
-      DockedTop = 0
-      DockingStyle = dsTop
+      DockedTop = 22
       FloatLeft = 498
       FloatTop = 200
       FloatClientWidth = 23
@@ -904,6 +918,10 @@ object MainForm: TMainForm
           ItemName = 'dxBarButton19'
         end
         item
+          Visible = True
+          ItemName = 'dxBarButton43'
+        end
+        item
           BeginGroup = True
           Visible = True
           ItemName = 'dxBarButton5'
@@ -949,7 +967,7 @@ object MainForm: TMainForm
       NotDocking = [dsLeft, dsRight]
       OldName = #1055#1072#1085#1077#1083#1100' '#1080#1085#1089#1090#1088#1091#1084#1077#1085#1090#1086#1074
       OneOnRow = True
-      Row = 0
+      Row = 1
       UseOwnFont = False
       UseRestSpace = True
       Visible = True
@@ -1042,6 +1060,10 @@ object MainForm: TMainForm
           ItemName = 'dxBarButton31'
         end
         item
+          Visible = True
+          ItemName = 'dxBarButton42'
+        end
+        item
           BeginGroup = True
           Visible = True
           ItemName = 'dxBarButton4'
@@ -1053,6 +1075,11 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton22'
+        end
+        item
+          BeginGroup = True
+          Visible = True
+          ItemName = 'dxBarButton44'
         end>
     end
     object dxReport: TdxBarSubItem
@@ -1126,6 +1153,10 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton19'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton43'
         end
         item
           BeginGroup = True
@@ -1337,6 +1368,15 @@ object MainForm: TMainForm
       Action = aaBrowseOrderArch
       Category = 2
     end
+    object dxBarButton42: TdxBarButton
+      Action = aaBrowseOrderHist
+      Category = 2
+    end
+    object dxBarButton44: TdxBarButton
+      Action = agWorkRestDay
+      Category = 2
+      Visible = ivNever
+    end
     object dxBarButton12: TdxBarButton
       Action = arReportSnap
       Category = 3
@@ -1391,6 +1431,10 @@ object MainForm: TMainForm
     end
     object dxBarButton19: TdxBarButton
       Action = agWorkType
+      Category = 4
+    end
+    object dxBarButton43: TdxBarButton
+      Action = agMaterialType
       Category = 4
     end
     object dxBarButton5: TdxBarButton

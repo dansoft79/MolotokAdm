@@ -25,24 +25,26 @@ type
     pBottom: TPanel;
     bOK: TcxButton;
     bCancel: TcxButton;
-    eSurname: TcxTextEdit;
-    eName: TcxTextEdit;
-    ePatro: TcxTextEdit;
-    cxLabel4: TcxLabel;
-    cxLabel5: TcxLabel;
+    eFIO: TcxTextEdit;
     cxLabel7: TcxLabel;
     cxLabel12: TcxLabel;
     bInput: TcxButton;
     cbWorkClass: TcxComboBox;
     lDepartment: TcxLabel;
     eComment: TcxMemo;
-    cbProcessed: TcxCheckBox;
     ePhone: TcxTextEdit;
     cxLabel1: TcxLabel;
-    eCity: TcxTextEdit;
-    cxLabel2: TcxLabel;
     cxLabel3: TcxLabel;
     eInfo: TcxMemo;
+    cbStatusTypeLead: TcxComboBox;
+    cxLabel6: TcxLabel;
+    cbDistrict: TcxComboBox;
+    cxLabel2: TcxLabel;
+    eLeadDateTime: TcxDateEdit;
+    cxLabel4: TcxLabel;
+    eLeadDateTimeComment: TcxTextEdit;
+    cxLabel5: TcxLabel;
+    cbActive: TcxCheckBox;
     procedure eChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure eKeyDown(Sender: TObject; var Key: Word;
@@ -55,13 +57,14 @@ type
   public
     { Public declarations }
     procedure FillWorkClass;
+    procedure FillDistrict;
+    procedure FillStatusTypeLead;
     procedure SetOKEnabled;
   end;
 
 function GetWorkerLeadParams(
-  var AActive, AProcessed, AIDWorkClass : integer;
-  var ASurname, AName, APatro, APhone, ACity,
-      AInfo, AComment : string;
+  var AActive, AIDStatusTypeLead, AIDWorkClass, AIDDistrict : integer;
+  var AFIO, APhone, ALeadDateTime, ALeadDateTimeComment, AInfo, AComment : string;
       AID : integer) : boolean;
 
 implementation
@@ -73,9 +76,8 @@ uses
   UDadataUtils, UDadataPhisParams, StrUtils;
 
 function GetWorkerLeadParams(
-  var AActive, AProcessed, AIDWorkClass : integer;
-  var ASurname, AName, APatro, APhone, ACity,
-      AInfo, AComment : string;
+  var AActive, AIDStatusTypeLead, AIDWorkClass, AIDDistrict : integer;
+  var AFIO, APhone, ALeadDateTime, ALeadDateTimeComment, AInfo, AComment : string;
       AID : integer) : boolean;
   var
     s : string;
@@ -84,18 +86,22 @@ begin
     try
       FID := AID;
 
-//      cbActive.Checked := AActive = 1;
-      cbProcessed.Checked := AProcessed = 1;
+      cbActive.Checked := AActive = 1;
+
+      FillStatusTypelead;
+      SetItemIndexByID(cbStatusTypeLead, AIDStatusTypeLead);
 
       FillWorkClass;
       SetItemIndexByID(cbWorkClass, AIDWorkClass);
 
-      eSurname.Text := ASurname;
-      eName.Text := AName;
-      ePatro.Text := APatro;
+      FillDistrict;
+      SetItemIndexByID(cbDistrict, AIDDistrict);
 
-      eCity.Text := ACity;
+      eFIO.Text := AFIO;
       ePhone.Text := APhone;
+
+      eLeadDateTime.Text := ALeadDateTime;
+      eLeadDateTimeComment.Text := ALeadDateTimeComment;
 
       eInfo.Lines.Text := AInfo;
       eComment.Lines.Text := AComment;
@@ -104,16 +110,19 @@ begin
 
       if Result then
       begin
-//        AActive := BooleanToInt(cbActive.Checked);
-        AProcessed := BooleanToInt(cbProcessed.Checked);
+        AActive := BooleanToInt(cbActive.Checked);
+
+        AIDStatusTypeLead := GetIDByItemIndex(cbStatusTypeLead);
         AIDWorkClass := GetIDByItemIndex(cbWorkClass);
+        AIDDistrict := GetIDByItemIndex(cbDistrict);
 
-        ASurname := Trim(eSurname.Text);
-        AName := Trim(eName.Text);
-        APatro := Trim(ePatro.Text);
-
-        ACity := Trim(eCity.Text);
+        AFIO := Trim(eFIO.Text);
         APhone := Trim(ePhone.Text);
+
+        if IsDateTime(eLeadDateTime.Text) then ALeadDateTime := eLeadDateTime.Text
+        else ALeadDateTime := '';
+
+        ALeadDateTimeComment := Trim(eLeadDateTimeComment.Text);
 
         AInfo := Trim(eInfo.Lines.Text);
         AComment := Trim(eComment.Lines.Text);
@@ -131,13 +140,21 @@ begin
   FillComboBoxExSQL(cbWorkClass, 'select ID, Name from WorkClass order by Name', 'Name', 'ID')
 end;
 
+procedure TWorkerLeadParamForm.FillDistrict;
+begin
+  cbDistrict.Properties.Items.Clear;
+  FillComboBoxExSQL(cbDistrict, 'select ID, Name from District order by Name', 'Name', 'ID')
+end;
+
 procedure TWorkerLeadParamForm.FillPhis(AProp: string);
   var
     s : string;
 begin
-  eSurname.Text := GetParamValue(AProp, 'surname');
-  eName.Text := GetParamValue(AProp, 'name');
-  ePatro.Text := GetParamValue(AProp, 'patronymic');
+//  eSurname.Text := GetParamValue(AProp, 'surname');
+//  eName.Text := GetParamValue(AProp, 'name');
+//  ePatro.Text := GetParamValue(AProp, 'patronymic');
+
+  eFIO.Text := Trim(GetParamValue(AProp, 'surname') + ' ' + GetParamValue(AProp, 'name') + ' ' + GetParamValue(AProp, 'patronymic'));
 
   s := GetParamValue(AProp, 'gender');
   if s = 'MALE' then s := 'мужской'
@@ -148,6 +165,12 @@ begin
 end;
 
 
+procedure TWorkerLeadParamForm.FillStatusTypeLead;
+begin
+  cbStatusTypeLead.Properties.Items.Clear;
+  FillComboBoxExSQL(cbStatusTypeLead, 'select ID, Name from StatusTypeLead order by Name', 'Name', 'ID')
+end;
+
 procedure TWorkerLeadParamForm.eChange(Sender: TObject);
 begin
   SetOKEnabled;
@@ -156,6 +179,8 @@ end;
 procedure TWorkerLeadParamForm.SetOKEnabled;
 begin
   bOK.Enabled :=
+    (cbStatusTypeLead.ItemIndex <> -1) and
+    (cbDistrict.ItemIndex <> -1) and
     (cbWorkClass.ItemIndex <> -1) and
     (Trim(ePhone.Text) <> '');
 end;
@@ -196,10 +221,10 @@ begin
         'Во время получения доступа к сервису был получен ответ:'#13#10 + s, smtWarning);
     end
     else
-      if DaDataPhisParams(vKey, s, eSurname.Text + ' ' + eName.Text + ' ' + ePatro.Text) then
+      if DaDataPhisParams(vKey, s, eFIO.Text) then
       begin
         FillPhis(s);
-        if eSurname.Enabled then eSurname.SetFocus;
+        if eFIO.Enabled then eFIO.SetFocus;
       end;
   end;
   SetOKEnabled;

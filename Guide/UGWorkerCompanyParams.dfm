@@ -96,7 +96,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     Top = 424
     Properties.ScrollBars = ssVertical
     Properties.WantReturns = False
-    TabOrder = 31
+    TabOrder = 30
     OnKeyDown = eKeyDown
     Height = 57
     Width = 409
@@ -114,6 +114,8 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.DropDownListStyle = lsEditFixedList
+    Properties.ImmediatePost = True
+    Properties.ImmediateUpdateText = True
     Properties.Items.Strings = (
       #1054#1054#1054
       #1048#1055
@@ -130,7 +132,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 4
+    TabOrder = 3
     OnKeyDown = eKeyDown
     Height = 21
     Width = 121
@@ -148,7 +150,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 6
+    TabOrder = 5
     OnKeyDown = eKeyDown
     Height = 21
     Width = 153
@@ -159,7 +161,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 5
+    TabOrder = 4
     OnKeyDown = eKeyDown
     Height = 21
     Width = 121
@@ -184,7 +186,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 11
+    TabOrder = 9
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
@@ -202,7 +204,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 13
+    TabOrder = 11
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
@@ -220,7 +222,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 15
+    TabOrder = 13
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
@@ -238,7 +240,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 19
+    TabOrder = 17
     OnKeyDown = eKeyDown
     Height = 21
     Width = 153
@@ -256,7 +258,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 17
+    TabOrder = 15
     OnKeyDown = eKeyDown
     Height = 21
     Width = 249
@@ -274,7 +276,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 21
+    TabOrder = 19
     OnKeyDown = eKeyDown
     Height = 21
     Width = 249
@@ -299,7 +301,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     EditValue = 0.000000000000000000
-    TabOrder = 26
+    TabOrder = 24
     OnKeyDown = eKeyDown
     Height = 21
     Width = 121
@@ -310,7 +312,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 7
+    TabOrder = 6
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
@@ -328,7 +330,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 9
+    TabOrder = 8
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
@@ -356,7 +358,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     Properties.Items.Strings = (
       #1055#1088#1086#1094#1077#1085#1090
       #1057#1091#1084#1084#1072)
-    TabOrder = 24
+    TabOrder = 22
     Text = #1055#1088#1086#1094#1077#1085#1090
     OnKeyDown = eKeyDown
     Height = 21
@@ -375,7 +377,7 @@ object GWorkerCompanyParamForm: TGWorkerCompanyParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.ReadOnly = True
-    TabOrder = 27
+    TabOrder = 25
     Height = 21
     Width = 153
   end

@@ -53,9 +53,9 @@
         <Manifest_File>None</Manifest_File>
         <Icon_MainIcon>Icon4.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1700</VerInfo_Build>
+        <VerInfo_Build>2013</VerInfo_Build>
         <VerInfo_Locale>1049</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Portal pro;FileDescription=Portal pro;FileVersion=1.0.0.1700;InternalName=;LegalCopyright=(c) 2021-2023, Portal pro;LegalTrademarks=;OriginalFilename=;ProductName=Portal pro;ProductVersion=0.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Portal pro;FileDescription=Portal pro;FileVersion=1.0.0.2013;InternalName=;LegalCopyright=(c) 2021-2023, Portal pro;LegalTrademarks=;OriginalFilename=;ProductName=Portal pro;ProductVersion=0.0.0.0;Comments=</VerInfo_Keys>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;VCLTee;System.Win;Data.Win;$(DCC_Namespace)</DCC_Namespace>
         <DCC_ExeOutput>Exe</DCC_ExeOutput>
         <DCC_UnitSearchPath>.\Thirparty\Graphics32\;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
@@ -1176,12 +1176,12 @@
             <Form>GUserRoleForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGSignalTypeParams.pas">
-            <Form>GSignalTypeParamForm</Form>
+        <DCCReference Include="Guide\UGMaterialTypeParams.pas">
+            <Form>GMaterialTypeParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGSignalType.pas">
-            <Form>GSignalTypeForm</Form>
+        <DCCReference Include="Guide\UGMaterialType.pas">
+            <Form>GMaterialTypeForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Guide\UGWorkClass.pas">
@@ -1212,8 +1212,8 @@
             <Form>GPaymentFormForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGStatusTypeParams.pas">
-            <Form>GStatusTypeParamForm</Form>
+        <DCCReference Include="Guide\UGStatusTypeLeadParams.pas">
+            <Form>GStatusTypeLeadParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Guide\UGOrderTag.pas">
@@ -1224,8 +1224,8 @@
             <Form>GOrderTagParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGStatusType.pas">
-            <Form>GStatusTypeForm</Form>
+        <DCCReference Include="Guide\UGStatusTypeLead.pas">
+            <Form>GStatusTypeLeadForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Guide\UGSearchHint.pas">
@@ -1300,8 +1300,8 @@
             <Form>WorkerLeadParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Select\USelectWorkTypeMulti.pas">
-            <Form>SelectWorkTypeMultiForm</Form>
+        <DCCReference Include="Select\USelectMaterialTypeMulti.pas">
+            <Form>SelectMaterialTypeMultiForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Select\USelectWorkClass.pas">
@@ -1372,8 +1372,8 @@
             <Form>SelectEmployeeForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UOrderWorkTypeParams.pas">
-            <Form>OrderListWorkTypeParamsForm</Form>
+        <DCCReference Include="UOrderMaterialTypeGuideParams.pas">
+            <Form>OrderListMaterialTypeGuideParamsForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UEditText.pas">
@@ -1445,8 +1445,8 @@
             <Form>NoticeOptionsTimeParamsForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UBrowseOrderArch.pas">
-            <Form>BrowseOrderArchForm</Form>
+        <DCCReference Include="UBrowseOrderHistory.pas">
+            <Form>BrowseOrderHistForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Guide\UGSearchHintParams.pas">
@@ -1455,14 +1455,6 @@
         </DCCReference>
         <DCCReference Include="UNoticeTemplateConditionParams.pas">
             <Form>NoticeTEmplateConditionParamForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Guide\UGFAQ.pas">
-            <Form>GFAQForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Guide\UGFAQParams.pas">
-            <Form>GFAQParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Select\USelectDistrict.pas">
@@ -1489,6 +1481,58 @@
         <DCCReference Include="AutoUpdate\uHYFileUtils.pas"/>
         <DCCReference Include="AutoUpdate\uHYLocalService.pas"/>
         <DCCReference Include="AutoUpdate\HydraAutoUpdate_Intf.pas"/>
+        <DCCReference Include="Guide\UGStatusType.pas">
+            <Form>GStatusTypeForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGStatusTypeParams.pas">
+            <Form>GStatusTypeParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UBrowseOrderHistorySimple.pas">
+            <Form>BrowseOrderHistorySimpleForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UBrowseOrderArch.pas">
+            <Form>BrowseOrderArchForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGSignalTypeParams.pas">
+            <Form>GSignalTypeParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGSignalType.pas">
+            <Form>GSignalTypeForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Select\USelectWorkTypeMulti.pas">
+            <Form>SelectWorkTypeMultiForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UOrderWorkTypeParams.pas">
+            <Form>OrderListWorkTypeParamsForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UOrderMaterialTypeParams.pas">
+            <Form>OrderListMaterialTypeParamsForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGFAQ.pas">
+            <Form>GFAQForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGFAQParams.pas">
+            <Form>GFAQParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGWorkRestDay.pas">
+            <Form>GWorkRestDayForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGWorkRestDayParams.pas">
+            <Form>GWorkRestDayParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

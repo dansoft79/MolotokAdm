@@ -74,6 +74,7 @@ object GReportFormForm: TGReportFormForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -92,6 +93,10 @@ object GReportFormForm: TGReportFormForm
       OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
+      object TableViewLastNM: TcxGridDBColumn
+        DataBinding.FieldName = 'LastNM'
+        Width = 150
+      end
       object TableViewType: TcxGridDBColumn
         DataBinding.FieldName = 'Type'
         Width = 200
@@ -358,7 +363,11 @@ object GReportFormForm: TGReportFormForm
     AfterOpen = QueryAfterOpen
     AfterScroll = QueryAfterScroll
     SQL.Strings = (
-      'Select *, UserInfo(ID_AssertUser) as AssertUser'
+      'Select *, '
+      '  UserInfo(ID_AssertUser) as AssertUser,'
+      
+        '  Concat(NumPrefix, Cast(LastNumber as char), NumSuffix, '#39'/'#39', Ca' +
+        'st(LastYear as char)) as LastNM'
       'From ReportForm'
       'where Active = 1 and Deleted = 0'
       'Order By Type, Name')
@@ -420,6 +429,26 @@ object GReportFormForm: TGReportFormForm
       FieldName = 'AssertUser'
       ReadOnly = True
       Size = 50
+    end
+    object QueryLastNumber: TIntegerField
+      FieldName = 'LastNumber'
+    end
+    object QueryLastYear: TIntegerField
+      FieldName = 'LastYear'
+    end
+    object QueryNumPrefix: TWideStringField
+      FieldName = 'NumPrefix'
+      Size = 80
+    end
+    object QueryNumSuffix: TWideStringField
+      FieldName = 'NumSuffix'
+      Size = 80
+    end
+    object QueryLastNM: TWideStringField
+      DisplayLabel = #1053#1086#1084#1077#1088
+      FieldName = 'LastNM'
+      ReadOnly = True
+      Size = 252
     end
   end
   object Table: TZQuery

@@ -3,7 +3,7 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
   Top = 305
   BorderStyle = bsDialog
   Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1083#1080#1076#1072' '#1080#1089#1087#1086#1083#1085#1080#1090#1077#1083#1103
-  ClientHeight = 380
+  ClientHeight = 424
   ClientWidth = 425
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
@@ -18,14 +18,13 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
   TextHeight = 13
   object pBottom: TPanel
     Left = 0
-    Top = 344
+    Top = 388
     Width = 425
     Height = 36
     Align = alBottom
     BevelOuter = bvNone
-    TabOrder = 17
-    ExplicitTop = 304
-    ExplicitWidth = 495
+    TabOrder = 19
+    ExplicitTop = 344
     DesignSize = (
       425
       36)
@@ -39,7 +38,6 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
       ModalResult = 1
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
-      ExplicitLeft = 321
     end
     object bCancel: TcxButton
       Left = 335
@@ -52,7 +50,6 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
       ModalResult = 2
       OptionsImage.NumGlyphs = 2
       TabOrder = 2
-      ExplicitLeft = 405
     end
     object bInput: TcxButton
       Left = 12
@@ -69,99 +66,51 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
       OnClick = bInputClick
     end
   end
-  object eSurname: TcxTextEdit
+  object eFIO: TcxTextEdit
     Left = 8
-    Top = 88
+    Top = 132
     AutoSize = False
     BeepOnEnter = False
-    TabOrder = 2
+    TabOrder = 6
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
   end
-  object eName: TcxTextEdit
-    Left = 8
-    Top = 128
-    AutoSize = False
-    BeepOnEnter = False
-    TabOrder = 3
-    OnKeyDown = eKeyDown
-    Height = 21
-    Width = 201
-  end
-  object ePatro: TcxTextEdit
-    Left = 216
-    Top = 128
-    AutoSize = False
-    BeepOnEnter = False
-    TabOrder = 5
-    OnKeyDown = eKeyDown
-    Height = 21
-    Width = 201
-  end
-  object cxLabel4: TcxLabel
-    Left = 8
-    Top = 112
-    Caption = #1048#1084#1103':'
-    ParentFont = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -11
-    Style.Font.Name = 'Tahoma'
-    Style.Font.Style = []
-    Style.TextStyle = []
-    Style.IsFontAssigned = True
-    Transparent = True
-  end
-  object cxLabel5: TcxLabel
-    Left = 216
-    Top = 112
-    Caption = #1054#1090#1095#1077#1089#1090#1074#1086':'
-    ParentFont = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -11
-    Style.Font.Name = 'Tahoma'
-    Style.Font.Style = []
-    Style.TextStyle = []
-    Style.IsFontAssigned = True
-    Transparent = True
-  end
   object cxLabel7: TcxLabel
     Left = 8
-    Top = 72
-    Caption = #1060#1072#1084#1080#1083#1080#1103':'
+    Top = 116
+    Caption = #1060#1048#1054':'
     ParentFont = False
     Style.Font.Charset = DEFAULT_CHARSET
     Style.Font.Color = clWindowText
     Style.Font.Height = -11
     Style.Font.Name = 'Tahoma'
     Style.Font.Style = []
-    Style.TextStyle = []
+    Style.TextStyle = [fsBold]
     Style.IsFontAssigned = True
     Transparent = True
   end
   object cxLabel12: TcxLabel
     Left = 8
-    Top = 268
-    Caption = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081':'
+    Top = 236
+    Caption = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081' '#1084#1072#1089#1090#1077#1088#1072':'
     Transparent = True
   end
   object cbWorkClass: TcxComboBox
     Left = 8
-    Top = 48
+    Top = 92
     AutoSize = False
     BeepOnEnter = False
     Properties.DropDownListStyle = lsEditFixedList
     Properties.OnChange = eChange
-    TabOrder = 1
+    TabOrder = 4
     OnKeyDown = eKeyDown
     Height = 21
     Width = 409
   end
   object lDepartment: TcxLabel
     Left = 8
-    Top = 32
+    Top = 76
     Caption = #1058#1080#1087' '#1088#1072#1073#1086#1090#1099':'
     FocusControl = cbWorkClass
     ParentFont = False
@@ -170,41 +119,28 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
   end
   object eComment: TcxMemo
     Left = 8
-    Top = 284
+    Top = 252
     Properties.ScrollBars = ssVertical
     Properties.WantReturns = False
-    TabOrder = 13
+    TabOrder = 16
     OnKeyDown = eKeyDown
     Height = 57
     Width = 409
   end
-  object cbProcessed: TcxCheckBox
-    Left = 8
-    Top = 8
-    AutoSize = False
-    Caption = #1054#1073#1088#1072#1073#1086#1090#1072#1085#1072
-    Properties.FullFocusRect = True
-    Style.TextStyle = [fsBold]
-    TabOrder = 0
-    Transparent = True
-    OnKeyDown = eKeyDown
-    Height = 21
-    Width = 409
-  end
   object ePhone: TcxTextEdit
     Left = 8
-    Top = 168
+    Top = 172
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 8
+    TabOrder = 9
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
   end
   object cxLabel1: TcxLabel
     Left = 8
-    Top = 152
+    Top = 156
     Caption = #1058#1077#1083#1077#1092#1086#1085':'
     ParentFont = False
     Style.Font.Charset = DEFAULT_CHARSET
@@ -216,20 +152,80 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
     Style.IsFontAssigned = True
     Transparent = True
   end
-  object eCity: TcxTextEdit
-    Left = 216
-    Top = 168
+  object cxLabel3: TcxLabel
+    Left = 8
+    Top = 312
+    Caption = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103':'
+    Transparent = True
+  end
+  object eInfo: TcxMemo
+    Left = 8
+    Top = 328
+    Properties.ScrollBars = ssVertical
+    Properties.WantReturns = False
+    TabOrder = 18
+    OnKeyDown = eKeyDown
+    Height = 57
+    Width = 409
+  end
+  object cbStatusTypeLead: TcxComboBox
+    Left = 8
+    Top = 52
     AutoSize = False
     BeepOnEnter = False
-    TabOrder = 9
+    Properties.DropDownListStyle = lsEditFixedList
+    Properties.OnChange = eChange
+    TabOrder = 2
+    OnKeyDown = eKeyDown
+    Height = 21
+    Width = 409
+  end
+  object cxLabel6: TcxLabel
+    Left = 8
+    Top = 36
+    Caption = #1057#1090#1072#1090#1091#1089':'
+    FocusControl = cbStatusTypeLead
+    ParentFont = False
+    Style.TextStyle = [fsBold]
+    Transparent = True
+  end
+  object cbDistrict: TcxComboBox
+    Left = 216
+    Top = 172
+    AutoSize = False
+    BeepOnEnter = False
+    Properties.DropDownListStyle = lsEditFixedList
+    Properties.OnChange = eChange
+    TabOrder = 10
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
   end
   object cxLabel2: TcxLabel
     Left = 216
-    Top = 152
-    Caption = #1043#1086#1088#1086#1076':'
+    Top = 156
+    Caption = #1056#1072#1081#1086#1085':'
+    FocusControl = cbDistrict
+    ParentFont = False
+    Style.TextStyle = [fsBold]
+    Transparent = True
+  end
+  object eLeadDateTime: TcxDateEdit
+    Left = 8
+    Top = 212
+    AutoSize = False
+    BeepOnEnter = False
+    Properties.ImmediatePost = True
+    Properties.Kind = ckDateTime
+    TabOrder = 13
+    OnKeyDown = eKeyDown
+    Height = 21
+    Width = 201
+  end
+  object cxLabel4: TcxLabel
+    Left = 8
+    Top = 196
+    Caption = #1044#1072#1090#1072' '#1080' '#1074#1088#1077#1084#1103':'
     ParentFont = False
     Style.Font.Charset = DEFAULT_CHARSET
     Style.Font.Color = clWindowText
@@ -240,20 +236,44 @@ object WorkerLeadParamForm: TWorkerLeadParamForm
     Style.IsFontAssigned = True
     Transparent = True
   end
-  object cxLabel3: TcxLabel
-    Left = 8
-    Top = 192
-    Caption = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103':'
+  object eLeadDateTimeComment: TcxTextEdit
+    Left = 216
+    Top = 212
+    AutoSize = False
+    BeepOnEnter = False
+    Properties.OnChange = eChange
+    TabOrder = 14
+    OnKeyDown = eKeyDown
+    Height = 21
+    Width = 201
+  end
+  object cxLabel5: TcxLabel
+    Left = 216
+    Top = 196
+    Caption = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081' '#1082' '#1076#1072#1090#1077':'
+    ParentFont = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -11
+    Style.Font.Name = 'Tahoma'
+    Style.Font.Style = []
+    Style.TextStyle = []
+    Style.IsFontAssigned = True
     Transparent = True
   end
-  object eInfo: TcxMemo
+  object cbActive: TcxCheckBox
     Left = 8
-    Top = 208
-    Properties.ScrollBars = ssVertical
-    Properties.WantReturns = False
-    TabOrder = 10
+    Top = 8
+    AutoSize = False
+    Caption = #1040#1082#1090#1080#1074#1085#1072
+    Properties.FullFocusRect = True
+    Properties.OnChange = eChange
+    Style.TextStyle = [fsBold]
+    Style.TransparentBorder = False
+    TabOrder = 0
+    Transparent = True
     OnKeyDown = eKeyDown
-    Height = 57
+    Height = 21
     Width = 409
   end
 end

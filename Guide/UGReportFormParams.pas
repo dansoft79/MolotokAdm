@@ -16,7 +16,7 @@ uses
   Dialogs, StdCtrls, Buttons, ExtCtrls, DB, ADODB, Menus,
   cxLookAndFeelPainters, cxGraphics, cxLabel, cxMaskEdit, cxDropDownEdit,
   cxControls, cxContainer, cxEdit, cxTextEdit, cxButtons, dxSkinsCore,
-  dxSkinsDefaultPainters, cxMemo, cxCheckBox, cxLookAndFeels;
+  dxSkinsDefaultPainters, cxMemo, cxCheckBox, cxLookAndFeels, cxSpinEdit;
 
 type
   TReportFormParamsForm = class(TForm)
@@ -31,6 +31,14 @@ type
     cxLabel1: TcxLabel;
     cxLabel2: TcxLabel;
     mComment: TcxMemo;
+    eLastNumber: TcxSpinEdit;
+    cxLabel3: TcxLabel;
+    eLastYear: TcxSpinEdit;
+    cxLabel4: TcxLabel;
+    eNumPrefix: TcxTextEdit;
+    cxLabel5: TcxLabel;
+    eNumSuffix: TcxTextEdit;
+    cxLabel6: TcxLabel;
     procedure FormShow(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure eTypeChange(Sender: TObject);
@@ -50,8 +58,9 @@ type
 
 function GetReportFormParams(
   var AType, AName : string;
-  var AComment : string;
-  AForm : TMemoryStream) : boolean;
+  var ALastNumber, ALastYear : integer;
+  var ANumPrefix, ANumSuffix, AComment : string;
+      AForm : TMemoryStream) : boolean;
 
 implementation
 
@@ -62,7 +71,8 @@ uses
 
 function GetReportFormParams(
   var AType, AName : string;
-  var AComment : string;
+  var ALastNumber, ALastYear : integer;
+  var ANumPrefix, ANumSuffix, AComment : string;
       AForm : TMemoryStream) : boolean;
 begin
   with TReportFormParamsForm.Create(nil) do
@@ -71,6 +81,12 @@ begin
       FillType;
       eType.Text := AType;
       eName.Text := AName;
+
+      eLastNumber.Value := ALastNumber;
+      eLastYear.Value := ALastYear;
+      eNumPrefix.Text := ANumPrefix;
+      eNumSuffix.Text := ANumSuffix;
+
       mComment.Text := AComment;
 
       Result := ShowModal = mrOK;
@@ -80,6 +96,11 @@ begin
         AName := Trim(eName.Text);
         AType := Trim(eType.Text);
         AComment := Trim(mComment.Text);
+
+        ALastNumber := eLastNumber.Value;
+        ALastYear := eLastYear.Value;
+        ANumPrefix := Trim(eNumPrefix.Text);
+        ANumSuffix := Trim(eNumSuffix.Text);
       end;
     finally
       Free;

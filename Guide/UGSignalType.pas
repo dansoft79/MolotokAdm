@@ -25,7 +25,7 @@ uses
   cxNavigator, dxDateRanges, dxBarBuiltInMenu, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, cxContainer, cxTextEdit, cxRichEdit,
   cxDBRichEdit, cxImage, cxDBEdit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
-  PropFilerEh, PropStorageEh, dxColorEdit;
+  PropFilerEh, PropStorageEh, dxColorEdit, dxScrollbarAnnotations;
 
 type
   TGSignalTypeForm = class(TForm)
@@ -76,6 +76,8 @@ type
     QueryComment: TWideStringField;
     QueryAssertUser: TWideStringField;
     QueryDefSource: TSmallintField;
+    QueryShowWorker: TSmallintField;
+    TableViewShowWorker: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -401,13 +403,14 @@ end;
 function TGSignalTypeForm.AddSignalTypeDialog(var IDSignalType: integer): boolean;
   var
     vCode, vName, vComment : string;
-    vColor, vDefSignal, vActive : integer;
+    vColor, vDefSignal, vActive, vShowWorker : integer;
 begin
   vActive := 1;
   vName := '';
   vCode := '';
   vColor := clNone;
   vDefSignal := 0;
+  vShowWorker := 0;
   vComment := '';
 
   Result :=
@@ -417,6 +420,7 @@ begin
       vCode,
       vColor,
       vDefSignal,
+      vShowWorker,
       vComment
       );
 
@@ -438,6 +442,7 @@ begin
       FieldByName('Code').AsString := vCode;
       FieldByName('Color').AsInteger := vColor;
       FieldByName('DefSignal').AsInteger := vDefSignal;
+      FieldByName('ShowWorker').AsInteger := vShowWorker;
       FieldByName('Comment').AsString := vComment;
       Post;
       IDSignalType := FieldByName('ID').AsInteger;
@@ -491,7 +496,7 @@ end;
 function TGSignalTypeForm.EditSignalTypeDialog: boolean;
   var
     vCode, vName, vComment : string;
-    vColor, vDefSignal, vActive, vRoleType, vID : integer;
+    vColor, vDefSignal, vActive, vRoleType, vShowWorker, vID : integer;
 begin
   with Query do
   begin
@@ -500,6 +505,7 @@ begin
     vCode := FieldByName('Code').AsString;
     vColor := FieldByName('Color').AsInteger;
     vDefSignal := FieldByName('DefSignal').AsInteger;
+    vShowWorker := FieldByName('ShowWorker').AsInteger;
     vComment := FieldByName('Comment').AsString;
     vID := FieldByName('ID').AsInteger;
   end;
@@ -511,6 +517,7 @@ begin
       vCode,
       vColor,
       vDefSignal,
+      vShowWorker,
       vComment);
 
   if Result then
@@ -529,6 +536,7 @@ begin
       FieldByName('Code').AsString := vCode;
       FieldByName('Color').AsInteger := vColor;
       FieldByName('DefSignal').AsInteger := vDefSignal;
+      FieldByName('ShowWorker').AsInteger := vShowWorker;
       FieldByName('Comment').AsString := vComment;
       Post;
       Close;

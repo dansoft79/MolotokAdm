@@ -25,7 +25,8 @@ uses
   cxLookAndFeelPainters, System.Actions, frxClass, cxNavigator, dxDateRanges,
   dxBarBuiltInMenu, DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh,
   cxContainer, cxTextEdit, cxRichEdit, cxDBRichEdit, cxImage, cxDBEdit,
-  EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, PropFilerEh, PropStorageEh;
+  EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, PropFilerEh, PropStorageEh,
+  dxScrollbarAnnotations;
 
 type
   TGReportFormForm = class(TForm)
@@ -87,6 +88,12 @@ type
     TableViewComment: TcxGridDBColumn;
     QueryID_AssertUser: TSmallintField;
     QueryAssertUser: TWideStringField;
+    QueryLastNumber: TIntegerField;
+    QueryLastYear: TIntegerField;
+    QueryNumPrefix: TWideStringField;
+    QueryNumSuffix: TWideStringField;
+    QueryLastNM: TWideStringField;
+    TableViewLastNM: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -765,6 +772,8 @@ function TGReportFormForm.AddReportFormDialog(var IDReportForm: integer): boolea
     vName : string;
     vType : String;
     vForm : TMemoryStream;
+    vLastNumber, vLastYear : integer;
+    vNumPrefix, vNumSuffix : string;
     vComment : string;
 begin
   vName := '';
@@ -772,10 +781,19 @@ begin
   vForm := TMemoryStream.Create;
   vComment := '';
 
+  vLastNumber := 0;
+  vLastYear := YearOf(Date);
+  vNumPrefix := '';
+  vNumSuffix := '';
+
   Result :=
     GetReportFormParams(
       vType,
       vName,
+      vLastNumber,
+      vLastYear,
+      vNumPrefix,
+      vNumSuffix,
       vComment,
       vForm);
 
@@ -797,6 +815,12 @@ begin
       FieldByName('Type').AsString := vType;
       FieldByName('Size').AsFloat := vForm.Size;
       FieldByname('Version').AsString := GetFastReport3FormVersion(vForm);
+
+      FieldByname('LastNumber').AsInteger := vLastNumber;
+      FieldByname('LastYear').AsInteger := vLastYear;
+      FieldByname('NumPrefix').AsString := vNumPrefix;
+      FieldByname('NumSuffix').AsString := vNumSuffix;
+
       FieldByname('Comment').AsString := vComment;
       tBlobField(FieldByName('Data')).LoadFromStream(vForm);
       Post;
@@ -896,6 +920,8 @@ function TGReportFormForm.EditReportFormDialog: boolean;
     vType : String;
     vForm : TMemoryStream;
     vComment : string;
+    vLastNumber, vLastYear : integer;
+    vNumPrefix, vNumSuffix : string;
 begin
   vForm := TMemoryStream.Create;
   with Query do
@@ -903,7 +929,14 @@ begin
     vName := FieldByName('Name').AsString;
     vType := FieldByName('Type').AsString;
     TBlobField(FieldByName('Data')).SaveToStream(vForm);
+
     vComment := FieldByName('Comment').AsString;
+
+    vLastNumber := FieldByname('LastNumber').AsInteger;
+    vLastYear := FieldByname('LastYear').AsInteger;
+    vNumPrefix := FieldByname('NumPrefix').AsString;
+    vNumSuffix := FieldByname('NumSuffix').AsString;
+
     vID := FieldByName('ID').AsInteger;
   end;
 
@@ -911,6 +944,10 @@ begin
     GetReportFormParams(
       vType,
       vName,
+      vLastNumber,
+      vLastYear,
+      vNumPrefix,
+      vNumSuffix,
       vComment,
       vForm);
 
@@ -929,6 +966,12 @@ begin
       FieldByName('Type').AsString := vType;
       FieldByName('Size').AsFloat := vForm.Size;
       FieldByname('Version').AsString := GetFastReport3FormVersion(vForm);
+
+      FieldByname('LastNumber').AsInteger := vLastNumber;
+      FieldByname('LastYear').AsInteger := vLastYear;
+      FieldByname('NumPrefix').AsString := vNumPrefix;
+      FieldByname('NumSuffix').AsString := vNumSuffix;
+
       FieldByname('Comment').AsString := vComment;
       TBlobField(FieldByName('Data')).LoadFromStream(vForm);
       Post;

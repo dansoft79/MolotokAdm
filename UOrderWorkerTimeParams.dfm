@@ -90,6 +90,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
       LookAndFeel.ScrollbarMode = sbmDefault
       object ViewTime: TcxGridDBCardView
         Navigator.Buttons.CustomButtons = <>
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsTime
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <>
@@ -162,6 +163,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
         Navigator.Buttons.GotoBookmark.Visible = False
         Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
         Navigator.InfoPanel.Visible = True
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.Filter.Options = [fcoCaseInsensitive]
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <>
@@ -183,6 +185,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
       end
       object cxGridWinExplorerView1: TcxGridWinExplorerView
         Navigator.Buttons.CustomButtons = <>
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <>
         DataController.Summary.SummaryGroups = <>
@@ -193,6 +196,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
       end
       object ViewDate: TcxGridDBCardView
         Navigator.Buttons.CustomButtons = <>
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsDate
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <>
@@ -229,6 +233,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
       end
       object cxGridDBWinExplorerView1: TcxGridDBWinExplorerView
         Navigator.Buttons.CustomButtons = <>
+        ScrollbarAnnotations.CustomAnnotations = <>
         ActiveDisplayMode = dmTiles
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <>
@@ -371,6 +376,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
         Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
         Navigator.InfoPanel.Visible = True
         Navigator.Visible = True
+        ScrollbarAnnotations.CustomAnnotations = <>
         DataController.DataSource = dsWorker
         DataController.Filter.Options = [fcoCaseInsensitive]
         DataController.Summary.DefaultGroupSummaryItems = <>
@@ -604,7 +610,8 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
       '  left outer join WorkerTiming WT on WT.ID_Worker = W.ID'
       
         '  left outer join OrderList OL on OL.Deleted = 0 and OL.ID_Worke' +
-        'r = W.ID and OL.OrderCategory = 1 and OL.Closed = 0'
+        'r = W.ID and OL.OrderCategory = 1 and OL.Closed = 0 and DATEDIFF' +
+        '(CURDATE(), OL.AddTime) <= 7'
       'where'
       '  (1=1)  '
       'group by '
@@ -652,7 +659,7 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
       'where '
       '  Date_Format(WorkDate, '#39'%Y.%m.%d'#39') >= :FD and'
       '  Date_Format(WorkDate, '#39'%Y.%m.%d'#39') <= :TD and'
-      '  Deleted = 0 and ID <> :IDE and'
+      '  Deleted = 0 and Cancelled = 0 and ID <> :IDE and'
       '  ID_Worker in'
       '(0)')
     Params = <
@@ -694,5 +701,45 @@ object OrderWorkerTimeParamsForm: TOrderWorkerTimeParamsForm
     DataSet = mdData
     Left = 232
     Top = 525
+  end
+  object qWorkRestDay: TZQuery
+    Connection = Datas.ZConnection
+    SQL.Strings = (
+      'select *'
+      'from WorkRestDay'
+      'where ID_Worker = :IDW  '
+      'order by ID')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'IDW'
+        ParamType = ptUnknown
+      end>
+    Left = 396
+    Top = 524
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'IDW'
+        ParamType = ptUnknown
+      end>
+  end
+  object mdDataDay: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 464
+    Top = 524
+    object DateTimeField1: TDateTimeField
+      FieldName = 'Date'
+    end
+    object DateTimeField2: TDateTimeField
+      FieldName = 'Time'
+    end
+    object IntegerField1: TIntegerField
+      FieldName = 'ID_Worker'
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'MaxTime'
+    end
   end
 end

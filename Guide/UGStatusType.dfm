@@ -63,6 +63,7 @@ object GStatusTypeForm: TGStatusTypeForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
@@ -127,6 +128,11 @@ object GStatusTypeForm: TGStatusTypeForm
         RepositoryItem = Datas.EditRepositoryIntCheckBox
         Width = 120
       end
+      object TableViewFinStatusCancel: TcxGridDBColumn
+        DataBinding.FieldName = 'FinStatusCancel'
+        RepositoryItem = Datas.EditRepositoryIntCheckBox
+        Width = 120
+      end
       object TableViewWorkerVisible: TcxGridDBColumn
         Caption = #1048#1089#1087#1086#1083'. '#1074#1080#1076#1080#1090' '#1079#1072#1082#1072#1079
         DataBinding.FieldName = 'WorkerVisible'
@@ -167,6 +173,19 @@ object GStatusTypeForm: TGStatusTypeForm
       object TableViewComment: TcxGridDBColumn
         DataBinding.FieldName = 'Comment'
         Width = 250
+      end
+      object TableViewCode: TcxGridDBColumn
+        DataBinding.FieldName = 'Code'
+        Width = 117
+      end
+      object TableViewMasterNotify: TcxGridDBColumn
+        DataBinding.FieldName = 'MasterNotify'
+        RepositoryItem = Datas.EditRepositoryIntCheckBox
+        Width = 106
+      end
+      object TableViewMasterNotifyText: TcxGridDBColumn
+        DataBinding.FieldName = 'MasterNotifyText'
+        Width = 286
       end
     end
     object Level: TcxGridLevel
@@ -226,6 +245,7 @@ object GStatusTypeForm: TGStatusTypeForm
           Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
           Navigator.InfoPanel.Visible = True
           Navigator.Visible = True
+          ScrollbarAnnotations.CustomAnnotations = <>
           OnFocusedRecordChanged = TableViewFocusedRecordChanged
           DataController.DataSource = dsTo
           DataController.Filter.Options = [fcoCaseInsensitive]
@@ -312,6 +332,7 @@ object GStatusTypeForm: TGStatusTypeForm
           Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
           Navigator.InfoPanel.Visible = True
           Navigator.Visible = True
+          ScrollbarAnnotations.CustomAnnotations = <>
           OnFocusedRecordChanged = TableViewFocusedRecordChanged
           DataController.DataSource = dsFrom
           DataController.Filter.Options = [fcoCaseInsensitive]
@@ -778,6 +799,24 @@ object GStatusTypeForm: TGStatusTypeForm
     object QueryNeedCall: TSmallintField
       DisplayLabel = #1058#1088#1077#1073#1091#1077#1090#1089#1103' '#1079#1074#1086#1085#1086#1082
       FieldName = 'NeedCall'
+    end
+    object QueryCode: TWideStringField
+      DisplayLabel = #1054#1073#1088#1072#1073#1086#1090#1095#1080#1082
+      FieldName = 'Code'
+      Size = 128
+    end
+    object QueryMasterNotify: TSmallintField
+      DisplayLabel = #1059#1074#1077#1076#1086#1084#1083#1103#1090#1100' '#1084#1072#1089#1090#1077#1088#1072
+      FieldName = 'MasterNotify'
+    end
+    object QueryMasterNotifyText: TWideStringField
+      DisplayLabel = #1058#1077#1082#1089#1090' '#1091#1074#1077#1076#1086#1084#1083#1077#1085#1080#1103' '#1084#1072#1089#1090#1077#1088#1072
+      FieldName = 'MasterNotifyText'
+      Size = 2000
+    end
+    object QueryFinStatusCancel: TSmallintField
+      DisplayLabel = #1047#1072#1082#1088#1099#1074#1072#1077#1090' '#1086#1090#1084#1077#1085#1086#1081
+      FieldName = 'FinStatusCancel'
     end
   end
   object Table: TZQuery

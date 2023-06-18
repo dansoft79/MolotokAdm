@@ -2,7 +2,7 @@ object GSourceTypeForm: TGSourceTypeForm
   Left = 331
   Top = 196
   Action = MainForm.agSourceType
-  Caption = #1048#1089#1090#1086#1095#1085#1080#1082#1080' '#1079#1072#1103#1074#1086#1082
+  Caption = #1048#1089#1090#1086#1095#1085#1080#1082#1080' '#1079#1072#1082#1072#1079#1086#1074
   ClientHeight = 413
   ClientWidth = 782
   Color = clBtnFace
@@ -63,6 +63,7 @@ object GSourceTypeForm: TGSourceTypeForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
       DataController.Filter.Options = [fcoCaseInsensitive]
