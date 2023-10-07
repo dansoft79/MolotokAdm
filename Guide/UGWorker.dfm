@@ -33,7 +33,6 @@ object GWorkerForm: TGWorkerForm
       end>
     PaintStyle = stpsUseLookAndFeel
     ParentFont = True
-    ExplicitTop = 461
   end
   object Grid: TcxGrid
     Left = 0
@@ -48,7 +47,6 @@ object GWorkerForm: TGWorkerForm
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitHeight = 411
     object TableView: TcxGridDBTableView
       OnDblClick = DBGridDblClick
       OnKeyDown = TableViewKeyDown
@@ -149,7 +147,6 @@ object GWorkerForm: TGWorkerForm
     Constraints.MinHeight = 1
     Constraints.MinWidth = 1
     TabOrder = 5
-    ExplicitHeight = 411
     object PageControl: TcxPageControl
       Left = 0
       Top = 0
@@ -159,14 +156,12 @@ object GWorkerForm: TGWorkerForm
       TabOrder = 0
       Properties.ActivePage = tsSchedule
       Properties.CustomButtons.Buttons = <>
-      ExplicitHeight = 411
       ClientRectBottom = 587
       ClientRectRight = 337
       ClientRectTop = 24
       object tsSchedule: TcxTabSheet
         Caption = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
         ImageIndex = 4
-        ExplicitHeight = 387
         object GridTiming: TcxGrid
           Left = 0
           Top = 50
@@ -520,9 +515,6 @@ object GWorkerForm: TGWorkerForm
           Font.Style = []
           ParentFont = False
           TabOrder = 2
-          ExplicitTop = 305
-          ExplicitWidth = 150
-          ExplicitHeight = 258
           object ViewWorkRest: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
             Navigator.Buttons.Insert.Visible = False
@@ -585,7 +577,6 @@ object GWorkerForm: TGWorkerForm
       object tsCategory: TcxTabSheet
         Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1080
         ImageIndex = 0
-        ExplicitHeight = 387
         object GridCategory: TcxGrid
           Left = 0
           Top = 50
@@ -679,7 +670,6 @@ object GWorkerForm: TGWorkerForm
       object tsDistict: TcxTabSheet
         Caption = #1056#1072#1081#1086#1085#1099
         ImageIndex = 2
-        ExplicitHeight = 387
         object GridDistrict: TcxGrid
           Left = 0
           Top = 50
@@ -752,7 +742,6 @@ object GWorkerForm: TGWorkerForm
       object tsTag: TcxTabSheet
         Caption = #1058#1101#1075#1080
         ImageIndex = 3
-        ExplicitHeight = 387
         object GridTag: TcxGrid
           Left = 0
           Top = 50
@@ -831,7 +820,6 @@ object GWorkerForm: TGWorkerForm
     HotZoneClassName = 'TcxSimpleStyle'
     AlignSplitter = salRight
     Control = pRight
-    ExplicitHeight = 411
   end
   object DataSource: TDataSource
     DataSet = Query
@@ -1252,6 +1240,7 @@ object GWorkerForm: TGWorkerForm
     object aDayType: TAction
       Category = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
       Caption = #1054#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
+      Hint = #1054#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
       ImageIndex = 433
       OnExecute = aDayTypeExecute
     end
@@ -1265,7 +1254,7 @@ object GWorkerForm: TGWorkerForm
     object aDelWorkRest: TAction
       Category = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
       Caption = #1059#1076#1072#1083#1080#1090#1100' '#1087#1077#1088#1080#1086#1076
-      Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1086#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
+      Hint = #1059#1076#1072#1083#1080#1090#1100' '#1086#1090#1087#1091#1089#1082'/'#1086#1090#1075#1091#1083'/'#1088#1072#1073#1086#1095#1080#1081' '#1076#1077#1085#1100
       ImageIndex = 101
       OnExecute = aDelWorkRestExecute
     end

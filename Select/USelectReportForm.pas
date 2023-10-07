@@ -22,7 +22,8 @@ uses
   ZAbstractRODataset, ZAbstractDataset, ZDataset, dxSkinsCore,
   dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinsdxStatusBarPainter,
   dxSkinsdxBarPainter, cxLookAndFeels, System.Actions, cxNavigator, dxDateRanges,
-  dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu;
+  dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu,
+  dxScrollbarAnnotations;
 
 type
   TSelectReportFormForm = class(TForm)
@@ -46,6 +47,8 @@ type
     QueryVersion: TWideStringField;
     QueryID: TSmallintField;
     PopupMenu: TcxGridPopupMenu;
+    QueryLastNM: TWideStringField;
+    TableViewLastNM: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure QueryAfterScroll(DataSet: TDataSet);

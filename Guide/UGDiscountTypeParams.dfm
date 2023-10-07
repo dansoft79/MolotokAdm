@@ -96,7 +96,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
     Style.Font.Name = 'Tahoma'
     Style.Font.Style = []
     Style.IsFontAssigned = True
-    TabOrder = 19
+    TabOrder = 18
     OnKeyDown = eKeyDown
     Height = 77
     Width = 409
@@ -127,7 +127,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
     AutoSize = False
     BeepOnEnter = False
     Properties.OnChange = eChange
-    TabOrder = 4
+    TabOrder = 3
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
@@ -143,7 +143,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
     Left = 216
     Top = 92
     Properties.OnChange = eChange
-    TabOrder = 5
+    TabOrder = 4
     OnKeyDown = eKeyDown
     Width = 201
   end
@@ -160,7 +160,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
     Style.Font.Name = 'Tahoma'
     Style.Font.Style = []
     Style.IsFontAssigned = True
-    TabOrder = 7
+    TabOrder = 6
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
@@ -182,7 +182,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
       #1087#1088#1086#1094#1077#1085#1090
       #1089#1091#1084#1084#1072)
     Properties.OnChange = cbTypePropertiesChange
-    TabOrder = 8
+    TabOrder = 7
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
@@ -204,7 +204,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
     Properties.LargeIncrement = 1000.000000000000000000
     Properties.SpinButtons.ShowFastButtons = True
     Properties.OnChange = eChange
-    TabOrder = 10
+    TabOrder = 9
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
@@ -228,7 +228,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
     Properties.LargeIncrement = 1000.000000000000000000
     Properties.SpinButtons.ShowFastButtons = True
     Properties.OnChange = eChange
-    TabOrder = 11
+    TabOrder = 10
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
@@ -251,7 +251,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
       #1089' '#1072#1075#1077#1085#1090#1072
       #1089' '#1084#1072#1089#1090#1077#1088#1072)
     Properties.OnChange = eChange
-    TabOrder = 14
+    TabOrder = 12
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201
@@ -273,7 +273,7 @@ object GDiscountTypeParamForm: TGDiscountTypeParamForm
       #1080#1079' '#1087#1086#1079#1080#1094#1080#1080' '#1079#1072#1082#1072#1079#1072
       #1080#1079' '#1089#1091#1084#1084#1099' '#1079#1072#1082#1072#1079#1072)
     Properties.OnChange = eChange
-    TabOrder = 15
+    TabOrder = 13
     OnKeyDown = eKeyDown
     Height = 21
     Width = 201

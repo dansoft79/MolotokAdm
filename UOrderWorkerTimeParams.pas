@@ -175,7 +175,7 @@ implementation
 {$R *.dfm}
 
 uses
-  math, dateutils, mesdlg, UShowDatasetModal,
+  math, dateutils, mesdlg, UShowDatasetModal, UShowText,
   UDatas, DTKUtils, UConsts, UOptions, UUtil;
 
 const
@@ -542,6 +542,7 @@ begin
   qDataOrder.ParamByName('IDE').AsInteger := FIDOrderList;
   qDataOrder.SQL[7] := '(' + vIDWorkerList + ')';
   qDataOrder.Open;
+//  ShowDatasetModal(qDataOrder);
   qDataOrder.First;
   while not qDataOrder.eof do
   begin
@@ -873,6 +874,7 @@ begin
 
   qWorker.Close;
   qWorker.ParamByName('IDD').AsInteger := FIDDistrict;
+//  ShowText(, qWorker.SQL.Text);
   qWorker.Open;
 
 {  qWorker.First;

@@ -43,7 +43,7 @@ object OrderListForm: TOrderListForm
     Height = 587
     Align = alClient
     TabOrder = 1
-    Properties.ActivePage = tsPlanner
+    Properties.ActivePage = tsTableRequest
     Properties.CustomButtons.Buttons = <>
     OnChange = PageControlChange
     OnPageChanging = PageControlPageChanging
@@ -138,9 +138,6 @@ object OrderListForm: TOrderListForm
     object tsTableRequest: TcxTabSheet
       Caption = #1047#1072#1082#1072#1079#1099
       ImageIndex = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Grid: TcxGrid
         Left = 0
         Top = 0
@@ -361,7 +358,7 @@ object OrderListForm: TOrderListForm
       object SplitterWorks: TcxSplitter
         Left = 0
         Top = 348
-        Width = 8
+        Width = 1384
         Height = 8
         HotZoneClassName = 'TcxSimpleStyle'
         AlignSplitter = salBottom
@@ -575,9 +572,6 @@ object OrderListForm: TOrderListForm
     object tsTableLead: TcxTabSheet
       Caption = #1051#1080#1076#1099
       ImageIndex = 2
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object LeadGrid: TcxGrid
         Left = 0
         Top = 0
@@ -795,11 +789,12 @@ object OrderListForm: TOrderListForm
       object cxSplitter1: TcxSplitter
         Left = 0
         Top = 378
-        Width = 8
+        Width = 1384
         Height = 8
         HotZoneClassName = 'TcxSimpleStyle'
         AlignSplitter = salBottom
         Control = pBottomLead
+        ExplicitWidth = 8
       end
       object pBottomLead: TPanel
         Left = 0
@@ -2996,9 +2991,9 @@ object OrderListForm: TOrderListForm
       FieldName = 'MaterialUnitName'
     end
     object StringField3: TStringField
-      DisplayWidth = 2
+      DisplayWidth = 50
       FieldName = 'MaterialCode'
-      Size = 2
+      Size = 50
     end
     object SmallintField5: TSmallintField
       FieldName = 'Edited'

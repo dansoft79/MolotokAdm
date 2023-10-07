@@ -149,6 +149,8 @@ type
     TableViewMasterNotifyText: TcxGridDBColumn;
     QueryFinStatusCancel: TSmallintField;
     TableViewFinStatusCancel: TcxGridDBColumn;
+    QueryQualityControl: TSmallintField;
+    TableViewQualityControl: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure TableViewKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -666,7 +668,7 @@ function TGStatusTypeForm.AddStatusTypeDialog(var IDStatusType: integer): boolea
     vName, vNamePublic, vMasterNotifyText, vComment : string;
     vColor, vStatusOrder, vDefStatus, vFinStatus, vFinStatusCancel, vWorkerVisible, vWorkerSetup, vActive : integer;
     vTrimTime, vShowCancelButton, vShowPayButton, vShowWarrantyButton : integer;
-    vNeedCall, vMasterNotify : integer;
+    vQualityControl, vNeedCall, vMasterNotify : integer;
     vCode : string;
 begin
   vActive := 1;
@@ -684,6 +686,7 @@ begin
   vShowPayButton := 0;
   vShowWarrantyButton := 0;
   vNeedCall := 0;
+  vQualityControl := 0;
   vMasterNotify := 0;
   vMasterNotifyText := '';
   vComment := '';
@@ -706,6 +709,7 @@ begin
       vShowPayButton,
       vShowWarrantyButton,
       vNeedCall,
+      vQualityControl,
       vMasterNotify,
       vMasterNotifyText,
       vComment,
@@ -742,6 +746,7 @@ begin
       FieldByName('ShowPayButton').AsInteger := vShowPayButton;
       FieldByName('ShowWarrantyButton').AsInteger := vShowWarrantyButton;
       FieldByName('NeedCall').AsInteger := vNeedCall;
+      FieldByName('QualityControl').AsInteger := vQualityControl;
 
       FieldByName('MasterNotify').Asinteger := vMasterNotify;
       FieldByName('MasterNotifyText').AsString := vMasterNotifyText;
@@ -760,8 +765,8 @@ begin
       if vDefStatus = 1 then
         UDatas.ExecSQL('update StatusType set defStatus = 0 where ID <> ' + IntToStr(IDStatusType));
 
-{      if vFinStatus = 1 then
-        UDatas.ExecSQL('update StatusType set finStatus = 0 where ID <> ' + IntToStr(IDStatusType));}
+      if vQualityControl = 1 then
+        UDatas.ExecSQL('update StatusType set QualityControl = 0 where ID <> ' + IntToStr(IDStatusType));
 
       Query.Refresh;
 
@@ -810,7 +815,7 @@ function TGStatusTypeForm.EditStatusTypeDialog: boolean;
     vName, vNamePublic, vMasterNotifyText, vComment : string;
     vColor, vStatusOrder, vDefStatus, vFinStatus, vFinStatusCancel, vWorkerVisible, vWorkerSetup, vActive, vID : integer;
     vTrimTime, vShowCancelButton, vShowPayButton, vShowWarrantyButton : integer;
-    vNeedCall, vMasterNotify : integer;
+    vQualityControl, vNeedCall, vMasterNotify : integer;
     vCode : string;
 begin
   with Query do
@@ -831,6 +836,7 @@ begin
     vShowPayButton := FieldByName('ShowPayButton').AsInteger;
     vShowWarrantyButton := FieldByName('ShowWarrantyButton').AsInteger;
     vNeedCall := FieldByName('NeedCall').AsInteger;
+    vQualityControl := FieldByName('QualityControl').AsInteger;
 
     vMasterNotify := FieldByName('MasterNotify').Asinteger;
     vMasterNotifyText := FieldByName('MasterNotifyText').AsString;
@@ -859,6 +865,7 @@ begin
       vShowPayButton,
       vShowWarrantyButton,
       vNeedCall,
+      vQualityControl,
       vMasterNotify,
       vMasterNotifyText,
       vComment,
@@ -893,6 +900,7 @@ begin
       FieldByName('ShowWarrantyButton').AsInteger := vShowWarrantyButton;
 
       FieldByName('NeedCall').AsInteger := vNeedCall;
+      FieldByName('QualityControl').AsInteger := vQualityControl;
 
       FieldByName('MasterNotify').Asinteger := vMasterNotify;
       FieldByName('MasterNotifyText').AsString := vMasterNotifyText;
@@ -907,8 +915,8 @@ begin
       if vDefStatus = 1 then
         UDatas.ExecSQL('update StatusType set defStatus = 0 where ID <> ' + IntToStr(vID));
 
-{      if vFinStatus = 1 then
-        UDatas.ExecSQL('update StatusType set finStatus = 0 where ID <> ' + IntToStr(vID));}
+      if vQualityControl = 1 then
+        UDatas.ExecSQL('update StatusType set QualityControl = 0 where ID <> ' + IntToStr(vID));
 
       Query.Refresh;
 

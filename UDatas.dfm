@@ -35516,4 +35516,35 @@ object Datas: TDatas
     Left = 392
     Top = 432
   end
+  object tOrderList: TZQuery
+    Connection = ZConnection
+    SQL.Strings = (
+      'select OL.*,'
+      
+        '  WorkerInfo(OL.ID_Worker) as WInfo, OrderCategoryInfo(OL.OrderC' +
+        'ategory) as OCInfo,'
+      
+        '  StatusTypeInfo(OL.ID_StatusType) as StatusInfo, SignalTypeInfo' +
+        '(OL.ID_SignalType) as SignalInfo, ReasonInfo(OL.ID_Reason) as Re' +
+        'asonInfo,'
+      
+        '  PaymentFormInfo(OL.ID_PaymentForm) as PFInfo, SourceTypeInfo(O' +
+        'L.ID_SourceType) as SourceInfo'
+      'from OrderList OL'
+      'where OL.ID = :ID')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+    Left = 488
+    Top = 432
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+        ParamType = ptUnknown
+      end>
+  end
 end

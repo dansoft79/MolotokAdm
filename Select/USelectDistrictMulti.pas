@@ -22,7 +22,8 @@ uses
   ZAbstractRODataset, ZAbstractDataset, ZDataset, dxSkinsCore,
   dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinsdxStatusBarPainter,
   dxSkinsdxBarPainter, cxLookAndFeels, System.Actions, cxNavigator, dxDateRanges,
-  dxColorEdit, dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu;
+  dxColorEdit, dxBarBuiltInMenu, cxGridCustomPopupMenu, cxGridPopupMenu,
+  dxScrollbarAnnotations;
 
 type
   TSelectDistrictMultiForm = class(TForm)

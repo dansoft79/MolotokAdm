@@ -93,7 +93,7 @@ object TextEditorForm: TTextEditorForm
     Align = alRight
     ItemHeight = 13
     PopupMenu = PopupMenu
-    TabOrder = 6
+    TabOrder = 2
     OnDblClick = lbTagDblClick
   end
   object Splitter: TcxSplitter
@@ -112,7 +112,6 @@ object TextEditorForm: TTextEditorForm
     Top = 68
   end
   object ActionList: TActionList
-    Images = UtilForm.ImageList2
     Left = 328
     Top = 64
     object aExit: TAction
@@ -150,20 +149,13 @@ object TextEditorForm: TTextEditorForm
     Categories.Visibles = (
       True
       True)
-    ImageOptions.Images = UtilForm.ImageList2
-    ImageOptions.LargeImages = UtilForm.ImageListBig2
     ImageOptions.LargeIcons = True
     ImageOptions.UseLargeImagesForLargeIcons = True
     PopupMenuLinks = <>
-    Style = bmsUseLookAndFeel
     UseSystemFont = True
     Left = 432
     Top = 64
-    DockControlHeights = (
-      0
-      0
-      0
-      0)
+    PixelsPerInch = 96
     object dxBarButton1: TdxBarButton
       Action = aCopyTag
       Category = 1
@@ -187,5 +179,6 @@ object TextEditorForm: TTextEditorForm
     UseOwnFont = False
     Left = 724
     Top = 72
+    PixelsPerInch = 96
   end
 end

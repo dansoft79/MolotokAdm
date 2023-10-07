@@ -143,9 +143,7 @@ begin
   vFromTime := TcxTimeEdit(FindComponent('f' + IntToStr(vCheckBox.Tag)));
   vToTime := TcxTimeEdit(FindComponent('t' + IntToStr(vCheckBox.Tag)));
 
-  vFromTime.Enabled := vCheckBox.Checked;
-  vToTime.Enabled := vCheckBox.Checked;
-
+  if vFromTime.Enabled and vToTime.Enabled then
   if vCheckBox.Checked then
   begin
     vFromTime.Text := Copy(WorkTime, 1, 5);
@@ -156,6 +154,9 @@ begin
     vFromTime.Text := '00:00';
     vToTime.Text := '00:00';
   end;
+
+  vFromTime.Enabled := vCheckBox.Checked;
+  vToTime.Enabled := vCheckBox.Checked;
 
   SetOKEnabled;
 end;

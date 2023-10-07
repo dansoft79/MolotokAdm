@@ -47,6 +47,7 @@ object SelectReportFormForm: TSelectReportFormForm
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] '#1080#1079' [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
       OnCellDblClick = TableViewCellDblClick
       OnFocusedRecordChanged = TableViewFocusedRecordChanged
       DataController.DataSource = DataSource
@@ -76,10 +77,14 @@ object SelectReportFormForm: TSelectReportFormForm
       end
       object TableViewName: TcxGridDBColumn
         DataBinding.FieldName = 'Name'
-        Width = 398
+        Width = 300
       end
       object TableViewVersion: TcxGridDBColumn
         DataBinding.FieldName = 'Version'
+      end
+      object TableViewLastNM: TcxGridDBColumn
+        DataBinding.FieldName = 'LastNM'
+        Width = 100
       end
     end
     object GridLevel: TcxGridLevel
@@ -190,7 +195,9 @@ object SelectReportFormForm: TSelectReportFormForm
     Connection = Datas.ZConnection
     AfterScroll = QueryAfterScroll
     SQL.Strings = (
-      'select ID, Type, Name, Version'
+      
+        'select ID, Type, Name, Version, Concat(NumPrefix, Cast(LastNumbe' +
+        'r as char), NumSuffix, '#39'/'#39', Cast(LastYear as char)) as LastNM'
       'from ReportForm'
       'where '
       
@@ -231,6 +238,12 @@ object SelectReportFormForm: TSelectReportFormForm
     end
     object QueryID: TSmallintField
       FieldName = 'ID'
+    end
+    object QueryLastNM: TWideStringField
+      DisplayLabel = #1053#1086#1084#1077#1088
+      FieldName = 'LastNM'
+      ReadOnly = True
+      Size = 252
     end
   end
   object PopupMenu: TcxGridPopupMenu

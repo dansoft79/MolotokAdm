@@ -106,6 +106,8 @@ type
     procedure cbDelChange(Sender: TObject);
     procedure cbActiveChange(Sender: TObject);
     procedure aUndoDeleteExecute(Sender: TObject);
+    procedure TableViewPriceGetDisplayText(Sender: TcxCustomGridTableItem;
+      ARecord: TcxCustomGridRecord; var AText: string);
   private
     { Private declarations }
     FModified : boolean;
@@ -335,6 +337,14 @@ begin
   '+' : if aAdd.Enabled then aAdd.Execute;
   '-' : if aDelete.Enabled then aDelete.Execute;
   end;
+end;
+
+procedure TGMaterialTypeForm.TableViewPriceGetDisplayText(
+  Sender: TcxCustomGridTableItem; ARecord: TcxCustomGridRecord;
+  var AText: string);
+begin
+  if AText = '0' then AText := '';
+
 end;
 
 procedure TGMaterialTypeForm.TableViewStylesGetContentStyle(

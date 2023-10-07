@@ -53,9 +53,9 @@
         <Manifest_File>None</Manifest_File>
         <Icon_MainIcon>Icon4.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>2013</VerInfo_Build>
+        <VerInfo_Build>2121</VerInfo_Build>
         <VerInfo_Locale>1049</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Portal pro;FileDescription=Portal pro;FileVersion=1.0.0.2013;InternalName=;LegalCopyright=(c) 2021-2023, Portal pro;LegalTrademarks=;OriginalFilename=;ProductName=Portal pro;ProductVersion=0.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Portal pro;FileDescription=Portal pro;FileVersion=1.0.0.2121;InternalName=;LegalCopyright=(c) 2021-2023, Portal pro;LegalTrademarks=;OriginalFilename=;ProductName=Portal pro;ProductVersion=0.0.0.0;Comments=</VerInfo_Keys>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;VCLTee;System.Win;Data.Win;$(DCC_Namespace)</DCC_Namespace>
         <DCC_ExeOutput>Exe</DCC_ExeOutput>
         <DCC_UnitSearchPath>.\Thirparty\Graphics32\;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
@@ -1312,8 +1312,8 @@
             <Form>SelectWorkTypeForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Select\USelectStatusTypeMulti.pas">
-            <Form>SelectStatusTypeMultiForm</Form>
+        <DCCReference Include="Select\USelectStatusTypeQCMulti.pas">
+            <Form>SelectStatusTypeQCMultiForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Select\USelectClient.pas">
@@ -1393,8 +1393,8 @@
             <Form>GReasonParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UBrowseNotification.pas">
-            <Form>BrowseNotificationForm</Form>
+        <DCCReference Include="UQualityControl.pas">
+            <Form>BrowseQualityControlForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Guide\UGSourceTypeParams.pas">
@@ -1457,8 +1457,8 @@
             <Form>NoticeTEmplateConditionParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Select\USelectDistrict.pas">
-            <Form>SelectDistrictForm</Form>
+        <DCCReference Include="Select\USelectOrderList.pas">
+            <Form>SelectOrderListForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Thirparty\EhlibZeos.pas"/>
@@ -1481,12 +1481,12 @@
         <DCCReference Include="AutoUpdate\uHYFileUtils.pas"/>
         <DCCReference Include="AutoUpdate\uHYLocalService.pas"/>
         <DCCReference Include="AutoUpdate\HydraAutoUpdate_Intf.pas"/>
-        <DCCReference Include="Guide\UGStatusType.pas">
-            <Form>GStatusTypeForm</Form>
+        <DCCReference Include="Guide\UGStatusTypeQC.pas">
+            <Form>GStatusTypeQCForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGStatusTypeParams.pas">
-            <Form>GStatusTypeParamForm</Form>
+        <DCCReference Include="Guide\UGStatusTypeQCParams.pas">
+            <Form>GStatusTypeQCParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UBrowseOrderHistorySimple.pas">
@@ -1517,12 +1517,12 @@
             <Form>OrderListMaterialTypeParamsForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGFAQ.pas">
-            <Form>GFAQForm</Form>
+        <DCCReference Include="Guide\UGSurvey.pas">
+            <Form>GSurveyForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Guide\UGFAQParams.pas">
-            <Form>GFAQParamForm</Form>
+        <DCCReference Include="Guide\UGSurveyAnswerParams.pas">
+            <Form>GSurveyAnswerParamForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Guide\UGWorkRestDay.pas">
@@ -1531,6 +1531,46 @@
         </DCCReference>
         <DCCReference Include="Guide\UGWorkRestDayParams.pas">
             <Form>GWorkRestDayParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGStatusType.pas">
+            <Form>GStatusTypeForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGStatusTypeParams.pas">
+            <Form>GStatusTypeParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Select\USelectStatusTypeMulti.pas">
+            <Form>SelectStatusTypeMultiForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGFAQ.pas">
+            <Form>GFAQForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UQualityControlSurvey.pas">
+            <Form>QualityControlSurveyForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGSurveyParams.pas">
+            <Form>GSurveyParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UBrowseNotification.pas">
+            <Form>BrowseNotificationForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UQualityControlParams.pas">
+            <Form>QualityControlParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Guide\UGFAQParams.pas">
+            <Form>GFAQParamForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Select\USelectDistrict.pas">
+            <Form>SelectDistrictForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">

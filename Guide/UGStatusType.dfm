@@ -170,6 +170,11 @@ object GStatusTypeForm: TGStatusTypeForm
         RepositoryItem = Datas.EditRepositoryIntCheckBox
         Width = 120
       end
+      object TableViewQualityControl: TcxGridDBColumn
+        DataBinding.FieldName = 'QualityControl'
+        RepositoryItem = Datas.EditRepositoryIntCheckBox
+        Width = 120
+      end
       object TableViewComment: TcxGridDBColumn
         DataBinding.FieldName = 'Comment'
         Width = 250
@@ -817,6 +822,10 @@ object GStatusTypeForm: TGStatusTypeForm
     object QueryFinStatusCancel: TSmallintField
       DisplayLabel = #1047#1072#1082#1088#1099#1074#1072#1077#1090' '#1086#1090#1084#1077#1085#1086#1081
       FieldName = 'FinStatusCancel'
+    end
+    object QueryQualityControl: TSmallintField
+      DisplayLabel = #1050#1086#1085#1090#1088#1086#1083#1100' '#1082#1072#1095#1077#1089#1090#1074#1072
+      FieldName = 'QualityControl'
     end
   end
   object Table: TZQuery

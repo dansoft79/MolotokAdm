@@ -16,7 +16,7 @@ uses
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
   cxControls, cxContainer, cxEdit, dxSkinsdxBarPainter, dxBar, System.Actions,
   Vcl.ActnList, cxPropertiesStore, cxSplitter, cxListBox, cxTextEdit, cxMemo,
-  cxRichEdit, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls;
+  cxRichEdit, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxClasses, cxCustomListBox;
 
 type
   TTextEditorForm = class(TForm)

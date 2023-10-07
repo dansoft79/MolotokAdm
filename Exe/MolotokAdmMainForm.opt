@@ -2,7 +2,7 @@
 Version=2
 
 [MainForm.BarManager.Main]
-Version=20190102
+Version=20200206
 MenusShowRecentItemsFirst=1
 ShowFullMenusAfterDelay=1
 LargeIcons=1
@@ -12,7 +12,7 @@ ShowShortCutInHint=1
 BarCount=3
 
 [MainForm.BarManager.Items]
-ItemCount=64
+ItemCount=70
 dxFile=1
 dxActions=1
 dxReport=1
@@ -30,10 +30,11 @@ dxBarButton17=1
 dxBarButton113=1
 dxBarButton18=1
 dxBarButton25=1
-dxBarButton4=1
-dxBarButton20=1
 dxBarButton22=1
 dxBarButton31=1
+dxBarButton42=1
+dxBarButton44=1
+dxBarButton45=1
 dxBarButton12=1
 dxBarButton56=1
 dxBarButton66=1
@@ -48,6 +49,7 @@ dxBarButton13=1
 dxBarButton10=1
 dxBarButton11=1
 dxBarButton19=1
+dxBarButton43=1
 dxBarButton5=1
 dxBarButton7=1
 dxBarButton6=1
@@ -56,9 +58,13 @@ dxBarButton9=1
 dxBarButton26=1
 dxBarButton14=1
 dxBarButton41=1
+dxBarButton46=1
+dxBarButton47=1
 dxBarButton30=1
 dxBarButton32=1
 dxBarButton33=1
+dxBarButton20=1
+dxBarButton4=1
 dxBarButton27=1
 dxBarButton28=1
 dxBarButton29=1
@@ -106,7 +112,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=20
-RecentIndex=1
+RecentIndex=0
 
 [MainForm.BarManager.Bar0.ItemLink1]
 ItemName=dxActions
@@ -118,7 +124,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=20
-RecentIndex=2
+RecentIndex=1
 
 [MainForm.BarManager.Bar0.ItemLink2]
 ItemName=dxReport
@@ -130,7 +136,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=20
-RecentIndex=3
+RecentIndex=2
 
 [MainForm.BarManager.Bar0.ItemLink3]
 ItemName=dxGuide
@@ -141,8 +147,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=22
-RecentIndex=0
+UseCount=20
+RecentIndex=3
 
 [MainForm.BarManager.Bar0.ItemLink4]
 ItemName=dxAdmin
@@ -219,18 +225,20 @@ RecentIndex=7
 [MainForm.BarManager.Bar1]
 Name=BatTool
 Caption=Панель инструментов
+DockControl=TopBarDockControl
+DockedDockControl=TopBarDockControl
 FloatClientHeight=529
 FloatClientWidth=23
 FloatLeft=498
 FloatTop=200
 DockedDockingStyle=2
 DockedLeft=0
-DockedTop=0
+DockedTop=23
 DockingStyle=2
-Row=0
+Row=1
 OneOnRow=1
 Visible=1
-ItemLinkCount=26
+ItemLinkCount=27
 
 [MainForm.BarManager.Bar1.ItemLink0]
 ItemName=dxBarButton15
@@ -241,8 +249,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=28
-RecentIndex=24
+UseCount=23
+RecentIndex=4
 
 [MainForm.BarManager.Bar1.ItemLink1]
 ItemName=dxBarButton16
@@ -253,8 +261,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=27
-RecentIndex=25
+UseCount=21
+RecentIndex=6
 
 [MainForm.BarManager.Bar1.ItemLink2]
 ItemName=dxBarButton17
@@ -265,8 +273,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=33
-RecentIndex=2
+UseCount=24
+RecentIndex=5
 
 [MainForm.BarManager.Bar1.ItemLink3]
 ItemName=dxBarButton18
@@ -277,7 +285,7 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=29
+UseCount=66
 RecentIndex=0
 
 [MainForm.BarManager.Bar1.ItemLink4]
@@ -290,7 +298,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=22
+RecentIndex=8
 
 [MainForm.BarManager.Bar1.ItemLink5]
 ItemName=dxBarButton25
@@ -301,8 +309,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=0
-RecentIndex=23
+UseCount=4
+RecentIndex=1
 
 [MainForm.BarManager.Bar1.ItemLink6]
 ItemName=dxBarButton1
@@ -313,8 +321,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=0
-RecentIndex=21
+UseCount=1
+RecentIndex=2
 
 [MainForm.BarManager.Bar1.ItemLink7]
 ItemName=dxBarButton3
@@ -326,7 +334,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=19
+RecentIndex=7
 
 [MainForm.BarManager.Bar1.ItemLink8]
 ItemName=dxBarButton2
@@ -338,7 +346,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=20
+RecentIndex=9
 
 [MainForm.BarManager.Bar1.ItemLink9]
 ItemName=dxBarButton24
@@ -350,7 +358,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=6
+RecentIndex=21
 
 [MainForm.BarManager.Bar1.ItemLink10]
 ItemName=dxBarButton21
@@ -362,7 +370,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=8
+RecentIndex=20
 
 [MainForm.BarManager.Bar1.ItemLink11]
 ItemName=dxBarButton23
@@ -373,8 +381,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=0
-RecentIndex=7
+UseCount=1
+RecentIndex=3
 
 [MainForm.BarManager.Bar1.ItemLink12]
 ItemName=dxBarButton13
@@ -386,7 +394,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=11
+RecentIndex=18
 
 [MainForm.BarManager.Bar1.ItemLink13]
 ItemName=dxBarButton10
@@ -398,7 +406,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=12
+RecentIndex=17
 
 [MainForm.BarManager.Bar1.ItemLink14]
 ItemName=dxBarButton11
@@ -410,7 +418,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=14
+RecentIndex=15
 
 [MainForm.BarManager.Bar1.ItemLink15]
 ItemName=dxBarButton19
@@ -422,9 +430,21 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=13
+RecentIndex=16
 
 [MainForm.BarManager.Bar1.ItemLink16]
+ItemName=dxBarButton43
+BeginGroup=0
+UserDefine=00
+ButtonGroup=0
+Position=0
+ViewLayout=0
+ViewLevels=1F
+Visible=1
+UseCount=0
+RecentIndex=26
+
+[MainForm.BarManager.Bar1.ItemLink17]
 ItemName=dxBarButton5
 BeginGroup=1
 UserDefine=00
@@ -434,9 +454,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=18
+RecentIndex=10
 
-[MainForm.BarManager.Bar1.ItemLink17]
+[MainForm.BarManager.Bar1.ItemLink18]
 ItemName=dxBarButton7
 BeginGroup=0
 UserDefine=00
@@ -446,9 +466,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=17
+RecentIndex=11
 
-[MainForm.BarManager.Bar1.ItemLink18]
+[MainForm.BarManager.Bar1.ItemLink19]
 ItemName=dxBarButton6
 BeginGroup=0
 UserDefine=00
@@ -458,9 +478,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=9
+RecentIndex=14
 
-[MainForm.BarManager.Bar1.ItemLink19]
+[MainForm.BarManager.Bar1.ItemLink20]
 ItemName=dxBarButton8
 BeginGroup=0
 UserDefine=00
@@ -470,9 +490,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=16
+RecentIndex=12
 
-[MainForm.BarManager.Bar1.ItemLink20]
+[MainForm.BarManager.Bar1.ItemLink21]
 ItemName=dxBarButton9
 BeginGroup=0
 UserDefine=00
@@ -482,9 +502,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=15
+RecentIndex=13
 
-[MainForm.BarManager.Bar1.ItemLink21]
+[MainForm.BarManager.Bar1.ItemLink22]
 ItemName=dxBarButton26
 BeginGroup=0
 UserDefine=00
@@ -494,9 +514,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=5
+RecentIndex=22
 
-[MainForm.BarManager.Bar1.ItemLink22]
+[MainForm.BarManager.Bar1.ItemLink23]
 ItemName=dxBarButton14
 BeginGroup=0
 UserDefine=00
@@ -506,9 +526,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=10
+RecentIndex=19
 
-[MainForm.BarManager.Bar1.ItemLink23]
+[MainForm.BarManager.Bar1.ItemLink24]
 ItemName=dxBarButton30
 BeginGroup=1
 UserDefine=00
@@ -518,9 +538,9 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=4
+RecentIndex=23
 
-[MainForm.BarManager.Bar1.ItemLink24]
+[MainForm.BarManager.Bar1.ItemLink25]
 ItemName=dxBarButton32
 BeginGroup=0
 UserDefine=00
@@ -529,10 +549,10 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=1
-RecentIndex=1
+UseCount=0
+RecentIndex=24
 
-[MainForm.BarManager.Bar1.ItemLink25]
+[MainForm.BarManager.Bar1.ItemLink26]
 ItemName=dxBarButton33
 BeginGroup=0
 UserDefine=00
@@ -542,7 +562,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=0
-RecentIndex=3
+RecentIndex=25
 
 [MainForm.BarManager.Bar2]
 Name=BarWin
@@ -571,8 +591,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=0
-RecentIndex=1
+UseCount=20
+RecentIndex=0
 
 [MainForm.BarManager.Bar2.ItemLink1]
 ItemName=dxBarButton75
@@ -583,8 +603,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=0
-RecentIndex=2
+UseCount=20
+RecentIndex=1
 
 [MainForm.BarManager.Bar2.ItemLink2]
 ItemName=dxBarButton76
@@ -595,8 +615,8 @@ Position=0
 ViewLayout=0
 ViewLevels=1F
 Visible=1
-UseCount=0
-RecentIndex=3
+UseCount=20
+RecentIndex=2
 
 [MainForm.BarManager.Bar2.ItemLink3]
 ItemName=dxBarButton77
@@ -608,7 +628,7 @@ ViewLayout=0
 ViewLevels=1F
 Visible=1
 UseCount=20
-RecentIndex=0
+RecentIndex=3
 
 [MainForm.BarManager.SubItem_dxFile.ItemLink0]
 ItemName=dxBarButton15
@@ -670,28 +690,35 @@ UseCount=20
 RecentIndex=1
 
 [MainForm.BarManager.SubItem_dxActions.ItemLink2]
-ItemName=dxBarButton4
+ItemName=dxBarButton42
+BeginGroup=0
+UserDefine=00
+UseCount=0
+RecentIndex=4
+
+[MainForm.BarManager.SubItem_dxActions.ItemLink3]
+ItemName=dxBarButton22
 BeginGroup=1
 UserDefine=00
 UseCount=20
 RecentIndex=2
 
-[MainForm.BarManager.SubItem_dxActions.ItemLink3]
-ItemName=dxBarButton20
-BeginGroup=0
+[MainForm.BarManager.SubItem_dxActions.ItemLink4]
+ItemName=dxBarButton44
+BeginGroup=1
 UserDefine=00
 UseCount=20
 RecentIndex=3
 
-[MainForm.BarManager.SubItem_dxActions.ItemLink4]
-ItemName=dxBarButton22
-BeginGroup=0
+[MainForm.BarManager.SubItem_dxActions.ItemLink5]
+ItemName=dxBarButton45
+BeginGroup=1
 UserDefine=00
-UseCount=20
-RecentIndex=4
+UseCount=0
+RecentIndex=5
 
 [MainForm.BarManager.SubItem_dxActions]
-ItemLinkCount=5
+ItemLinkCount=6
 
 [MainForm.BarManager.SubItem_dxReport.ItemLink0]
 ItemName=dxBarButton56
@@ -729,63 +756,63 @@ ItemName=dxBarButton1
 BeginGroup=0
 UserDefine=00
 UseCount=20
-RecentIndex=2
+RecentIndex=0
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink1]
 ItemName=dxBarButton3
 BeginGroup=1
 UserDefine=00
 UseCount=20
-RecentIndex=3
+RecentIndex=1
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink2]
 ItemName=dxBarButton2
 BeginGroup=0
 UserDefine=00
 UseCount=20
-RecentIndex=4
+RecentIndex=2
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink3]
 ItemName=dxBarButton24
 BeginGroup=1
 UserDefine=00
-UseCount=21
-RecentIndex=1
+UseCount=20
+RecentIndex=3
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink4]
 ItemName=dxBarButton21
 BeginGroup=0
 UserDefine=00
 UseCount=20
-RecentIndex=5
+RecentIndex=4
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink5]
 ItemName=dxBarButton23
 BeginGroup=0
 UserDefine=00
 UseCount=20
-RecentIndex=6
+RecentIndex=5
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink6]
 ItemName=dxBarButton13
 BeginGroup=0
 UserDefine=00
 UseCount=20
-RecentIndex=7
+RecentIndex=6
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink7]
 ItemName=dxBarButton10
 BeginGroup=0
 UserDefine=00
 UseCount=20
-RecentIndex=8
+RecentIndex=7
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink8]
 ItemName=dxBarButton11
 BeginGroup=1
 UserDefine=00
-UseCount=21
-RecentIndex=0
+UseCount=20
+RecentIndex=8
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink9]
 ItemName=dxBarButton19
@@ -795,84 +822,119 @@ UseCount=20
 RecentIndex=9
 
 [MainForm.BarManager.SubItem_dxGuide.ItemLink10]
+ItemName=dxBarButton43
+BeginGroup=0
+UserDefine=00
+UseCount=0
+RecentIndex=22
+
+[MainForm.BarManager.SubItem_dxGuide.ItemLink11]
 ItemName=dxBarButton5
 BeginGroup=1
 UserDefine=00
 UseCount=20
 RecentIndex=10
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink11]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink12]
 ItemName=dxBarButton7
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=11
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink12]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink13]
 ItemName=dxBarButton6
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=12
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink13]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink14]
 ItemName=dxBarButton8
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=13
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink14]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink15]
 ItemName=dxBarButton9
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=14
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink15]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink16]
 ItemName=dxBarButton26
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=15
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink16]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink17]
 ItemName=dxBarButton14
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=16
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink17]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink18]
 ItemName=dxBarButton41
 BeginGroup=0
 UserDefine=00
-UseCount=20
-RecentIndex=17
+UseCount=0
+RecentIndex=23
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink18]
+[MainForm.BarManager.SubItem_dxGuide.ItemLink19]
+ItemName=dxBarButton46
+BeginGroup=0
+UserDefine=00
+UseCount=0
+RecentIndex=24
+
+[MainForm.BarManager.SubItem_dxGuide.ItemLink20]
+ItemName=dxBarButton47
+BeginGroup=0
+UserDefine=00
+UseCount=0
+RecentIndex=25
+
+[MainForm.BarManager.SubItem_dxGuide.ItemLink21]
 ItemName=dxBarButton30
 BeginGroup=1
 UserDefine=00
 UseCount=20
+RecentIndex=17
+
+[MainForm.BarManager.SubItem_dxGuide.ItemLink22]
+ItemName=dxBarButton32
+BeginGroup=0
+UserDefine=00
+UseCount=20
 RecentIndex=18
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink19]
-ItemName=dxBarButton32
+[MainForm.BarManager.SubItem_dxGuide.ItemLink23]
+ItemName=dxBarButton33
 BeginGroup=0
 UserDefine=00
 UseCount=20
 RecentIndex=19
 
-[MainForm.BarManager.SubItem_dxGuide.ItemLink20]
-ItemName=dxBarButton33
-BeginGroup=0
+[MainForm.BarManager.SubItem_dxGuide.ItemLink24]
+ItemName=dxBarButton4
+BeginGroup=1
 UserDefine=00
 UseCount=20
 RecentIndex=20
 
+[MainForm.BarManager.SubItem_dxGuide.ItemLink25]
+ItemName=dxBarButton20
+BeginGroup=0
+UserDefine=00
+UseCount=20
+RecentIndex=21
+
 [MainForm.BarManager.SubItem_dxGuide]
-ItemLinkCount=21
+ItemLinkCount=26
 
 [MainForm.BarManager.SubItem_dxAdmin.ItemLink0]
 ItemName=dxBarButton27
@@ -947,29 +1009,29 @@ RecentIndex=0
 ItemName=dxBarButton72
 BeginGroup=1
 UserDefine=00
-UseCount=0
-RecentIndex=2
+UseCount=20
+RecentIndex=1
 
 [MainForm.BarManager.SubItem_dxWindow.ItemLink2]
 ItemName=dxBarButton75
 BeginGroup=0
 UserDefine=00
-UseCount=0
-RecentIndex=3
+UseCount=20
+RecentIndex=2
 
 [MainForm.BarManager.SubItem_dxWindow.ItemLink3]
 ItemName=dxBarButton76
 BeginGroup=0
 UserDefine=00
-UseCount=0
-RecentIndex=4
+UseCount=20
+RecentIndex=3
 
 [MainForm.BarManager.SubItem_dxWindow.ItemLink4]
 ItemName=dxBarButton77
 BeginGroup=1
 UserDefine=00
 UseCount=20
-RecentIndex=1
+RecentIndex=4
 
 [MainForm.BarManager.SubItem_dxWindow]
 ItemLinkCount=5

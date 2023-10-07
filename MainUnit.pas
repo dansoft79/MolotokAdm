@@ -255,6 +255,12 @@ type
     dxBarButton43: TdxBarButton;
     agWorkRestDay: TAction;
     dxBarButton44: TdxBarButton;
+    aaQualityControl: TAction;
+    dxBarButton45: TdxBarButton;
+    agSurvey: TAction;
+    dxBarButton46: TdxBarButton;
+    agStatusTypeQC: TAction;
+    dxBarButton47: TdxBarButton;
     procedure FormCreate(Sender: TObject);
     procedure afExitExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -339,6 +345,9 @@ type
     procedure aaBrowseOrderHistExecute(Sender: TObject);
     procedure agMaterialTypeExecute(Sender: TObject);
     procedure agWorkRestDayExecute(Sender: TObject);
+    procedure aaQualityControlExecute(Sender: TObject);
+    procedure agSurveyExecute(Sender: TObject);
+    procedure agStatusTypeQCExecute(Sender: TObject);
   private
     FActiveActions : integer; //для работы команд из трея
     FMinimized : boolean;
@@ -538,10 +547,12 @@ uses
   UGOrderTag, UGWorkerClass, UGPaymentForm, UGStatusType,
   UGWorkerCompany, UGWorker, UGClient, UGReason, UGFaq, UGSearchHint,
   UGAddressLimit, UGDiscountType, UGMaterialType, UGWorkRestDay,
+  UGStatusTypeQC, UGSurvey,
 
   //рабочие инструменты
   UOrderList, UClientRequest, UWorkTypeSynonym, UWorkerLead, UBrowseOrderArch,
-  UNoticeTemplate, UNoticeTemplateSnap, UBrowseOrderHistory;
+  UNoticeTemplate, UNoticeTemplateSnap, UBrowseOrderHistory,
+  UQualityControl;
 
 const
   NavBarStyleNames : array [TcxLookAndFeelKind] of string = ('BaseView', 'FlatView', 'UltraFlatExplorerBarView', 'Office11TaskPaneView');
@@ -1367,11 +1378,10 @@ begin
 
     //действия
     aaOrderList.Enabled := vOpen;
-    aaClientRequest.Enabled := vOpen;
-    aaWorkTypeSynonym.Enabled := vOpen;
     aaWorkerLead.Enabled := vOpen;
     aaBrowseOrderArch.Enabled := vOpen;
     aaBrowseOrderHist.Enabled := vOpen;
+    aaQualityControl.Enabled := vOpen;
 
     //администрирование
     aaSQLQuery.Enabled := vOpen and GetUserAdmin;
@@ -1414,6 +1424,10 @@ begin
     agSearchHint.Enabled := vOpen;
     agAddressLimit.Enabled := vOpen;
     agWorkRestDay.Enabled := vOpen;
+    aaClientRequest.Enabled := vOpen;
+    aaWorkTypeSynonym.Enabled := vOpen;
+    agSurvey.Enabled := vOpen;
+    agStatusTypeQC.Enabled := vOpen;
 
     //расширения
     UpdatePluginState;
@@ -1747,11 +1761,10 @@ begin
 
   //действия
   aaOrderList.Visible := vIsExpert;
-  aaClientRequest.Visible := vIsExpert;
-  aaWorkTypeSynonym.Visible := vIsExpert;
   aaWorkerLead.Visible := vIsExpert;
   aaBrowseOrderArch.Visible := vIsExpert;
   aaBrowseOrderHist.Visible := vIsExpert;
+  aaQualityControl.Visible := vIsExpert;
 
   //администрирование
   aaSQLQuery.Visible := vIsExpert;
@@ -1793,6 +1806,10 @@ begin
   agAddressLimit.Visible := vIsExpert;
   agMaterialType.Visible := vIsExpert;
   agWorkRestDay.Visible := vIsExpert;
+  aaClientRequest.Visible := vIsExpert;
+  aaWorkTypeSynonym.Visible := vIsExpert;
+  agSurvey.Visible := vIsExpert;
+  agStatusTypeQC.Visible := vIsExpert;
 
   //окна
   awHor.Visible := not OneWindow;
@@ -2093,9 +2110,19 @@ begin
   ShowClient(agClient);
 end;
 
+procedure TMainForm.agStatusTypeQCExecute(Sender: TObject);
+begin
+  ShowStatusTypeQC(agStatusTypeQC);
+end;
+
 procedure TMainForm.agStatusTypeExecute(Sender: TObject);
 begin
   ShowStatusType(agStatusType);
+end;
+
+procedure TMainForm.agSurveyExecute(Sender: TObject);
+begin
+  ShowSurvey(agSurvey);
 end;
 
 procedure TMainForm.agOrderTagExecute(Sender: TObject);
@@ -2264,6 +2291,11 @@ end;
 procedure TMainForm.aaOrderListExecute(Sender: TObject);
 begin
   ShowOrderlist(aaOrderList);
+end;
+
+procedure TMainForm.aaQualityControlExecute(Sender: TObject);
+begin
+  QualityControl(aaQualityControl, DateToStr(Date - 14), DateToStr(Date));
 end;
 
 procedure TMainForm.aaRestoreExecute(Sender: TObject);

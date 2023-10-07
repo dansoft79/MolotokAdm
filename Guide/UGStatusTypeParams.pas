@@ -55,6 +55,7 @@ type
     mdHandlerHandler: TStringField;
     dsHandler: TDataSource;
     cbFinCancel: TcxCheckBox;
+    cbQualityCOntrol: TcxCheckBox;
     procedure eChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure eKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -74,7 +75,7 @@ function GetStatusTypeParams(
   var AName, ANamePublic : string;
   var AColor, AOrder, ADef, AFin, AFinCancel, AWorkerVisible, AWorkerSetup : integer;
   var ATrimTime, AShowCancelButton, AShowPayButton, AShowWarrantyButton : integer;
-  var ANeedCall, AMasterNotify : integer;
+  var ANeedCall, AQualityControl, AMasterNotify : integer;
   var AMasterNotifyText, AComment, ACode : string) : boolean;
 
 implementation
@@ -89,7 +90,7 @@ function GetStatusTypeParams(
   var AName, ANamePublic : string;
   var AColor, AOrder, ADef, AFin, AFinCancel, AWorkerVisible, AWorkerSetup : integer;
   var ATrimTime, AShowCancelButton, AShowPayButton, AShowWarrantyButton : integer;
-  var ANeedCall, AMasterNotify : integer;
+  var ANeedCall, AQualityControl, AMasterNotify : integer;
   var AMasterNotifyText, AComment, ACode : string) : boolean;
 begin
   with TGStatusTypeParamForm.Create(nil) do
@@ -117,6 +118,7 @@ begin
       cbShowWarrantyButton.Checked := AShowWarrantyButton = 1;
 
       cbNeedCall.Checked := ANeedCall = 1;
+      cbQualityControl.Checked := AQualityControl = 1;
 
       cbMasterNotify.Checked := AMasterNotify = 1;
       mMasterNotifyText.Text := AMasterNotifyText;
@@ -147,6 +149,7 @@ begin
         AMasterNotifyText := Trim(mMasterNotifyText.Text);
 
         ANeedCall := BooleanToInt(cbNeedCall.Checked);
+        AQualityControl := BooleanToInt(cbQualityControl.Checked);
 
         AName := Trim(eName.Text);
         ANamePublic := Trim(eNamePublic.Text);

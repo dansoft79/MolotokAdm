@@ -109,6 +109,7 @@ type
     AlertImageList: TcxImageList;
     AlertImageID: TJvStrHolder;
     qNoticeTemplate: TZQuery;
+    tOrderList: TZQuery;
     procedure DefaultProc(Sender: TObject; const Received: Cardinal);
     procedure DataModuleCreate(Sender: TObject);
     procedure AlertWindowManagerClick(Sender: TObject;
@@ -395,6 +396,9 @@ function LoadNoticeIcons : boolean;
 
 //сохранение последнейавторизации
 function SaveLastEnterTime : boolean;
+
+//получение информации по заказу
+function GetOrderListInfo(AID : integer) : string;
 
 implementation
 
@@ -2587,6 +2591,23 @@ begin
       Post;
       Result := true;
     end;
+    Close;
+  end;
+end;
+
+//получение информации по заказу
+function GetOrderListInfo(AID : integer) : string;
+begin
+  with Datas.tOrderList do
+  begin
+    Close;
+    ParamByName('ID').AsInteger := AID;
+    Open;
+    Result := FieldByName('ID').AsString + ' от ' + DateToStr(DateOf(FieldByName('OrderDate').AsDateTime)) + ' г. ' + FieldByName('OCInfo').AsString;
+
+    if FieldByName('Closed').AsInteger = 1 then
+      Result := Result + ' (закрыт ' + DateToStr(DateOf(FieldByName('CloseTime').AsDateTime)) + ')';
+
     Close;
   end;
 end;

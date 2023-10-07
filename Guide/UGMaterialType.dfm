@@ -1,8 +1,8 @@
 object GMaterialTypeForm: TGMaterialTypeForm
   Left = 331
   Top = 196
-  Action = MainForm.agSignalType
-  Caption = #1057#1080#1075#1085#1072#1083#1100#1085#1099#1077' '#1089#1086#1089#1090#1086#1103#1085#1080#1103
+  Action = MainForm.agMaterialType
+  Caption = #1042#1080#1076#1099' '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074
   ClientHeight = 413
   ClientWidth = 906
   Color = clBtnFace
@@ -121,6 +121,7 @@ object GMaterialTypeForm: TGMaterialTypeForm
       end
       object TableViewPrice: TcxGridDBColumn
         DataBinding.FieldName = 'Price'
+        OnGetDisplayText = TableViewPriceGetDisplayText
         Width = 80
       end
       object TableViewComment: TcxGridDBColumn

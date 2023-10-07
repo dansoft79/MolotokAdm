@@ -1402,7 +1402,7 @@ object BrowseOrderArchForm: TBrowseOrderArchForm
       FieldName = 'ID'
     end
     object IntegerField2: TIntegerField
-      FieldName = 'ID_WorkType'
+      FieldName = 'ID_MaterialType'
     end
     object StringField1: TStringField
       DisplayLabel = #1042#1080#1076' '#1088#1072#1073#1086#1090#1099
@@ -1425,9 +1425,9 @@ object BrowseOrderArchForm: TBrowseOrderArchForm
       FieldName = 'MaterialUnitName'
     end
     object StringField3: TStringField
-      DisplayWidth = 2
+      DisplayWidth = 50
       FieldName = 'MaterialCode'
-      Size = 2
+      Size = 50
     end
     object SmallintField5: TSmallintField
       FieldName = 'Edited'

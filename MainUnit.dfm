@@ -447,7 +447,7 @@ object MainForm: TMainForm
     end
     object aaClientRequest: TAction
       Tag = 11
-      Category = #1044#1077#1081#1089#1090#1074#1080#1103
+      Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
       Caption = #1047#1072#1087#1088#1086#1089#1099' '#1082#1083#1080#1077#1085#1090#1086#1074
       Hint = #1047#1072#1087#1088#1086#1089#1099' '#1082#1083#1080#1077#1085#1090#1086#1074
       ImageIndex = 156
@@ -627,6 +627,30 @@ object MainForm: TMainForm
       Hint = #1054#1090#1087#1091#1089#1082#1072'/'#1086#1090#1075#1091#1083#1099'/'#1088#1072#1073#1086#1095#1080#1077' '#1076#1085#1080
       ImageIndex = 433
       OnExecute = agWorkRestDayExecute
+    end
+    object aaQualityControl: TAction
+      Tag = 11
+      Category = #1044#1077#1081#1089#1090#1074#1080#1103
+      Caption = #1050#1086#1085#1090#1088#1086#1083#1100' '#1082#1072#1095#1077#1089#1090#1074#1072
+      Hint = #1050#1086#1085#1090#1088#1086#1083#1100' '#1082#1072#1095#1077#1089#1090#1074#1072
+      ImageIndex = 441
+      OnExecute = aaQualityControlExecute
+    end
+    object agSurvey: TAction
+      Tag = 11
+      Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
+      Caption = #1054#1087#1088#1086#1089#1085#1080#1082
+      Hint = #1054#1087#1088#1086#1089#1085#1080#1082
+      ImageIndex = 435
+      OnExecute = agSurveyExecute
+    end
+    object agStatusTypeQC: TAction
+      Tag = 11
+      Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
+      Caption = #1057#1090#1072#1090#1091#1089#1099' '#1082#1086#1085#1090#1088#1086#1083#1103' '#1082#1072#1095#1077#1089#1090#1074#1072
+      Hint = #1057#1090#1072#1090#1091#1089#1099' '#1082#1086#1085#1090#1088#1086#1083#1103' '#1082#1072#1095#1077#1089#1090#1074#1072
+      ImageIndex = 437
+      OnExecute = agStatusTypeQCExecute
     end
   end
   object dsQuery: TDataSource
@@ -1066,20 +1090,17 @@ object MainForm: TMainForm
         item
           BeginGroup = True
           Visible = True
-          ItemName = 'dxBarButton4'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton20'
-        end
-        item
-          Visible = True
           ItemName = 'dxBarButton22'
         end
         item
           BeginGroup = True
           Visible = True
           ItemName = 'dxBarButton44'
+        end
+        item
+          BeginGroup = True
+          Visible = True
+          ItemName = 'dxBarButton45'
         end>
     end
     object dxReport: TdxBarSubItem
@@ -1192,6 +1213,14 @@ object MainForm: TMainForm
           ItemName = 'dxBarButton41'
         end
         item
+          Visible = True
+          ItemName = 'dxBarButton46'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton47'
+        end
+        item
           BeginGroup = True
           Visible = True
           ItemName = 'dxBarButton30'
@@ -1203,6 +1232,15 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton33'
+        end
+        item
+          BeginGroup = True
+          Visible = True
+          ItemName = 'dxBarButton4'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton20'
         end>
     end
     object dxAdmin: TdxBarSubItem
@@ -1352,14 +1390,6 @@ object MainForm: TMainForm
       Action = aaOrderList
       Category = 2
     end
-    object dxBarButton4: TdxBarButton
-      Action = aaClientRequest
-      Category = 2
-    end
-    object dxBarButton20: TdxBarButton
-      Action = aaWorkTypeSynonym
-      Category = 2
-    end
     object dxBarButton22: TdxBarButton
       Action = aaWorkerLead
       Category = 2
@@ -1376,6 +1406,10 @@ object MainForm: TMainForm
       Action = agWorkRestDay
       Category = 2
       Visible = ivNever
+    end
+    object dxBarButton45: TdxBarButton
+      Action = aaQualityControl
+      Category = 2
     end
     object dxBarButton12: TdxBarButton
       Action = arReportSnap
@@ -1469,6 +1503,14 @@ object MainForm: TMainForm
       Action = agDiscountType
       Category = 4
     end
+    object dxBarButton46: TdxBarButton
+      Action = agSurvey
+      Category = 4
+    end
+    object dxBarButton47: TdxBarButton
+      Action = agStatusTypeQC
+      Category = 4
+    end
     object dxBarButton30: TdxBarButton
       Action = agFAQ
       Category = 4
@@ -1479,6 +1521,14 @@ object MainForm: TMainForm
     end
     object dxBarButton33: TdxBarButton
       Action = agAddressLimit
+      Category = 4
+    end
+    object dxBarButton20: TdxBarButton
+      Action = aaWorkTypeSynonym
+      Category = 4
+    end
+    object dxBarButton4: TdxBarButton
+      Action = aaClientRequest
       Category = 4
     end
     object dxBarButton27: TdxBarButton
@@ -5843,7 +5893,7 @@ object MainForm: TMainForm
         ParamType = ptUnknown
       end>
     Left = 768
-    Top = 220
+    Top = 224
     ParamData = <
       item
         DataType = ftUnknown
